@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace TIL {
-    public class GameObservable : MonoBehaviour {
+    public sealed class GameObservable : MonoBehaviour {
         private readonly List<ILifecycleListener> mListeners = new();
 
         // MonoBehavior Start event 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TIL {
     [RequireComponent(typeof(GameObservable))]
-    public class LifecycleListenerList : MonoBehaviour {
+    public sealed class LifecycleListenerList : MonoBehaviour {
         [SerializeField] private List<MonoBehaviour> listeners;
 
         private void Awake() {
