@@ -4,20 +4,20 @@ using Zenject;
 namespace TIL.MainMenu {
     public sealed class UIController : MonoBehaviour, ILifecycleListener {
         private SceneManagement sceneManagement;
-        private UIView uiView;
+        private UIView view;
 
         [Inject]
         public void Construct(SceneManagement _sceneManagement) {
             sceneManagement =_sceneManagement;
-            uiView = GetComponent<UIView>();
+            view = GetComponent<UIView>();
         }
 
         public void OnStartGame() {
-            uiView.OnClickPlay.AddListener(Play);
+            view.OnClickPlay.AddListener(Play);
         }
 
         public void OnFinishGame() {
-            uiView.OnClickPlay.RemoveListener(Play);
+            view.OnClickPlay.RemoveListener(Play);
         }
 
         private void Play() {

@@ -17,6 +17,11 @@ namespace TIL {
                 listener.OnUpdateGame();
         }
 
+        private void OnDestroy() {
+            foreach (var listener in mListeners)
+                listener.OnFinishGame();
+        }
+
         public void AddListener(ILifecycleListener listener) {
             mListeners.Add(listener);
         }
