@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TimeIsLife/Scenes/MAIN_MENU.unity
+    path: Assets/DepthOfDarkness/Scenes/MAIN_MENU.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/TimeIsLife/Scenes/LOADING_SCREEN.unity
+    path: Assets/DepthOfDarkness/Scenes/LOADING_SCREEN.unity
     guid: 320dc02842cfdab979ef47f3e0f480c0
   - enabled: 1
-    path: Assets/TimeIsLife/Scenes/GAME.unity
+    path: Assets/DepthOfDarkness/Scenes/GAME.unity
     guid: 603810940a3b2f8399b7f83efce68073
   m_configObjects: {}
