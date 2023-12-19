@@ -7,13 +7,6 @@ Thumbs.db
 *.exe
 *.war
 
-*.mp4
-*.tiff
-*.avi
-*.flv
-*.mov
-*.wmv
-
 *.csproj
 .vsconfig
 

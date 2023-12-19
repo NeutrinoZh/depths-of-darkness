@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TIL {
+namespace DD {
     [RequireComponent(typeof(GameObservable))]
     public sealed class LifecycleListenerList : MonoBehaviour {
         private List<MonoBehaviour> listeners;

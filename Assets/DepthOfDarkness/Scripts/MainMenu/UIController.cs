@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace TIL.MainMenu {
+namespace DD.MainMenu {
     public sealed class UIController : MonoBehaviour, ILifecycleListener {
         private SceneManagement sceneManagement;
         private UIView view;

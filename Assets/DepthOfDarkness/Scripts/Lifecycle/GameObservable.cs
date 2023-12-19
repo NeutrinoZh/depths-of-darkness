@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TIL {
+namespace DD {
     public sealed class GameObservable : MonoBehaviour {
         private readonly List<ILifecycleListener> mListeners = new();
 

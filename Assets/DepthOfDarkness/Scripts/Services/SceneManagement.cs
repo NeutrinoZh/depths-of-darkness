@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TIL {
+namespace DD {
     public enum SceneList {
         MAIN_MENU,
         GAME

@@ -1,4 +1,4 @@
-namespace TIL {
+namespace DD {
     public interface ILifecycleListener {
         public void OnStartGame() {}
         public void OnUpdateGame() {}

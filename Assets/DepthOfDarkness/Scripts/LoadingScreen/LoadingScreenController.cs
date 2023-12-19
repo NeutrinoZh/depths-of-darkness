@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-namespace TIL.LoadingScreen {
+namespace DD.LoadingScreen {
     public class LoadingScreenController : MonoBehaviour, ILifecycleListener {
         private SceneManagement sceneManagement;
         

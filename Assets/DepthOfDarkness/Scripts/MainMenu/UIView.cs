@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-namespace TIL.MainMenu {
+namespace DD.MainMenu {
     public sealed class UIView : MonoBehaviour, ILifecycleListener {
         //===================================//
         // EVENTS

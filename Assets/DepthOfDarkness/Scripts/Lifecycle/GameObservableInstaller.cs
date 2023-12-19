@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-namespace TIL {
+namespace DD {
     public class GameObservableInstaller : MonoInstaller {
         [SerializeField] private GameObservable observable;
 
