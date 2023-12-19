@@ -30,6 +30,11 @@ namespace TIL {
             loadProcess.completed += OnLoadingScreenLoaded;
         }
 
+        private void ContinueLoad() {
+            var loadProcess = SceneManager.LoadSceneAsync(mToLoadScene.ToString(), LoadSceneMode.Additive);
+            loadProcess.completed += OnSceneLoaded;
+        }
+
         private void OnLoadingScreenLoaded(AsyncOperation _operation) {
             var unloadProcess = SceneManager.UnloadSceneAsync(mLastScene);
             unloadProcess.completed += OnSceneUnloaded;
@@ -41,11 +46,6 @@ namespace TIL {
             } else {
                 ContinueLoad();
             }
-        }
-
-        private void ContinueLoad() {
-            var loadProcess = SceneManager.LoadSceneAsync(mToLoadScene.ToString(), LoadSceneMode.Additive);
-            loadProcess.completed += OnSceneLoaded;
         }
 
         private void OnSceneLoaded(AsyncOperation _operation) {
