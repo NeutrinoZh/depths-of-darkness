@@ -1,12 +1,12 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 namespace DD.MainMenu {
     public sealed class UIView : MonoBehaviour, ILifecycleListener {
         //===================================//
         // EVENTS
-        public UnityEvent OnClickPlay;
+        public Action OnClickPlay;
         
         //===================================//
 

@@ -13,11 +13,11 @@ namespace DD.MainMenu {
         }
 
         public void OnStartGame() {
-            view.OnClickPlay.AddListener(Play);
+            view.OnClickPlay += Play;
         }
 
         public void OnFinishGame() {
-            view.OnClickPlay.RemoveListener(Play);
+            view.OnClickPlay -= Play;
         }
 
         private void Play() {
