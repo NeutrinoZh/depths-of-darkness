@@ -17,14 +17,14 @@ namespace DD.MainMenu {
         //===================================//
         // ILifecycleListener
 
-        public void OnStartGame() {
+        public void OnStart() {
             mDocument = GetComponent<UIDocument>();
             mBtnPlay = mDocument.rootVisualElement.Query<Button>();
             
             mBtnPlay.clicked += OnClick;
         }
 
-        public void OnFinishGame() {
+        public void OnFinish() {
             mBtnPlay.clicked -= OnClick;
         }
 

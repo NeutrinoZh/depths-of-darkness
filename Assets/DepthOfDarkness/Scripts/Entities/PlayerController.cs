@@ -14,15 +14,15 @@ namespace DD.Game {
             mInput = new PlayerInput();
         }
 
-        public void OnStartGame() {
+        void ILifecycleListener.OnStart() {
             mInput.Enable();
         }
 
-        public void OnFinishGame() {
+        void ILifecycleListener.OnFinish() {
             mInput.Disable();
         }
 
-        public void OnUpdateGame() {
+        void ILifecycleListener.OnUpdate() {
             Vector2 direction = mInput.Player.Move.ReadValue<Vector2>();
             Move(direction);
         }

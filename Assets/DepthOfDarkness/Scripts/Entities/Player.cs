@@ -8,13 +8,16 @@ namespace DD.Game {
         private PlayerModel mModel;
         private PlayerController mController;
         
-        public void OnStartGame() {
+        void ILifecycleListener.OnStart() {
             mModel = new PlayerModel(transform);
             mController = new PlayerController(this, mModel);
 
             gameObservable.AddListener(mController);
         }
 
+        void ILifecycleListener.OnFinish() {
+            gameObservable.RemoveListener(mController);
+        }
 
         public PlayerModel Model => mModel;
     }

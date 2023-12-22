@@ -14,11 +14,11 @@ namespace DD.LoadingScreen {
 
         private float mLoadingDelay = 2f;
 
-        public void OnStartGame() {
+        public void OnStart() {
             sceneManagement.Middleware += SceneLoadingMiddleware;
         }
 
-        public void OnFinishGame() {
+        public void OnFinish() {
             sceneManagement.Middleware -= SceneLoadingMiddleware;
         }
 

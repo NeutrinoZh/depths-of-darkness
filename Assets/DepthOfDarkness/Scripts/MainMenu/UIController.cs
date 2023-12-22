@@ -12,11 +12,11 @@ namespace DD.MainMenu {
             view = GetComponent<UIView>();
         }
 
-        public void OnStartGame() {
+        void ILifecycleListener.OnStart() {
             view.OnClickPlay += Play;
         }
 
-        public void OnFinishGame() {
+        void ILifecycleListener.OnFinish() {
             view.OnClickPlay -= Play;
         }
 

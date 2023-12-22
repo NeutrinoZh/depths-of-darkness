@@ -12,6 +12,6 @@ namespace DD.Game {
         public Transform Transform => mTransform;
 
         // consts
-        public float MoveSpeed => 3.5f;
+        public float MoveSpeed => 2.5f;
     }
 }

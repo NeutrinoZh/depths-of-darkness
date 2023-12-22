@@ -1,8 +1,8 @@
 namespace DD {
     public interface ILifecycleListener {
-        public void OnStartGame() {}
-        public void OnUpdateGame() {}
-        public void OnFinishGame() {}
+        public void OnStart() {}
+        public void OnUpdate() {}
+        public void OnFinish() {}
 
         public void OnPause() {}
         public void OnResume() {} 
