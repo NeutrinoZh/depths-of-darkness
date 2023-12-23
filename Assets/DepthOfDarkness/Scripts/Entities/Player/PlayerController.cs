@@ -28,10 +28,10 @@ namespace DD.Game {
         }
 
         private void Move(Vector2 _direction) {
-            Vector3 shift =
-                _direction * mModel.MoveSpeed  * Time.deltaTime;
+            Vector3 velocity =
+                _direction * mModel.MoveSpeed;
             
-            mModel.Transform.position += shift;
+            mModel.Rd.velocity = velocity;
         }
     }
 }
