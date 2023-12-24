@@ -1,26 +1,31 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 namespace DD.LoadingScreen {
     public class LoadingScreenController : MonoBehaviour, ILifecycleListener {
-        private SceneManagement sceneManagement;
-        
+        private SceneManagement mSceneManagement;
+
         [Inject]
         public void Construct(SceneManagement _sceneManagement) {
-            sceneManagement = _sceneManagement;
+            mSceneManagement = _sceneManagement;
         }
 
         private float mLoadingDelay = 2f;
 
-        public void OnStart() {
-            sceneManagement.Middleware += SceneLoadingMiddleware;
+        //  LifeCycle
+
+        void ILifecycleListener.OnStart() {
+            mSceneManagement.Middleware += SceneLoadingMiddleware;
         }
 
-        public void OnFinish() {
-            sceneManagement.Middleware -= SceneLoadingMiddleware;
+        void ILifecycleListener.OnFinish() {
+            mSceneManagement.Middleware -= SceneLoadingMiddleware;
         }
+
+        //
 
         private void SceneLoadingMiddleware(Action _continue) {
             StartCoroutine(ContinueDelayCoroutine(_continue));

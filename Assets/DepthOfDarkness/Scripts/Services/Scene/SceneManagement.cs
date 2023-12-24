@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,8 +17,12 @@ namespace DD {
         private Scene mLastScene;
         private SceneList mToLoadScene;
 
+        private List<IPreloadService> mPreloadServices = new();
+
         public delegate void MiddlewareOnSceneLoad(Action continueLoading);
         public MiddlewareOnSceneLoad Middleware;
+
+        public GameObservable GameObservable { get; set; }
 
         public void LoadScene(SceneList _scene) {
             if (mLoading)
@@ -49,8 +55,20 @@ namespace DD {
         }
 
         private void OnSceneLoaded(AsyncOperation _operation) {
+            foreach (var service in mPreloadServices)
+                service.Execute();
+
             mLoading = false;
             SceneManager.UnloadSceneAsync(LOADING_SCREEN);
+            
+            if (GameObservable != null)
+                GameObservable.Run();
         } 
+
+        // Preload Service Management  
+
+        public void AddPreloadService(IPreloadService _service) {
+            mPreloadServices.Add(_service);
+        }
     }
 }

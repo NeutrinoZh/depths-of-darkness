@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace DD.Game {
-    public class PlayerController : ILifecycleListener {
+    public sealed class PlayerController : ILifecycleListener {
         private PlayerModel mModel;
         private Player mPlayer;
 

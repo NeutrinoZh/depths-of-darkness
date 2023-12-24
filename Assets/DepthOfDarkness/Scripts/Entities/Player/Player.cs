@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zenject;
-using System;
 
 namespace DD.Game {
     public class Player : MonoBehaviour, ILifecycleListener {

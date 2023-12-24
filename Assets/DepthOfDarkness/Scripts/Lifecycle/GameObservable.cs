@@ -8,8 +8,7 @@ namespace DD {
         private Queue<ILifecycleListener> mAddingQueue = new();
         private Queue<ILifecycleListener> mRemoveQueue = new();
 
-        // MonoBehavior Start event 
-        private void Start() {
+        public void Run() {
             mIsStarted = true;
             foreach (var listener in mListeners)
                 listener.OnStart();
@@ -17,6 +16,9 @@ namespace DD {
 
         // MonoBehavior Update event 
         private void Update() {
+            if (!mIsStarted)
+                return;
+
             while (mRemoveQueue.TryDequeue(out var listener)) {
                 listener.OnFinish();
                 mListeners.Remove(listener);
@@ -32,8 +34,13 @@ namespace DD {
         }
 
         private void OnDestroy() {
+            if (!mIsStarted)
+                return;
+
             foreach (var listener in mListeners)
                 listener.OnFinish();
+
+            mIsStarted = false;
         }
 
         public void AddListener(ILifecycleListener listener) {
