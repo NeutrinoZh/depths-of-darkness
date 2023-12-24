@@ -1,31 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
     public class PlayerAnimator : ILifecycleListener {
-        private Player mPlayer;
+        private Dictionary<Direction, int> mAnimations;
+
         private PlayerModel mModel;
 
         private Animator mAnimator;
 
         public PlayerAnimator(Player _player, PlayerModel _model) {
-            mPlayer = _player;
             mModel = _model;
-        }
 
-        void ILifecycleListener.OnStart() {
             mAnimator = mModel.Transform.GetComponent<Animator>();
             Assert.AreNotEqual(mAnimator, null);
 
-            mPlayer.OnMoveEvent += OnMoveHandle;
+            mAnimations = new() {
+                { Direction.UPRIGHT,   Animator.StringToHash($"Move{Direction.UPRIGHT.ToPrettyString()}")   },
+                { Direction.UP,        Animator.StringToHash($"Move{Direction.UP.ToPrettyString()}")        },
+                { Direction.UPLEFT,    Animator.StringToHash($"Move{Direction.UPLEFT.ToPrettyString()}")    },
+                { Direction.LEFT,      Animator.StringToHash($"Move{Direction.LEFT.ToPrettyString()}")      },
+                { Direction.DOWNLEFT,  Animator.StringToHash($"Move{Direction.DOWNLEFT.ToPrettyString()}")  },
+                { Direction.DOWN,      Animator.StringToHash($"Move{Direction.DOWN.ToPrettyString()}")      },
+                { Direction.DOWNRIGHT, Animator.StringToHash($"Move{Direction.DOWNRIGHT.ToPrettyString()}") },
+                { Direction.RIGHT,     Animator.StringToHash($"Move{Direction.RIGHT.ToPrettyString()}")     },
+            };
         }
 
-        void ILifecycleListener.OnFinish() {
-            mPlayer.OnMoveEvent -= OnMoveHandle;
-        }
-
-        private void OnMoveHandle(Direction _direction) {
-            mAnimator.Play($"Move{_direction.ToPrettyString()}");
+        void ILifecycleListener.OnUpdate() {
+            mAnimator.Play(mAnimations[mModel.Direction]);
         }
     }
 }

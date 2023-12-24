@@ -34,9 +34,7 @@ namespace DD.Game {
             mModel.Rd.velocity = velocity;
 
             if (_direction != Vector2.zero)
-                mPlayer.OnMoveEvent?.Invoke(
-                    DirectionUtils.GetDirectionFromVector(velocity)
-                );
+                mModel.Direction = DirectionUtils.GetDirectionFromVector(velocity);
         }
     }
 }

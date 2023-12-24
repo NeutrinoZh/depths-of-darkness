@@ -25,7 +25,5 @@ namespace DD.Game {
         }
 
         public PlayerModel Model => mModel;
-
-        public Action<Direction> OnMoveEvent = null;
     }
 }
