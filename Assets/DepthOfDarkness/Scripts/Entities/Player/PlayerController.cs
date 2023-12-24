@@ -23,18 +23,22 @@ namespace DD.Game {
         }
 
         void ILifecycleListener.OnUpdate() {
+            // read input value
             Vector2 direction = mInput.Player.Move.ReadValue<Vector2>();
+
+            // move
             Move(direction);
+
+            // switch states
+            mModel.IsMove = direction != Vector2.zero;
+            if (mModel.IsMove)
+                mModel.Direction = DirectionUtils.GetDirectionFromVector(direction);
         }
 
         private void Move(Vector2 _direction) {
             Vector3 velocity =
-                _direction * mModel.MoveSpeed;
-            
+                _direction * mModel.MoveSpeed;            
             mModel.Rd.velocity = velocity;
-
-            if (_direction != Vector2.zero)
-                mModel.Direction = DirectionUtils.GetDirectionFromVector(velocity);
         }
     }
 }
