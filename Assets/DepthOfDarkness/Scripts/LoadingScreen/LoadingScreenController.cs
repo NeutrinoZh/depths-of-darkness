@@ -13,7 +13,7 @@ namespace DD.LoadingScreen {
             mSceneManagement = _sceneManagement;
         }
 
-        private float mLoadingDelay = 2f;
+        private float mLoadingDelay = 0f;
 
         //  LifeCycle
 

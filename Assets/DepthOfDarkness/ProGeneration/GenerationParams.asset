@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0a0e4aaf096e9db88130fe1809cb9c, type: 3}
   m_Name: GenerationParams
   m_EditorClassIdentifier: 
-  <Size>k__BackingField: {x: 30, y: 30}
+  <Size>k__BackingField: {x: 200, y: 200}
   <Tiles>k__BackingField:
   - {fileID: 11400000, guid: f2a4dcbbe92c1efaebaf21b7d41a7067, type: 2}
   - {fileID: 11400000, guid: f3d6138b134aa90ea947d00cb54a2966, type: 2}
+  - {fileID: 11400000, guid: 26128a6402f791fe8ab65241905877dc, type: 2}
