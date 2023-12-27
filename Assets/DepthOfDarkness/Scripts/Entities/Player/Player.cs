@@ -4,24 +4,29 @@ using Zenject;
 
 namespace DD.Game {
     public class Player : MonoBehaviour, ILifecycleListener {
-        [Inject] private GameObservable gameObservable;
+        private GameObservable mGameObservable;
         
         private PlayerModel mModel;
         private PlayerController mController;
         private PlayerAnimator mAnimator;
         
+        [Inject]
+        public void Consturct(GameObservable _gameObservable) {
+            mGameObservable = _gameObservable;
+        }
+
         void ILifecycleListener.OnStart() {
             mModel = new PlayerModel(this, transform);
             mController = new PlayerController(this, mModel);
             mAnimator = new PlayerAnimator(this, mModel);
 
-            gameObservable.AddListener(mController);
-            gameObservable.AddListener(mAnimator);
+            mGameObservable.AddListener(mController);
+            mGameObservable.AddListener(mAnimator);
         }
 
         void ILifecycleListener.OnFinish() {
-            gameObservable.RemoveListener(mController);
-            gameObservable.RemoveListener(mAnimator);
+            mGameObservable.RemoveListener(mController);
+            mGameObservable.RemoveListener(mAnimator);
         }
 
         public PlayerModel Model => mModel;

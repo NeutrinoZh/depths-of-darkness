@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +9,36 @@ namespace DD {
         private Queue<ILifecycleListener> mAddingQueue = new();
         private Queue<ILifecycleListener> mRemoveQueue = new();
 
+        public void AddListener(ILifecycleListener listener) {
+            if (!mIsStarted) {
+                mListeners.Add(listener);
+                return;
+            }
+
+            mAddingQueue.Enqueue(listener);
+        }
+
+        public void RemoveListener(ILifecycleListener listener) {
+            if (!mListeners.Contains(listener))
+                return;
+
+            if (!mIsStarted) {
+                mListeners.Remove(listener);
+                return;
+            }
+
+            mRemoveQueue.Enqueue(listener);
+        }
+
+        // ========================================================//
+        
         public void Run() {
             mIsStarted = true;
             foreach (var listener in mListeners)
                 listener.OnStart();
+            StartCoroutine(OnFixedCorutine());
         }
 
-        // MonoBehavior Update event 
         private void Update() {
             if (!mIsStarted)
                 return;
@@ -43,25 +67,14 @@ namespace DD {
             mIsStarted = false;
         }
 
-        public void AddListener(ILifecycleListener listener) {
-            if (!mIsStarted) {
-                mListeners.Add(listener);
-                return;
+        // ========================================================//
+
+        private IEnumerator OnFixedCorutine() {
+            while (true) {
+                foreach (var listener in mListeners)
+                    listener.OnFixed();
+                yield return new WaitForSecondsRealtime(1f);
             }
-
-            mAddingQueue.Enqueue(listener);
-        }
-
-        public void RemoveListener(ILifecycleListener listener) {
-            if (!mListeners.Contains(listener))
-                return;
-
-            if (!mIsStarted) {
-                mListeners.Remove(listener);
-                return;
-            }
-
-            mRemoveQueue.Enqueue(listener);
         }
     }
 }
