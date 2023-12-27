@@ -4,14 +4,21 @@ using UnityEngine.Assertions;
 
 namespace DD.Game {
     public class PlayerAnimator : ILifecycleListener {
+        private const string AnimatorIsMoveParam = "IsMove";
+
         private Dictionary<Direction, int> mAnimations;
 
         private PlayerModel mModel;
+        private Player mPlayer;
 
         private Animator mAnimator;
 
         public PlayerAnimator(Player _player, PlayerModel _model) {
+            mPlayer = _player;
+            Assert.AreNotEqual(mPlayer, null);
+
             mModel = _model;
+            Assert.AreNotEqual(mModel, null);
 
             mAnimator = mModel.Transform.GetComponent<Animator>();
             Assert.AreNotEqual(mAnimator, null);
@@ -26,10 +33,26 @@ namespace DD.Game {
                 { Direction.DOWNRIGHT, Animator.StringToHash($"Move{Direction.DOWNRIGHT.ToPrettyString()}") },
                 { Direction.RIGHT,     Animator.StringToHash($"Move{Direction.RIGHT.ToPrettyString()}")     },
             };
+
+            mAnimator.speed = 0;
         }
 
-        void ILifecycleListener.OnUpdate() {
+        void ILifecycleListener.OnStart() {
+            mPlayer.OnDirectionChangeEvent += OnDirectionChangeHandle;
+            mPlayer.OnStateChangeEvent += OnStateChangeHandle;
+        }
+
+        void ILifecycleListener.OnFinish() {
+            mPlayer.OnDirectionChangeEvent -= OnDirectionChangeHandle;
+            mPlayer.OnStateChangeEvent -= OnStateChangeHandle;
+        }
+
+        void OnDirectionChangeHandle() {
             mAnimator.Play(mAnimations[mModel.Direction]);
+        }
+
+        void OnStateChangeHandle() {
+            mAnimator.speed = mModel.IsMove ? 1 : 0;
         }
     }
 }

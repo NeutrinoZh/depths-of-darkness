@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,7 @@ namespace DD.Game {
         private PlayerAnimator mAnimator;
         
         void ILifecycleListener.OnStart() {
-            mModel = new PlayerModel(transform);
+            mModel = new PlayerModel(this, transform);
             mController = new PlayerController(this, mModel);
             mAnimator = new PlayerAnimator(this, mModel);
 
@@ -24,5 +25,7 @@ namespace DD.Game {
         }
 
         public PlayerModel Model => mModel;
+        public Action OnDirectionChangeEvent = null;
+        public Action OnStateChangeEvent = null;
     }
 }

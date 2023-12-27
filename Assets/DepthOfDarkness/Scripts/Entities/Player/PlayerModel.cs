@@ -4,6 +4,8 @@ using UnityEngine.Assertions;
 namespace DD.Game {
     public class PlayerModel {
 
+        private Player mPlayer = null;
+
         // components 
         private Transform mTransform = null;
         private Rigidbody2D mRd = null;
@@ -13,7 +15,10 @@ namespace DD.Game {
 
         private bool mIsMove = false;
 
-        public PlayerModel(Transform _transform) {
+        public PlayerModel(Player _player, Transform _transform) {
+            mPlayer = _player;
+            Assert.AreNotEqual(mPlayer, null);
+
             mTransform = _transform;
             Assert.AreNotEqual(mTransform, null);
 
@@ -24,12 +29,24 @@ namespace DD.Game {
         // props 
         public Direction Direction {
             get => mDirection;
-            set => mDirection = value;
+            set {
+                if (mDirection == value)
+                    return;
+
+                mDirection = value;
+                mPlayer.OnDirectionChangeEvent?.Invoke();
+            }
         }
 
         public bool IsMove {
             get => mIsMove;
-            set => mIsMove = value;
+            set {
+                if (mIsMove == value)
+                    return;
+
+                mIsMove = value;
+                mPlayer.OnStateChangeEvent?.Invoke();
+            }
         }
 
         // readonly 
