@@ -4,13 +4,11 @@ using UnityEngine.Assertions;
 
 namespace DD.Game {
     public class PlayerAnimator : ILifecycleListener {
-        private const string AnimatorIsMoveParam = "IsMove";
-
-        private Dictionary<Direction, int> mAnimations;
-
+        
         private PlayerModel mModel;
         private Player mPlayer;
 
+        private Dictionary<Direction, int> mAnimations;
         private Animator mAnimator;
 
         public PlayerAnimator(Player _player, PlayerModel _model) {
