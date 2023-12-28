@@ -187,6 +187,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 629143689}
+  - {fileID: 8556237278831793069}
   m_Father: {fileID: 175352070}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &120785199
@@ -204,6 +205,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 629143690}
+  - {fileID: 8556237278831793070}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1447,7 +1449,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2007,7 +2009,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.484375
+  orthographic size: 2.8125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2344,11 +2346,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6485239356782666329, guid: 681cfa617419d9749a15ecf387873d10, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.415
+      value: -0.405
       objectReference: {fileID: 0}
     - target: {fileID: 6485239356782666329, guid: 681cfa617419d9749a15ecf387873d10, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.279
+      value: 0.389
       objectReference: {fileID: 0}
     - target: {fileID: 6485239356782666329, guid: 681cfa617419d9749a15ecf387873d10, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2537,6 +2539,83 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe16a0962579fc53db10205beddc0e1e, type: 3}
+--- !u!1001 &8556237278831793068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 120785198}
+    m_Modifications:
+    - target: {fileID: -1554678391512539526, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: mGameObservable
+      value: 
+      objectReference: {fileID: 175352069}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7448687781591290435, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+      propertyPath: m_Name
+      value: PickablesServiceInstaller
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+--- !u!4 &8556237278831793069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 634095187433407664, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+  m_PrefabInstance: {fileID: 8556237278831793068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8556237278831793070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1554678391512539526, guid: a60dbae50375c21a08fac5a84b51483b, type: 3}
+  m_PrefabInstance: {fileID: 8556237278831793068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343bd2e86c93f527dbf3c6b81481810c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

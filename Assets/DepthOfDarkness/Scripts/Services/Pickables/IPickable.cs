@@ -6,5 +6,6 @@ namespace DD.Game {
         void Drop();
         Transform GetTransform();
         SpriteRenderer GetRenderer();
+        Shader GetDefaultShader();
     }
 }
