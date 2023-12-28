@@ -3,15 +3,15 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
-    public class PlayerAnimator : ILifecycleListener {
+    public class PlayerAnimator : IBehavior {
         
-        private PlayerModel mModel;
+        private PlayerState mModel;
         private Player mPlayer;
 
         private Dictionary<Direction, int> mAnimations;
         private Animator mAnimator;
 
-        public PlayerAnimator(Player _player, PlayerModel _model) {
+        public PlayerAnimator(Player _player, PlayerState _model) {
             mPlayer = _player;
             Assert.AreNotEqual(mPlayer, null);
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 namespace DD.Game {
-    public sealed class PickController : ILifecycleListener {
+    public sealed class PickController : IBehavior {
         private PickablesRegister mPickableRegister = null;
 
         private Transform mPicker = null; 

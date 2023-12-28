@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
-    public class PlayerModel {
+    public class PlayerState : IEntityState {
 
         private Player mPlayer = null;
 
@@ -15,7 +15,7 @@ namespace DD.Game {
 
         private bool mIsMove = false;
 
-        public PlayerModel(Player _player, Transform _transform) {
+        public PlayerState(Player _player, Transform _transform) {
             mPlayer = _player;
             Assert.AreNotEqual(mPlayer, null);
 

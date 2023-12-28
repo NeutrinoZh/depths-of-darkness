@@ -3,12 +3,12 @@ using UnityEngine;
 using Zenject;
 
 namespace DD.Game {
-    public class Player : MonoBehaviour, ILifecycleListener {
+    public class Player : Entity, ILifecycleListener {
         [SerializeField] private PickConfig mPickConfig; 
 
         private GameObservable mGameObservable;
         
-        private PlayerModel mModel;
+        private PlayerState mState;
         private PlayerController mController;
         private PickController mPickController;
         private PlayerAnimator mAnimator;
@@ -17,9 +17,9 @@ namespace DD.Game {
         public void Consturct(GameObservable _gameObservable, PickablesRegister _pickableRegister) {
             mGameObservable = _gameObservable;
 
-            mModel = new PlayerModel(this, transform);
-            mController = new PlayerController(this, mModel);
-            mAnimator = new PlayerAnimator(this, mModel);
+            mState = new PlayerState(this, transform);
+            mController = new PlayerController(this, mState);
+            mAnimator = new PlayerAnimator(this, mState);
 
             mPickController = new PickController(_pickableRegister, transform, mPickConfig);
         }
@@ -36,7 +36,7 @@ namespace DD.Game {
             mGameObservable.RemoveListener(mAnimator);
         }
 
-        public PlayerModel Model => mModel;
+        public PlayerState Model => mState;
         public Action OnDirectionChangeEvent = null;
         public Action OnStateChangeEvent = null;
     }

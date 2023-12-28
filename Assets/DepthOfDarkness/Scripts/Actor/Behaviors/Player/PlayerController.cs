@@ -1,13 +1,13 @@
 using UnityEngine;
 
 namespace DD.Game {
-    public sealed class PlayerController : ILifecycleListener {
-        private PlayerModel mModel;
+    public sealed class PlayerController : IBehavior {
+        private PlayerState mModel;
         private Player mPlayer;
 
         private PlayerInput mInput;
 
-        public PlayerController(Player _player, PlayerModel _model) {
+        public PlayerController(Player _player, PlayerState _model) {
             mPlayer = _player;
             mModel = _model;
         
