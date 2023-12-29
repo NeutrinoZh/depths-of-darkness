@@ -10,20 +10,27 @@ namespace DD.Game {
 
         private SpriteRenderer mSpriteRenderer;
         private Shader mDefaultShader;
-
-        public SpriteRenderer Renderer => mSpriteRenderer;
-        public Shader DefaultShader => mDefaultShader;
+        private int mDefaultSpriteOrder;
 
         [Inject]
         public void Construct(PickablesRegister _register) {
             mPickableRegister = _register;
         } 
 
+        // ==========================================================//
+
+        public SpriteRenderer Renderer => mSpriteRenderer;
+        public Shader DefaultShader => mDefaultShader;
+        public int DefaultSpriteOrder => mDefaultSpriteOrder;
+
+        // ==========================================================//
+
         void ILifecycleListener.OnStart() {
             mSpriteRenderer = GetComponent<SpriteRenderer>();
             Assert.AreNotEqual(mSpriteRenderer, null);
 
             mDefaultShader = mSpriteRenderer.material.shader;
+            mDefaultSpriteOrder = mSpriteRenderer.sortingOrder;
 
             mPickableRegister.AddPickable(this);
         }

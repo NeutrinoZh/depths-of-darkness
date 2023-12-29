@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4671038397832862417}
   - component: {fileID: 7420174560727974747}
   - component: {fileID: 6532404666414635514}
+  - component: {fileID: 334511334181076033}
+  - component: {fileID: 2883511048711554206}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -36,6 +38,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3685027722852308398}
+  - {fileID: 1631603433425057427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1865963188840852485
@@ -174,8 +177,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383921b70d058c14a8fe3d8252ef6626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PickRadius>k__BackingField: 1
+--- !u!114 &334511334181076033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1280f2bc0f49486c39691796e369cd0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   <Highlight>k__BackingField: {fileID: 4800000, guid: 842984dec85c97fa18ba6e59bf9c619a, type: 3}
+--- !u!114 &2883511048711554206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a702b9a8d7c23425be6487657bc751f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6916901749598721570
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,3 +279,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32733393, y: 0.28792134}
   m_EdgeRadius: 0
+--- !u!1 &7165757834284721700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631603433425057427}
+  m_Layer: 0
+  m_Name: PickPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1631603433425057427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7165757834284721700}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.227, y: -0.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6485239356782666329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

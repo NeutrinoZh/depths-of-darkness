@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 using System.Collections.Generic;
 
 namespace DD.Game {
-    public class PlayerAnimator : MonoBehaviour, ILifecycleListener {
+    public sealed class PlayerAnimator : MonoBehaviour, ILifecycleListener {
         private MovementState mMovement;
 
         private Dictionary<Direction, int> mAnimations;

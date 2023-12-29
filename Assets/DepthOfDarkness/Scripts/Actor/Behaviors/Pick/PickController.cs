@@ -1,38 +1,78 @@
+
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace DD.Game {
     public sealed class PickController : MonoBehaviour, ILifecycleListener {
-        [field: SerializeField] public Shader Highlight { get; private set; }
-        private float mPickSqrRadius = 2f;
+        //============================================================//
 
-        private PickablesRegister mPickableRegister = null;
-        private Transform mPicker = null; 
-        
+        private PickablesRegister mPickablesRegister = null;
+        private FinderNearPickables mFinderNearPickables = null;
+
         [Inject]
         public void Consturct(PickablesRegister _register) {
-            mPickableRegister = _register;
-            mPicker = transform;
+            mPickablesRegister = _register;
+            mFinderNearPickables = new FinderNearPickables(transform, _register);
         }
 
+        //============================================================//
+
+        private PlayerInput mInput = null;
+        private Transform mPickPoint = null;
+
+        void ILifecycleListener.OnInit() {
+            mInput = GetComponent<PlayerInput>();
+            Assert.AreNotEqual(mInput, null);
+
+            mPickPoint = transform.Find("PickPoint");
+            Assert.AreNotEqual(mPickPoint, null);
+        }
+
+        //============================================================//
+
+        const int mPickedSpriteOrder = 3;
+
+        private Pickable mGrabbed = null;
+
+        //============================================================//
+
+        public FinderNearPickables NearPickables => mFinderNearPickables;
+        
+        //============================================================//
+
         void ILifecycleListener.OnFixed() {
-            var pickables = mPickableRegister.Pickables;
+            mFinderNearPickables.Find();
+        }
 
-            Pickable nearPickable = null;
-            float nearDistance = 0f;
+        //============================================================//
 
-            foreach (var item in pickables) {
-                var sqrDistance = (mPicker.position - item.transform.position).sqrMagnitude;
+        void ILifecycleListener.OnStart() {
+            mInput.Input.Player.Pick.performed += _ => Pick();
+        }
 
-                if (sqrDistance < nearDistance)
-                    nearPickable = item;
+        void ILifecycleListener.OnFinish() {
+            mInput.Input.Player.Pick.performed -= _ => Pick();
+        }
 
-                item.Renderer.material.shader = 
-                    sqrDistance < mPickSqrRadius ? Highlight : item.DefaultShader;
-            }
+        private void Pick() {
+            if (mGrabbed || !mFinderNearPickables.Nearest)
+                return;
 
-            if (nearDistance > mPickSqrRadius)
-                nearPickable = null;
+            mGrabbed = mFinderNearPickables.Nearest;
+
+            // 
+            mPickablesRegister.RemovePickable(mGrabbed);
+            mGrabbed.Renderer.sortingOrder = mPickedSpriteOrder;
+            mGrabbed.Renderer.material.shader = mGrabbed.DefaultShader;
+
+            //
+            mGrabbed.transform.parent = mPickPoint;
+            mGrabbed.transform.localPosition = Vector3.zero;
+            mGrabbed.transform.localScale = new(0.8f, 0.8f, 1);
+
+            mFinderNearPickables.Find();
         }
     }
 }

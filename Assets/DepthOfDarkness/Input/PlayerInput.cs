@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace DD.Game
+namespace DD.Game.Input
 {
     public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
@@ -37,6 +37,15 @@ namespace DD.Game
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pick"",
+                    ""type"": ""Button"",
+                    ""id"": ""38631f8e-1830-42ac-a935-8ff610da7896"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -204,6 +213,17 @@ namespace DD.Game
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b56df594-a0ff-48b1-8f8c-7ff6146cfb78"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -252,6 +272,7 @@ namespace DD.Game
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+            m_Player_Pick = m_Player.FindAction("Pick", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -314,11 +335,13 @@ namespace DD.Game
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
+        private readonly InputAction m_Player_Pick;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
             public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputAction @Pick => m_Wrapper.m_Player_Pick;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -331,6 +354,9 @@ namespace DD.Game
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Pick.started += instance.OnPick;
+                @Pick.performed += instance.OnPick;
+                @Pick.canceled += instance.OnPick;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -338,6 +364,9 @@ namespace DD.Game
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
+                @Pick.started -= instance.OnPick;
+                @Pick.performed -= instance.OnPick;
+                @Pick.canceled -= instance.OnPick;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -385,6 +414,7 @@ namespace DD.Game
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
+            void OnPick(InputAction.CallbackContext context);
         }
     }
 }

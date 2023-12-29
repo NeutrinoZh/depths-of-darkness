@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(PlayerInput))]
     public sealed class MovementController : MonoBehaviour, ILifecycleListener {
         private MovementState mState;
         public MovementState State => mState;
@@ -14,20 +16,16 @@ namespace DD.Game {
         }
 
         void ILifecycleListener.OnStart() {
-            mInput = new PlayerInput();
-            mInput.Enable();
-
             mRd = GetComponent<Rigidbody2D>();
             Assert.AreNotEqual(mRd, null);
-        }
 
-        void ILifecycleListener.OnFinish() {
-            mInput.Disable();
+            mInput = GetComponent<PlayerInput>();
+            Assert.AreNotEqual(mInput, null);
         }
 
         void ILifecycleListener.OnUpdate() {
             // read input value
-            Vector2 direction = mInput.Player.Move.ReadValue<Vector2>();
+            Vector2 direction = mInput.Input.Player.Move.ReadValue<Vector2>();
 
             // move
             Move(direction);
