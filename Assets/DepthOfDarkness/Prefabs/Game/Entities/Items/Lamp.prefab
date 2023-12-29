@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8858661587801753732}
   - component: {fileID: 5072155231285103913}
   - component: {fileID: 5997713300945014826}
+  - component: {fileID: 2522090623425295349}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -148,3 +149,20 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &2522090623425295349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975ccafac0b6ed7a39ae62dc75da5439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mEase: 8
+  mMinIntensity: 0.5
+  mIntensityAnimDuration: 1
+  mMinOuterRadius: 2
+  mOuterRadiusAnimDuration: 1

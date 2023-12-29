@@ -2589,36 +2589,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1120466449003808419, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 1362563327, guid: 35d2b0a06856fd139b6abcfdae42761d, type: 3}
-    - target: {fileID: 1120466449003808419, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120466449003808419, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120466449003808419, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120466449003808419, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4100676999878023350, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
       propertyPath: m_Name
       value: VesselLight
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848210840015901862, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848210840015901862, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4848210840015901862, guid: cb93935cd454b5c3daa24e1d73f8f277, type: 3}
       propertyPath: m_LocalPosition.x
