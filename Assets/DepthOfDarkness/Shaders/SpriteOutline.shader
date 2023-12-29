@@ -5,7 +5,7 @@
 		_MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		
-		_OutlineThickness("Outline Thickness", Range (0.0, 0.1)) = 0.0
+		_OutlineThickness("Outline Thickness", Range (0.0, 0.1)) = 0.002
 		_OutlineColor ("Outline Color", Color) = (1,1,1,1)
 	}
 

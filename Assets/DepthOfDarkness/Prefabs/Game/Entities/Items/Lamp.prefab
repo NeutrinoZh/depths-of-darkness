@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 602249279128749404}
   - component: {fileID: 8858661587801753732}
+  - component: {fileID: 5072155231285103913}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1176540821, guid: 8838e3b84f825fcec967d41c61ba7509, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5072155231285103913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8bceaaf7c827d5e9219a4cbcb65f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

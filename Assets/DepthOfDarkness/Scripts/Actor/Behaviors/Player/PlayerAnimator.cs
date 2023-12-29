@@ -1,26 +1,30 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+using System.Collections.Generic;
+
 namespace DD.Game {
-    public class PlayerAnimator : IBehavior {
-        
-        private PlayerState mModel;
-        private Player mPlayer;
+    public class PlayerAnimator : MonoBehaviour, ILifecycleListener {
+        private MovementState mMovement;
 
         private Dictionary<Direction, int> mAnimations;
         private Animator mAnimator;
 
-        public PlayerAnimator(Player _player, PlayerState _model) {
-            mPlayer = _player;
-            Assert.AreNotEqual(mPlayer, null);
+        //===============================================================//
 
-            mModel = _model;
-            Assert.AreNotEqual(mModel, null);
+        void ILifecycleListener.OnStart() {
+            //===============================================================//
+            // Get components 
 
-            mAnimator = mModel.Transform.GetComponent<Animator>();
+            mMovement = GetComponent<MovementController>()?.State;
+            Assert.AreNotEqual(mMovement, null);
+
+            mAnimator = GetComponent<Animator>();
             Assert.AreNotEqual(mAnimator, null);
 
+            //===============================================================//
+            // Setup 
+            
             mAnimations = new() {
                 { Direction.UPRIGHT,   Animator.StringToHash($"Move{Direction.UPRIGHT.ToPrettyString()}")   },
                 { Direction.UP,        Animator.StringToHash($"Move{Direction.UP.ToPrettyString()}")        },
@@ -33,24 +37,29 @@ namespace DD.Game {
             };
 
             mAnimator.speed = 0;
-        }
 
-        void ILifecycleListener.OnStart() {
-            mPlayer.OnDirectionChangeEvent += OnDirectionChangeHandle;
-            mPlayer.OnStateChangeEvent += OnStateChangeHandle;
+            //===============================================================//
+            // Registers callbacks
+
+            mMovement.OnChangeDirection += OnChangeDirectionHandle;
+            mMovement.OnChangeMoveState += OnChangeMoveStateHandle;
+
+            //===============================================================//
         }
 
         void ILifecycleListener.OnFinish() {
-            mPlayer.OnDirectionChangeEvent -= OnDirectionChangeHandle;
-            mPlayer.OnStateChangeEvent -= OnStateChangeHandle;
+            mMovement.OnChangeDirection -= OnChangeDirectionHandle;
+            mMovement.OnChangeMoveState -= OnChangeMoveStateHandle;
         }
 
-        void OnDirectionChangeHandle() {
-            mAnimator.Play(mAnimations[mModel.Direction]);
+        //===============================================================//
+
+        void OnChangeDirectionHandle() {
+            mAnimator.Play(mAnimations[mMovement.Direction]);
         }
 
-        void OnStateChangeHandle() {
-            mAnimator.speed = mModel.IsMove ? 1 : 0;
+        void OnChangeMoveStateHandle() {
+            mAnimator.speed = mMovement.IsMove ? 1 : 0;
         }
     }
 }

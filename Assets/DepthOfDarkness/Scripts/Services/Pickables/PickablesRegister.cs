@@ -2,14 +2,14 @@ using System.Collections.Generic;
 
 namespace DD.Game {
     public class PickablesRegister : ILifecycleListener {
-        private List<IPickable> mPickables = new() {};
-        public List<IPickable> Pickables => mPickables;
+        private List<Pickable> mPickables = new() {};
+        public List<Pickable> Pickables => mPickables;
 
-        public void AddPickable(IPickable _pickable) {
+        public void AddPickable(Pickable _pickable) {
             mPickables.Add(_pickable);
         }
 
-        public void RemovePickable(IPickable _pickable) {
+        public void RemovePickable(Pickable _pickable) {
             mPickables.Remove(_pickable);
         }
     }

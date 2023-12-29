@@ -34,8 +34,13 @@ namespace DD {
         
         public void Run() {
             mIsStarted = true;
+            
+            foreach (var listener in mListeners)
+                listener.OnInit();
+
             foreach (var listener in mListeners)
                 listener.OnStart();
+            
             StartCoroutine(OnFixedCorutine());
         }
 
@@ -73,7 +78,7 @@ namespace DD {
             while (true) {
                 foreach (var listener in mListeners)
                     listener.OnFixed();
-                yield return new WaitForSecondsRealtime(1f);
+                yield return new WaitForSecondsRealtime(0.25f);
             }
         }
     }

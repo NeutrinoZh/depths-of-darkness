@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6485239356782666329}
   - component: {fileID: 1865963188840852485}
-  - component: {fileID: 1269286189275884112}
   - component: {fileID: 3846935870699235835}
   - component: {fileID: 4228298331509818588}
+  - component: {fileID: 4671038397832862417}
+  - component: {fileID: 7420174560727974747}
+  - component: {fileID: 6532404666414635514}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -88,19 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1269286189275884112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105001285055642281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddbb8a78a0866281a91d3cf867172f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mPickConfig: {fileID: 11400000, guid: 7f00e913d2fa1d1b498e279798c91e02, type: 2}
 --- !u!50 &3846935870699235835
 Rigidbody2D:
   serializedVersion: 4
@@ -149,6 +138,44 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4671038397832862417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695e6a3b464836868a7c64ba99d638eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7420174560727974747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5494f524056128d0f8c0e6d69466a071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6532404666414635514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383921b70d058c14a8fe3d8252ef6626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PickRadius>k__BackingField: 1
+  <Highlight>k__BackingField: {fileID: 4800000, guid: 842984dec85c97fa18ba6e59bf9c619a, type: 3}
 --- !u!1 &6916901749598721570
 GameObject:
   m_ObjectHideFlags: 0

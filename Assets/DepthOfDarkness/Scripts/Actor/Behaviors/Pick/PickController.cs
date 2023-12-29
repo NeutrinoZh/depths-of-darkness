@@ -2,36 +2,36 @@ using UnityEngine;
 using Zenject;
 
 namespace DD.Game {
-    public sealed class PickController : IBehavior {
+    public sealed class PickController : MonoBehaviour, ILifecycleListener {
+        [field: SerializeField] public Shader Highlight { get; private set; }
+        private float mPickSqrRadius = 2f;
+
         private PickablesRegister mPickableRegister = null;
-
         private Transform mPicker = null; 
-        private PickConfig mConfig = null;
-
-        public PickController(PickablesRegister _register, Transform _picker, PickConfig _config) {
+        
+        [Inject]
+        public void Consturct(PickablesRegister _register) {
             mPickableRegister = _register;
-
-            mPicker = _picker;
-            mConfig = _config;
+            mPicker = transform;
         }
 
         void ILifecycleListener.OnFixed() {
             var pickables = mPickableRegister.Pickables;
 
-            IPickable nearPickable = null;
+            Pickable nearPickable = null;
             float nearDistance = 0f;
 
             foreach (var item in pickables) {
-                var sqrDistance = (item.GetTransform().position - mPicker.position).sqrMagnitude;
+                var sqrDistance = (mPicker.position - item.transform.position).sqrMagnitude;
 
                 if (sqrDistance < nearDistance)
                     nearPickable = item;
 
-                item.GetRenderer().material.shader = 
-                    sqrDistance < mConfig.PickRadius ? mConfig.Highlight : item.GetDefaultShader();
+                item.Renderer.material.shader = 
+                    sqrDistance < mPickSqrRadius ? Highlight : item.DefaultShader;
             }
 
-            if (nearDistance > mConfig.PickRadius)
+            if (nearDistance > mPickSqrRadius)
                 nearPickable = null;
         }
     }
