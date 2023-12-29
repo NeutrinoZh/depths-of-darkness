@@ -49,15 +49,22 @@ namespace DD.Game {
         //============================================================//
 
         void ILifecycleListener.OnStart() {
-            mInput.Input.Player.Pick.performed += _ => Pick();
+            mInput.Input.Player.Pick.performed += _ => HandActionHandle();
         }
 
         void ILifecycleListener.OnFinish() {
-            mInput.Input.Player.Pick.performed -= _ => Pick();
+            mInput.Input.Player.Pick.performed -= _ => HandActionHandle();
+        }
+
+        private void HandActionHandle() {
+            if (mGrabbed) Drop();
+            else          Pick();
+
+            mFinderNearPickables.Find();
         }
 
         private void Pick() {
-            if (mGrabbed || !mFinderNearPickables.Nearest)
+            if (!mFinderNearPickables.Nearest)
                 return;
 
             mGrabbed = mFinderNearPickables.Nearest;
@@ -71,8 +78,21 @@ namespace DD.Game {
             mGrabbed.transform.parent = mPickPoint;
             mGrabbed.transform.localPosition = Vector3.zero;
             mGrabbed.transform.localScale = new(0.8f, 0.8f, 1);
+        }
 
-            mFinderNearPickables.Find();
+        private void Drop() {
+            if (!mGrabbed)
+                return;
+
+            //
+            mPickablesRegister.AddPickable(mGrabbed);
+            mGrabbed.Renderer.sortingOrder = mGrabbed.DefaultSpriteOrder;
+            
+            //
+            mGrabbed.transform.parent = null;
+            mGrabbed.transform.localScale = new(1, 1, 1);
+
+            mGrabbed = null;
         }
     }
 }
