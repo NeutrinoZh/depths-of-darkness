@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84efaeaa143ff49eb55c49715094b3d, type: 3}
   m_Name: Dirt
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
   <Tile>k__BackingField: {fileID: 11400000, guid: bd82398e363a02415aa58568eafd0b3e, type: 2}

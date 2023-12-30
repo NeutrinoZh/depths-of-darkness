@@ -7,14 +7,19 @@ namespace DD.Game.ProGeneration {
     public class ProGenerationParams : ScriptableObject {
         [field: SerializeField] public Vector2Int Size { get; private set; }
         [field: SerializeField] public List<DTile> Tiles { get; private set; }
+        [field: SerializeField] public int Capacity { get; private set; }
+        [field: SerializeField] public int BorderWidth { get; private set; }
         
         public TileBase GetTile(TileType _type) {
+            if (_type == TileType.AIR)
+                return null;
+
             foreach (var tile in Tiles)
                 if (tile.Type == _type)
                     return tile.Tile;
                 
             Debug.LogError($"ProGeneration: tile {_type} is missing");
-            return Tiles[0].Tile;
+            return null;
         }
     }
 }

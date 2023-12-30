@@ -5,7 +5,9 @@ using UnityEngine.Tilemaps;
 namespace DD.Game.ProGeneration {
     public sealed class ProGenerationServiceRegistrator : MonoBehaviour {
         [SerializeField] private ProGenerationParams mParams;
-        [SerializeField] private Tilemap mTileMap;
+
+        [SerializeField] private Tilemap mForeground;
+        [SerializeField] private Tilemap mBackground;
 
         private SceneManagement mSceneManagement;
 
@@ -15,7 +17,7 @@ namespace DD.Game.ProGeneration {
         }
 
         public void Awake() {
-            mSceneManagement.AddPreloadService(new ProGeneration(mTileMap, mParams));
+            mSceneManagement.AddPreloadService(new ProGeneration(mBackground, mForeground, mParams));
         }
     }
 }
