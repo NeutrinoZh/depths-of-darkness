@@ -140511,6 +140511,30 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1804011385}
+    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: mSprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: mSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -1620284755, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: mSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 2002360903, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: mSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 233684932, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: mSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 1237599543, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: mSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 1130052556, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 633189458163733668, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}

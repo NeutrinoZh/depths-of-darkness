@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 8440840703758887727}
   - component: {fileID: 8152887284386073835}
   - component: {fileID: 1091164340075007228}
+  - component: {fileID: 4835295458076981053}
   m_Layer: 0
   m_Name: Trolley
   m_TagString: Trolley
@@ -304,6 +305,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c3047a352a39b98ab5ac8495ee6fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4835295458076981053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095854106340380079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85a8c544a66f3b5ea8b1b5ce3c6287e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mSprites: []
 --- !u!1 &3958582320580965532
 GameObject:
   m_ObjectHideFlags: 0

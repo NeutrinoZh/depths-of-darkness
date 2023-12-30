@@ -21,12 +21,12 @@ namespace DD.Game {
             mTrolleyState = GetComponent<TrolleyState>();
             Assert.AreNotEqual(mTrolleyState, null);
         
-            mTrolleyState.ChangeOreCountHandle += ChangeOreCountHandle;
+            mTrolleyState.OnChangeOreCount += ChangeOreCountHandle;
             ChangeOreCountHandle();
         }
 
         void ILifecycleListener.OnFinish() {
-            mTrolleyState.ChangeOreCountHandle -= ChangeOreCountHandle;
+            mTrolleyState.OnChangeOreCount -= ChangeOreCountHandle;
         }
 
         private void ChangeOreCountHandle() {
