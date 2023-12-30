@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grabbable
   - Mineable
+  - Trolley
   layers:
   - Default
   - TransparentFX

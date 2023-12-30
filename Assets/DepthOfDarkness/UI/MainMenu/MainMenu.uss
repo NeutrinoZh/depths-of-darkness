@@ -1,7 +1,7 @@
 Button {
-    background-image: url('project://database/Assets/TimeIsLife/Textures/UI/btn_yellow_big_default.png?fileID=21300000&guid=fe08f87b2613092c192eeb8237a45304&type=3#btn_yellow_big_default');
+    background-image: url('project://database/Assets/DepthOfDarkness/Textures/UI/MainMenu/btn_red_default.png?fileID=2800000&guid=fe08f87b2613092c192eeb8237a45304&type=3#btn_red_default');
 }
 
 Button:hover {
-    background-image: url('project://database/Assets/TimeIsLife/Textures/UI/btn_yellow_big_hover.png?fileID=21300000&guid=262367b8f491e28c1b2c9571bb475ddf&type=3#btn_yellow_big_hover');
+    background-image: url('project://database/Assets/DepthOfDarkness/Textures/UI/MainMenu/btn_red_hover.png?fileID=2800000&guid=262367b8f491e28c1b2c9571bb475ddf&type=3#btn_red_hover');
 }

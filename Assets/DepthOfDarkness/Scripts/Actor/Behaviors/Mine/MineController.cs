@@ -10,9 +10,11 @@ namespace DD.Game {
         const string mMineableTag = "Mineable";
 
         // dependencies
-        private PickController mPickController;
         private PickablesRegister mPickablesRegister;   
         private GameObservable mGameObservable;
+
+        private PickController mPickController;
+        private PlayerState mPlayerState;
 
         // construct, di 
         
@@ -25,6 +27,9 @@ namespace DD.Game {
         void ILifecycleListener.OnInit() {
             mPickController = GetComponent<PickController>();
             Assert.AreNotEqual(mPickController, null);
+
+            mPlayerState = GetComponent<PlayerState>();
+            Assert.AreNotEqual(mPlayerState, null);
         }
 
         //=======================================//
@@ -47,6 +52,7 @@ namespace DD.Game {
         private void Mine(Pickable _pickable) {
             mPickablesRegister.RemovePickable(_pickable);
             mGameObservable.DestroyInstance(_pickable.transform);
+            mPlayerState.OreCount += 1;
         }
     }
 }

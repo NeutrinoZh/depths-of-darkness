@@ -18,10 +18,13 @@ namespace DD.Game {
 
         private void ChangeShadersOnPickables() {
             foreach (var item in mFinderNearPickables.PickablesInRadius)
-                item.Renderer.material.shader = Highlight;
+                if (item != null)
+                    item.Renderer.material.shader = Highlight;
 
-            foreach (var item in mFinderNearPickables.PickablesOutRadius)
-                item.Renderer.material.shader = item.DefaultShader;
+            foreach (var item in mFinderNearPickables.PickablesOutRadius) {
+                if (item != null)
+                    item.Renderer.material.shader = item.DefaultShader;
+            }
         }
     }
 }

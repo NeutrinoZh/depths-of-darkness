@@ -50,6 +50,7 @@ namespace DD.Game {
 
         private void HandActionHandle() {
             OnPickEvent?.Invoke(NearPickables.Nearest);
+            mFinderNearPickables.Find();
         }
     }
 }

@@ -113,7 +113,7 @@ namespace DD {
             while (true) {
                 foreach (var listener in mListeners)
                     listener.OnFixed();
-                yield return new WaitForSecondsRealtime(0.25f);
+                yield return new WaitForSecondsRealtime(0.1f);
             }
         }
     }

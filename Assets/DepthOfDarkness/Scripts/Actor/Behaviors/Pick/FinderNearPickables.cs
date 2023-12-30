@@ -9,7 +9,7 @@ namespace DD.Game {
 
         //==============================================================//
 
-        private const float mPickSqrRadius = 2f;
+        private const float mPickSqrRadius = 0.7f;
 
         private List<Pickable> mPickablesInRadius = new();
         private List<Pickable> mPickablesOutRadius = new();
