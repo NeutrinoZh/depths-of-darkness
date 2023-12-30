@@ -9,7 +9,14 @@ namespace DD.Game.ProGeneration {
         [field: SerializeField] public List<DTile> Tiles { get; private set; }
         [field: SerializeField] public int Capacity { get; private set; }
         [field: SerializeField] public int BorderWidth { get; private set; }
+
+
+        [field: SerializeField] public int VioletOreCount { get; private set; }
+        [field: SerializeField] public Transform VioletOre { get; private set; }
+        [field: SerializeField] public Vector3 VioletOffset { get; private set; }
+
         
+
         public TileBase GetTile(TileType _type) {
             if (_type == TileType.AIR)
                 return null;

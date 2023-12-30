@@ -1,13 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace DD {
     public sealed class GameObservable : MonoBehaviour {
         private bool mIsStarted = false;
+        
         private List<ILifecycleListener> mListeners = new();
         private Queue<ILifecycleListener> mAddingQueue = new();
         private Queue<ILifecycleListener> mRemoveQueue = new();
+
+        private DiContainer mDiContainer;
+
+        [Inject]
+        public void Construct(DiContainer _diContainer) {
+            mDiContainer = _diContainer;
+        }
+
 
         public void AddListener(ILifecycleListener listener) {
             if (!mIsStarted) {
@@ -28,6 +38,21 @@ namespace DD {
             }
 
             mRemoveQueue.Enqueue(listener);
+        }
+
+        public Transform CreateInstance(Transform _transform, Vector3 _position, Quaternion _rotation, Transform _parent) {
+            var clone = mDiContainer.InstantiatePrefab(
+                _transform.gameObject,
+                _position,
+                _rotation,
+                _parent
+            );
+
+            foreach (var behavior in clone.GetComponents<MonoBehaviour>())
+                if (behavior is ILifecycleListener listener)
+                    AddListener(listener);
+
+            return clone.transform;
         }
 
         // ========================================================//

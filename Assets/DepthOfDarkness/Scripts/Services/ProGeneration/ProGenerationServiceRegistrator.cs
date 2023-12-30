@@ -1,14 +1,9 @@
 using Zenject;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace DD.Game.ProGeneration {
     public sealed class ProGenerationServiceRegistrator : MonoBehaviour {
-        [SerializeField] private ProGenerationParams mParams;
-
-        [SerializeField] private Tilemap mForeground;
-        [SerializeField] private Tilemap mBackground;
-
+        [SerializeField] private ProGeneration mInstance;
         private SceneManagement mSceneManagement;
 
         [Inject]
@@ -17,7 +12,7 @@ namespace DD.Game.ProGeneration {
         }
 
         public void Awake() {
-            mSceneManagement.AddPreloadService(new ProGeneration(mBackground, mForeground, mParams));
+            mSceneManagement.AddPreloadService(mInstance);
         }
     }
 }

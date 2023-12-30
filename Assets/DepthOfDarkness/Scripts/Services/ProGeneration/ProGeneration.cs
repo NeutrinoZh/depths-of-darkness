@@ -1,37 +1,71 @@
 using UnityEngine.Tilemaps;
 using Unity.Mathematics;
 using UnityEngine;
-
 using Zenject;
 
 namespace DD.Game.ProGeneration {
-    public class ProGeneration : IPreloadService {
-        private readonly Vector3Int mStartPosition = new(0, 0);
+    public class ProGeneration : MonoBehaviour, IPreloadService {
+        private readonly Vector3Int mStartPosition = new(32, 0);
 
-        private Tilemap mBackground;
-        private Tilemap mForeground;
+        // Params 
+        [SerializeField] private ProGenerationParams mParams;
+        
+        // Tilemaps
+        [SerializeField] private Tilemap mBackground;
+        [SerializeField] private Tilemap mForeground;
 
-        private ProGenerationParams mParams;
+        // 
+        [SerializeField] private Transform mOreParent;
+
+        // dependencies
+        private GameObservable mGameObservable;
 
         [Inject]
-        public ProGeneration(Tilemap _background, Tilemap _foreground, ProGenerationParams _params) {
-            mBackground = _background;
-            mForeground = _foreground;
-            mParams = _params;
+        public void Consturct(GameObservable _gameObservable) {
+            mGameObservable = _gameObservable;
         }
 
         void IPreloadService.Execute() {
             Background();
             Foreground();
+            AddOre();
         }
 
+        //=======================================================//
+        // Ore
+
+        private void AddOre() {
+            for (int i = 0; i < mParams.VioletOreCount; ++i) {
+                Vector3Int randPosition = new(0, 0, 0);
+                int j = 0;
+
+                do {
+                    randPosition.x = UnityEngine.Random.Range(1, mParams.Size.x - 1);
+                    randPosition.y = UnityEngine.Random.Range(1, mParams.Size.y - 1);
+                    j += 1;
+                } while (mForeground.GetTile(randPosition) != null && j < 1000);
+                
+                if (j >= 1000) {
+                    Debug.LogError("impossible to place ore");
+                    return;
+                }
+
+                Vector3 position = randPosition;
+                mGameObservable.CreateInstance(
+                    mParams.VioletOre,
+                    position * 0.5f + mParams.VioletOffset,
+                    Quaternion.identity,
+                    mOreParent
+                );
+            }
+        }
 
         //=======================================================//
         // Foreground
 
         private void Foreground() {
             TileType[,] map = new TileType[mParams.Size.x, mParams.Size.y];
-             for (int i = 0; i < mParams.Size.x; ++i)
+            for (int i = 0; i < mParams.Size.x; ++i)
                 for (int j = 0; j < mParams.Size.y; ++j)
                     map[i, j] = TileType.WALL;
 
@@ -39,7 +73,7 @@ namespace DD.Game.ProGeneration {
             Vector3Int max = new(mParams.Size.x - 2, mParams.Size.y - 2);
 
             Vector3Int startPosition = mStartPosition;
-            int n = 0;
+            int n = 0, it = 0;
             while (n < mParams.Capacity) {
                 if (map[startPosition.x, startPosition.y] == TileType.WALL)
                     n += 1;
@@ -65,6 +99,12 @@ namespace DD.Game.ProGeneration {
                 }
 
                 startPosition.Clamp(min, max);
+
+                ++it;
+                if (it > 1000) {
+                    Debug.LogError("impossible to generate dungeon");
+                    break;
+                }
             }   
 
             for (int i = -mParams.BorderWidth; i < mParams.Size.x + mParams.BorderWidth; ++i)

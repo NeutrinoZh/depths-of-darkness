@@ -19,3 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f1490cf59b6b9cfd591a9387ff6ee10a, type: 2}
   <Capacity>k__BackingField: 4096
   <BorderWidth>k__BackingField: 20
+  <VioletOreCount>k__BackingField: 25
+  <VioletOre>k__BackingField: {fileID: 713227961600720001, guid: b8576a445d0a7368aa3a0bf38b8299ea, type: 3}
+  <VioletOffset>k__BackingField: {x: 0.1, y: 0.1, z: 0}

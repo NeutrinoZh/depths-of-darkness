@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInput))]
     public sealed class MovementController : MonoBehaviour, ILifecycleListener {
         private MovementState mState;
