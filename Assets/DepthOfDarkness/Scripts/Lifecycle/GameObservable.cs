@@ -55,6 +55,16 @@ namespace DD {
             return clone.transform;
         }
 
+        public void DestroyInstance(Transform _transform) {
+            foreach (var behavior in _transform.GetComponents<MonoBehaviour>())
+                if (behavior is ILifecycleListener listener) {
+                    listener.OnFinish();
+                    RemoveListener(listener);
+                }
+            
+            Destroy(_transform.gameObject);
+        } 
+
         // ========================================================//
         
         public void Run() {
