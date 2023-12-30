@@ -74,6 +74,8 @@ namespace DD.Game.ProGeneration {
 
             Vector3Int startPosition = mStartPosition;
             int n = 0, it = 0;
+            const int maxIt = 1000000;
+
             while (n < mParams.Capacity) {
                 if (map[startPosition.x, startPosition.y] == TileType.WALL)
                     n += 1;
@@ -101,7 +103,7 @@ namespace DD.Game.ProGeneration {
                 startPosition.Clamp(min, max);
 
                 ++it;
-                if (it > 1000) {
+                if (it > maxIt) {
                     Debug.LogError("impossible to generate dungeon");
                     break;
                 }
