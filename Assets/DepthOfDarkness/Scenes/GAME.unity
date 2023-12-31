@@ -140495,6 +140495,30 @@ PrefabInstance:
       propertyPath: m_text
       value: '{n}/10'
       objectReference: {fileID: 0}
+    - target: {fileID: 769285850633077732, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 769285850633077732, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f26fdde68f0132f878f8f13961954562, type: 2}
+    - target: {fileID: 769285850633077732, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769285850633077732, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 769285850633077732, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5185710623683251627, guid: f26fdde68f0132f878f8f13961954562, type: 2}
+    - target: {fileID: 769285850633077732, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1095854106340380079, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
       propertyPath: m_Name
       value: Trolley
@@ -140511,30 +140535,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1804011385}
-    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
-      propertyPath: mSprites.Array.size
-      value: 5
+    - target: {fileID: 9174946050754406663, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.49
       objectReference: {fileID: 0}
-    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
-      propertyPath: mSprites.Array.data[0]
-      value: 
-      objectReference: {fileID: -1620284755, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
-      propertyPath: mSprites.Array.data[1]
-      value: 
-      objectReference: {fileID: 2002360903, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
-      propertyPath: mSprites.Array.data[2]
-      value: 
-      objectReference: {fileID: 233684932, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
-      propertyPath: mSprites.Array.data[3]
-      value: 
-      objectReference: {fileID: 1237599543, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-    - target: {fileID: 4835295458076981053, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}
-      propertyPath: mSprites.Array.data[4]
-      value: 
-      objectReference: {fileID: 1130052556, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 633189458163733668, guid: 6fa5ca318dbbbc02b9428afab8a2783e, type: 3}

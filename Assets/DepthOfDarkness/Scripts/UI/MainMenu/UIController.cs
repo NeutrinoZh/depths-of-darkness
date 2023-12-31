@@ -1,27 +1,38 @@
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
 namespace DD.MainMenu {
     public sealed class UIController : MonoBehaviour, ILifecycleListener {
-        private SceneManagement sceneManagement;
-        private UIView view;
+        [SerializeField] private Transform mWorld;
+        [SerializeField] private float mCartAnimationDuration = 3;
+
+        private SceneManagement mSceneManagement;
+        private UIView mView;
 
         [Inject]
         public void Construct(SceneManagement _sceneManagement) {
-            sceneManagement =_sceneManagement;
-            view = GetComponent<UIView>();
+            mSceneManagement =_sceneManagement;
+            mView = GetComponent<UIView>();
         }
 
         void ILifecycleListener.OnStart() {
-            view.OnClickPlay += Play;
+            mView.OnClickCartLabel += StartCartAnimation;
+            mView.OnClickPlay += Play;
         }
 
         void ILifecycleListener.OnFinish() {
-            view.OnClickPlay -= Play;
+            mView.OnClickCartLabel -= StartCartAnimation;
+            mView.OnClickPlay -= Play;
+        }
+
+        private void StartCartAnimation() {
+            mView.StartUIAnimation();
+            mWorld.DOMoveX(-10, mCartAnimationDuration);
         }
 
         private void Play() {
-            sceneManagement.LoadScene(SceneList.GAME);
+            mSceneManagement.LoadScene(SceneList.GAME);
         }
     }
 }

@@ -5,3 +5,12 @@ Button {
 Button:hover {
     background-image: url('project://database/Assets/DepthOfDarkness/Textures/UI/MainMenu/btn_red_hover.png?fileID=2800000&guid=262367b8f491e28c1b2c9571bb475ddf&type=3#btn_red_hover');
 }
+
+#RootDiv {
+    left: 200%;
+    transition: left 12s ease-in;
+}
+
+#RootDiv.animate {
+    left: 0;
+}
