@@ -1,3 +1,5 @@
+using DD.Game;
+using DD.Game.Multiplayer;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
@@ -8,31 +10,100 @@ namespace DD.MainMenu {
         [SerializeField] private float mCartAnimationDuration = 3;
 
         private SceneManagement mSceneManagement;
-        private UIView mView;
+
+        [SerializeField] private MainMenuView mMainPage;
+        [SerializeField] private MultiplayerMenuView mMultiplayerPage;
+        [SerializeField] private JoinMenuView mJoinPage;
+
+        private IPage mActivePage = null;
 
         [Inject]
         public void Construct(SceneManagement _sceneManagement) {
             mSceneManagement =_sceneManagement;
-            mView = GetComponent<UIView>();
         }
 
+        //======================================================//
+
         void ILifecycleListener.OnStart() {
-            mView.OnClickCartLabel += StartCartAnimation;
-            mView.OnClickPlay += Play;
+            ActivatePage(mMainPage);
+
+            // Main menu
+            mMainPage.OnClickCartLabel += StartCartAnimation;
+            mMainPage.OnClickPlay += PlaySolo;
+            mMainPage.OnClickOnline += ToMultipalyerPage;
+
+            // Multipalyer menu
+            mMultiplayerPage.OnClickHost += Host;
+            mMultiplayerPage.OnClickBack += ToMainMenuPage;
+            mMultiplayerPage.OnClickJoin += ToJoinPage;
+
+            // Join menu
+            mJoinPage.OnClickJoin += Join;
+            mJoinPage.OnClickBack += ToMultipalyerPage;
         }
 
         void ILifecycleListener.OnFinish() {
-            mView.OnClickCartLabel -= StartCartAnimation;
-            mView.OnClickPlay -= Play;
+
+            // Main menu
+            mMainPage.OnClickCartLabel -= StartCartAnimation;
+            mMainPage.OnClickPlay -= PlaySolo;
+            mMainPage.OnClickOnline -= ToMultipalyerPage;
+        
+            // Multipalyer menu
+            mMultiplayerPage.OnClickBack -= ToMainMenuPage;
+            mMultiplayerPage.OnClickJoin -= ToJoinPage;
+            mMultiplayerPage.OnClickHost -= Host;
+
+            // Join menu
+            mJoinPage.OnClickBack -= ToMultipalyerPage;
+            mJoinPage.OnClickJoin -= Join;
         }
 
+        //======================================================//
+        // Navigation
+
+        // activate one page
+        private void ActivatePage(IPage _page) {
+            if (mActivePage != null)
+                mActivePage.Unactivate();
+
+            mActivePage = _page;
+            mActivePage.Activate();
+        }
+
+        //
+
+        private void ToMultipalyerPage() {
+            ActivatePage(mMultiplayerPage);            
+        }
+
+        private void ToJoinPage() {
+            ActivatePage(mJoinPage);
+        }
+
+        private void ToMainMenuPage() {
+            ActivatePage(mMainPage);
+        }
+
+        
+        //======================================================//
+
         private void StartCartAnimation() {
-            mView.StartUIAnimation();
+            mMainPage.StartUIAnimation();
             mWorld.DOMoveX(-10, mCartAnimationDuration);
         }
 
-        private void Play() {
+        private void PlaySolo() {
             mSceneManagement.LoadScene(SceneList.GAME);
+        }
+
+        private async void Host() {
+            var joinCode = await RelayControll.StartHostWithRelay();
+            Debug.Log(joinCode);
+        }
+
+        private async void Join() {
+            await RelayControll.StartClientWithRelay(mJoinPage.RoomCode);
         }
     }
 }
