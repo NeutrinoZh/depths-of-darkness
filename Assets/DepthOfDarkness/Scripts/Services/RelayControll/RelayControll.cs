@@ -10,9 +10,14 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 
-namespace DD.Game.Multiplayer {
+namespace DD.Multiplayer {
     public static class RelayControll {
+        const bool LOCAL = true; 
+
         public static async Task<bool> StartClientWithRelay(string _roomCode) {
+            if (LOCAL)
+                return NetworkManager.Singleton.StartClient();
+
             await UnityServices.InitializeAsync();
             if (!AuthenticationService.Instance.IsSignedIn) 
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -23,6 +28,9 @@ namespace DD.Game.Multiplayer {
         }
 
         public static async Task<string> StartHostWithRelay(int maxConnections=4) {
+            if (LOCAL)
+                return NetworkManager.Singleton.StartHost() ? "local" : null;
+
             await UnityServices.InitializeAsync();
             if (!AuthenticationService.Instance.IsSignedIn)
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,52 +14,55 @@ namespace DD {
         private const string LOADING_SCREEN = "LOADING_SCREEN";
 
         private bool mLoading;
-        private Scene mLastScene;
         private SceneList mToLoadScene;
 
         private List<IPreloadService> mPreloadServices = new();
-
-        public delegate void MiddlewareOnSceneLoad(Action continueLoading);
-        public MiddlewareOnSceneLoad Middleware;
 
         public GameObservable GameObservable { get; set; }
 
         public void LoadScene(SceneList _scene) {
             if (mLoading)
                 return;
-            
+            mLoading = true;
             mToLoadScene = _scene;
-            mLastScene = SceneManager.GetActiveScene();
+                
+          //  NetworkManager.Singleton.SceneManager.LoadScene(LOADING_SCREEN, LoadSceneMode.Additive);
+          //  NetworkManager.Singleton.SceneManager.OnLoadComplete += OnLoadingScreenLoaded;
+        
+            var proccess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Single);
+            proccess.completed += OnLoadingScreenLoaded;
+        }
+
+        public void Join(string _joinCode) {
+            if (mLoading)
+                return;
             mLoading = true;
 
-            var loadProcess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Additive);
-            loadProcess.completed += OnLoadingScreenLoaded;
+            var proccess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Single);
+            proccess.completed += _ => StartClient(_joinCode);
         }
 
-        private void ContinueLoad() {
-            var loadProcess = SceneManager.LoadSceneAsync(mToLoadScene.ToString(), LoadSceneMode.Additive);
-            loadProcess.completed += OnSceneLoaded;
+        private async void StartClient(string _joinCode) {
+            await Multiplayer.RelayControll.StartClientWithRelay(_joinCode);
         }
 
-        private void OnLoadingScreenLoaded(AsyncOperation _operation) {
-            var unloadProcess = SceneManager.UnloadSceneAsync(mLastScene);
-            unloadProcess.completed += OnSceneUnloaded;
+        private async void OnLoadingScreenLoaded(AsyncOperation _) {
+            var joinCode = await Multiplayer.RelayControll.StartHostWithRelay();
+            Debug.Log(joinCode);
+
+            NetworkManager.Singleton.SceneManager.LoadScene(mToLoadScene.ToString(), LoadSceneMode.Additive);
+            NetworkManager.Singleton.SceneManager.OnLoadComplete += OnSceneLoaded;
         }
 
-        private void OnSceneUnloaded(AsyncOperation _operation) {
-            if (Middleware != null) {
-                Middleware.Invoke(ContinueLoad);
-            } else {
-                ContinueLoad();
-            }
-        }
-
-        private void OnSceneLoaded(AsyncOperation _operation) {
+        private void OnSceneLoaded(ulong _clientId, string _sceneName, LoadSceneMode _loadSceneMode) {
+            if (_clientId != 0)
+                return;
+            
             foreach (var service in mPreloadServices)
                 service.Execute();
 
             mLoading = false;
-            SceneManager.UnloadSceneAsync(LOADING_SCREEN);
+            NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(LOADING_SCREEN));
             
             if (GameObservable != null)
                 GameObservable.Run();

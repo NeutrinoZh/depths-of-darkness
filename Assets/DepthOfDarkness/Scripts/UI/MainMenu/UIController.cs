@@ -1,5 +1,3 @@
-using DD.Game;
-using DD.Game.Multiplayer;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
@@ -97,13 +95,12 @@ namespace DD.MainMenu {
             mSceneManagement.LoadScene(SceneList.GAME);
         }
 
-        private async void Host() {
-            var joinCode = await RelayControll.StartHostWithRelay();
-            Debug.Log(joinCode);
+        private void Host() {
+            mSceneManagement.LoadScene(SceneList.GAME);
         }
 
-        private async void Join() {
-            await RelayControll.StartClientWithRelay(mJoinPage.RoomCode);
+        private void Join() {
+            mSceneManagement.Join(mJoinPage.RoomCode);
         }
     }
 }
