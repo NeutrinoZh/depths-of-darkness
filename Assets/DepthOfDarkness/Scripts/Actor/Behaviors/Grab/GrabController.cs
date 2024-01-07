@@ -8,6 +8,7 @@ namespace DD.Game {
         //=======================================//
         
         // internal members 
+        readonly Vector3 mGrabbedScale = new(0.5f, 0.5f, 1);
         const string mGrabbableTag = "Grabbable";
         const int mPickedSpriteOrder = 3;
         private Pickable mGrabbed = null;
@@ -69,7 +70,7 @@ namespace DD.Game {
             //
             mGrabbed.transform.parent = mGrabPoint;
             mGrabbed.transform.localPosition = Vector3.zero;
-            mGrabbed.transform.localScale = new(0.8f, 0.8f, 1);
+            mGrabbed.transform.localScale = mGrabbedScale;
         }
 
         private void Drop() {
@@ -82,7 +83,7 @@ namespace DD.Game {
             
             //
             mGrabbed.transform.parent = null;
-            mGrabbed.transform.localScale = new(1, 1, 1);
+            mGrabbed.transform.localScale = Vector3.one;
 
             mGrabbed = null;
         }

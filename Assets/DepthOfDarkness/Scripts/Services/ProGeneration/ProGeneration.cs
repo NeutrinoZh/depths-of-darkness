@@ -3,6 +3,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
+using Random = Unity.Mathematics.Random;
+
 namespace DD.Game.ProGeneration {
     public class ProGeneration : MonoBehaviour, IPreloadService {
         private readonly Vector3Int mStartPosition = new(32, 0);
@@ -17,12 +19,17 @@ namespace DD.Game.ProGeneration {
         // 
         [SerializeField] private Transform mOreParent;
 
+        // props 
+        private const uint RANDOM_SEED = 456453;
+        private Random mRandom;
+
         // dependencies
         private GameObservable mGameObservable;
 
         [Inject]
         public void Consturct(GameObservable _gameObservable) {
             mGameObservable = _gameObservable;
+            mRandom = Random.CreateFromIndex(RANDOM_SEED);
         }
 
         void IPreloadService.Execute() {
@@ -40,8 +47,8 @@ namespace DD.Game.ProGeneration {
                 int j = 0;
 
                 do {
-                    randPosition.x = UnityEngine.Random.Range(1, mParams.Size.x - 1);
-                    randPosition.y = UnityEngine.Random.Range(1, mParams.Size.y - 1);
+                    randPosition.x = mRandom.NextInt(1, mParams.Size.x - 1);
+                    randPosition.y = mRandom.NextInt(1, mParams.Size.y - 1);
                     j += 1;
                 } while (mForeground.GetTile(randPosition) != null && j < 1000);
                 
@@ -82,7 +89,7 @@ namespace DD.Game.ProGeneration {
 
                 map[startPosition.x, startPosition.y] = TileType.AIR;
 
-                int rand = UnityEngine.Random.Range(0, 4);
+                int rand = mRandom.NextInt(4);
                 switch (rand) {
                     case 0:
                         startPosition.x += 1;

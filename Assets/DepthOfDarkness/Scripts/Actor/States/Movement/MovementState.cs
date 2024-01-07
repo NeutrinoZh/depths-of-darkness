@@ -15,7 +15,7 @@ namespace DD.Game {
 
         // Props 
 
-        public float MoveSpeed => 2.5f;
+        public float MoveSpeed => 2f;
         public bool IsStay => !IsMove;
 
         /// <summary>
