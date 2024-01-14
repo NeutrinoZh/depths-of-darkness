@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace DD.Game {
-    public class PlayerProxy : NetworkBehaviour {
+    public class PlayerProxy : NetworkBehaviour, ILifecycleListener {
         [SerializeField] private GameObject mPlayerPrefab;        
         private GameObservable mGameObservable;
         private Transform mPlayersParent;
@@ -14,20 +14,19 @@ namespace DD.Game {
             mPlayersParent = _worldManager.Players;
         }
 
-        private void Start() {
-            NetworkManager.Singleton.SceneManager.OnSynchronizeComplete += (ulong _clientId) => {
-                CreatePlayerServerRpc();
-            };
+        void ILifecycleListener.OnInit() {
+            CreatePlayerServerRpc(OwnerClientId);
         }
 
-        [ServerRpc] private void CreatePlayerServerRpc() {
+        [ServerRpc] private void CreatePlayerServerRpc(ulong _clientId) {
+            Debug.Log($"Invoked create player: {mGameObservable}, {mPlayersParent}");
             var player = mGameObservable.CreateInstance(
                 mPlayerPrefab.transform,
                 mPlayersParent.position, mPlayersParent.rotation,
                 mPlayersParent
             ).GetComponent<NetworkObject>();
             
-            player.Spawn();
+            player.SpawnAsPlayerObject(_clientId);
         }
     }
 }

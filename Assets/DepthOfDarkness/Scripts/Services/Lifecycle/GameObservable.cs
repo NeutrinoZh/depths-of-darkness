@@ -89,6 +89,7 @@ namespace DD {
             }
 
             while (mAddingQueue.TryDequeue(out var listener)) {
+                listener.OnInit();
                 listener.OnStart();
                 mListeners.Add(listener);
             }
