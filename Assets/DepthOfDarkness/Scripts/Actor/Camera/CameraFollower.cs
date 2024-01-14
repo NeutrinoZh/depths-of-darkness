@@ -1,10 +1,16 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace DD.Game {
     public class CameraFollower : MonoBehaviour, ILifecycleListener {
-        [SerializeField] private Transform mTarget;
+        private Transform mTarget;
         
         const float mCameraSpeed = 30f; 
+
+        void ILifecycleListener.OnStart() {
+            // TODO: don't use singlton here. mTarget may be something other then player 
+            mTarget = NetworkManager.Singleton.LocalClient.PlayerObject.transform;
+        }
 
         void ILifecycleListener.OnUpdate() {
             if (!mTarget)
