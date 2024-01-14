@@ -16,7 +16,7 @@ namespace DD.Game  {
 
         private Light2D mLight = null;
 
-        void ILifecycleListener.OnStart() {
+        private void Awake() {
             mLight = GetComponent<Light2D>();
             Assert.AreNotEqual(mLight, null);
 
@@ -39,6 +39,7 @@ namespace DD.Game  {
                 )
                 .SetEase(mEase)
                 .SetLoops(-1, LoopType.Yoyo);
+                
         }
     }
 }
