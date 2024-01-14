@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 1008830599261362758}
   - component: {fileID: 5945083072822683777}
   - component: {fileID: 6542718112824645724}
+  - component: {fileID: 7770304567900317192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -273239097, guid: cec809a61d738470280e819921a4ebc6, type: 3}
+  m_Sprite: {fileID: 401566302, guid: cec809a61d738470280e819921a4ebc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -254,6 +255,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdadee43649949e999d7fdb2ae41401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7770304567900317192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &6916901749598721570
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,10 @@ namespace DD.Game {
         const float mCameraSpeed = 30f; 
 
         void ILifecycleListener.OnUpdate() {
-            Vector3 direction = (mTarget.position - transform.position).normalized * mCameraSpeed * Time.deltaTime;
+            if (!mTarget)
+                return;
+            
+            Vector3 direction = mCameraSpeed * Time.deltaTime * (mTarget.position - transform.position).normalized;
             direction.z = 0;
             transform.position += direction;
         } 
