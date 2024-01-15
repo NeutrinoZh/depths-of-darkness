@@ -9,7 +9,7 @@ namespace DD.Game {
             mInput = new();
             mInput.Enable();
         }
-        
+
         void ILifecycleListener.OnInit() {
 
         }
