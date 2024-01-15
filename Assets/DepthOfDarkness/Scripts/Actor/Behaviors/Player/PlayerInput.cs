@@ -5,12 +5,13 @@ namespace DD.Game {
         private Input.PlayerInput mInput;
         public Input.PlayerInput Input => mInput;
 
-        void ILifecycleListener.OnInit() {
+        private void Awake() {
             mInput = new();
-        }
-
-        void ILifecycleListener.OnStart() {
             mInput.Enable();
+        }
+        
+        void ILifecycleListener.OnInit() {
+
         }
 
         void ILifecycleListener.OnFinish() {
