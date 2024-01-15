@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TimeIsLife.sln"
+    "dotnet.defaultSolution": "depths-of-darkness.sln",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
 }
