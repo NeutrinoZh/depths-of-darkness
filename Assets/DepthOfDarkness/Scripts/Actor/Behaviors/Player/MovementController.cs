@@ -38,8 +38,10 @@ namespace DD.Game {
 
         private void Move(Vector2 _direction) {
             Vector3 velocity =
-                _direction * mState.MoveSpeed;            
-            mRd.velocity = velocity;
+                _direction * mState.MoveSpeed;
+
+            if (mRd != null)
+                mRd.velocity = velocity;
         }
     }
 }

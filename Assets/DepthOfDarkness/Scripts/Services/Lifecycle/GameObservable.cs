@@ -77,7 +77,7 @@ namespace DD {
                 listener.OnStart();
         }
 
-        private void Update() {
+        private void FixedUpdate() {
             if (!m_isStarted)
                 return;
 
@@ -91,11 +91,6 @@ namespace DD {
                 listener.OnStart();
                 m_listeners.Add(listener);
             }
-        }
-
-        private void FixedUpdate() {
-            if (!m_isStarted)
-                return;
 
             foreach (var listener in m_listeners)
                 listener.OnUpdate();
