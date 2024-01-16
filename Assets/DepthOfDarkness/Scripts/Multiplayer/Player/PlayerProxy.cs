@@ -1,10 +1,12 @@
 using Unity.Netcode;
+
 using UnityEngine;
+
 using Zenject;
 
 namespace DD.Game {
     public class PlayerProxy : NetworkBehaviour, ILifecycleListener {
-        [SerializeField] private GameObject mPlayerPrefab;        
+        [SerializeField] private GameObject mPlayerPrefab;
         private GameObservable mGameObservable;
         private Transform mPlayersParent;
 
@@ -18,14 +20,14 @@ namespace DD.Game {
             CreatePlayerServerRpc(OwnerClientId);
         }
 
-        [ServerRpc] private void CreatePlayerServerRpc(ulong _clientId) {
-            Debug.Log($"Invoked create player: {mGameObservable}, {mPlayersParent}");
+        [ServerRpc]
+        private void CreatePlayerServerRpc(ulong _clientId) {
             var player = mGameObservable.CreateInstance(
                 mPlayerPrefab.transform,
                 mPlayersParent.position, mPlayersParent.rotation,
                 mPlayersParent
             ).GetComponent<NetworkObject>();
-            
+
             player.SpawnAsPlayerObject(_clientId);
         }
     }
