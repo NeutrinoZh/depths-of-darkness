@@ -1,12 +1,8 @@
 namespace DD {
     public interface ILifecycleListener {
-        public void OnInit() {}
-        public void OnStart() {}
-        public void OnUpdate() {}
-        public void OnFixed() {}
-        public void OnFinish() {}
-
-        public void OnPause() {}
-        public void OnResume() {} 
+        public void OnInit() { }
+        public void OnStart() { }
+        public void OnUpdate() { }
+        public void OnFinish() { }
     }
 }

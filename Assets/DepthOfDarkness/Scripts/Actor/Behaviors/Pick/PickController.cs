@@ -1,7 +1,9 @@
 
 using System;
+
 using UnityEngine;
 using UnityEngine.Assertions;
+
 using Zenject;
 
 namespace DD.Game {
@@ -31,14 +33,12 @@ namespace DD.Game {
         //============================================================//
 
         public Action<Pickable> OnPickEvent = null;
-        
+
         //============================================================//
 
-        void ILifecycleListener.OnFixed() {
+        void ILifecycleListener.OnUpdate() {
             mFinderNearPickables.Find();
         }
-
-        //============================================================//
 
         void ILifecycleListener.OnStart() {
             mInput.Input.Player.Pick.performed += _ => HandActionHandle();
@@ -52,5 +52,7 @@ namespace DD.Game {
             OnPickEvent?.Invoke(NearPickables.Nearest);
             mFinderNearPickables.Find();
         }
+
+        //============================================================//
     }
 }

@@ -12,8 +12,8 @@ namespace DD.Game {
             Assert.AreNotEqual(mFinderNearPickables, null);
         }
 
-        void ILifecycleListener.OnFixed() {
-            ChangeShadersOnPickables();   
+        void ILifecycleListener.OnUpdate() {
+            ChangeShadersOnPickables();
         }
 
         private void ChangeShadersOnPickables() {

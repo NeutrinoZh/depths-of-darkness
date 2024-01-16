@@ -1,18 +1,18 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace DD.Game {
     public sealed class FinderNearPickables {
-
-        private PickablesRegister mPickableRegister = null;
-        private Transform mPicker = null;
+        private readonly PickablesRegister m_pickableRegister = null;
+        private readonly Transform m_picker = null;
 
         //==============================================================//
 
         private const float mPickSqrRadius = 0.7f;
 
-        private List<Pickable> mPickablesInRadius = new();
-        private List<Pickable> mPickablesOutRadius = new();
+        private readonly List<Pickable> mPickablesInRadius = new();
+        private readonly List<Pickable> mPickablesOutRadius = new();
 
         private Pickable mNearest = null;
 
@@ -25,12 +25,12 @@ namespace DD.Game {
         //==============================================================//
 
         public FinderNearPickables(Transform _picker, PickablesRegister _register) {
-            mPicker = _picker;
-            mPickableRegister = _register;
+            m_picker = _picker;
+            m_pickableRegister = _register;
         }
 
         public void Find() {
-            var pickables = mPickableRegister.Pickables;
+            var pickables = m_pickableRegister.Pickables;
 
             Pickable nearPickable = null;
             float nearDistance = float.MaxValue;
@@ -39,7 +39,7 @@ namespace DD.Game {
             mPickablesOutRadius.Clear();
 
             foreach (var item in pickables) {
-                var sqrDistance = (mPicker.position - item.transform.position).sqrMagnitude;
+                var sqrDistance = (m_picker.position - item.transform.position).sqrMagnitude;
 
                 if (sqrDistance < nearDistance) {
                     nearDistance = sqrDistance;
@@ -48,8 +48,8 @@ namespace DD.Game {
 
                 if (sqrDistance < mPickSqrRadius)
                     mPickablesInRadius.Add(item);
-                else 
-                    mPickablesOutRadius.Add(item);                
+                else
+                    mPickablesOutRadius.Add(item);
             }
 
             mNearest = nearDistance > mPickSqrRadius ? null : nearPickable;

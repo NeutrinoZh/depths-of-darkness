@@ -25,7 +25,7 @@ namespace DD.MainMenu {
 
         // internal states 
 
-        private IPage m_ActivePage = null;
+        private IPage m_activePage = null;
 
         //======================================================//
 
@@ -69,11 +69,11 @@ namespace DD.MainMenu {
 
         // activate one page
         private void ActivatePage(IPage _page) {
-            if (m_ActivePage != null)
-                m_ActivePage.Unactivate();
+            if (m_activePage != null)
+                m_activePage.Unactivate();
 
-            m_ActivePage = _page;
-            m_ActivePage.Activate();
+            m_activePage = _page;
+            m_activePage.Activate();
         }
 
         //

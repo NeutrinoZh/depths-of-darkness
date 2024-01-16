@@ -1,47 +1,47 @@
-using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
 using Zenject;
 
 namespace DD {
     public sealed class GameObservable : MonoBehaviour {
-        private bool mIsStarted = false;
-        
-        private List<ILifecycleListener> mListeners = new();
-        private Queue<ILifecycleListener> mAddingQueue = new();
-        private Queue<ILifecycleListener> mRemoveQueue = new();
+        private bool m_isStarted = false;
 
-        private DiContainer mDiContainer;
+        private readonly List<ILifecycleListener> m_listeners = new();
+        private readonly Queue<ILifecycleListener> m_addingQueue = new();
+        private readonly Queue<ILifecycleListener> m_removeQueue = new();
+
+        private DiContainer m_diContainer;
 
         [Inject]
         public void Construct(DiContainer _diContainer) {
-            mDiContainer = _diContainer;
+            m_diContainer = _diContainer;
         }
 
-
-        public void AddListener(ILifecycleListener listener) {
-            if (!mIsStarted) {
-                mListeners.Add(listener);
+        public void AddListener(ILifecycleListener _listener) {
+            if (!m_isStarted) {
+                m_listeners.Add(_listener);
                 return;
             }
 
-            mAddingQueue.Enqueue(listener);
+            m_addingQueue.Enqueue(_listener);
         }
 
-        public void RemoveListener(ILifecycleListener listener) {
-            if (!mListeners.Contains(listener))
+        public void RemoveListener(ILifecycleListener _listener) {
+            if (!m_listeners.Contains(_listener))
                 return;
 
-            if (!mIsStarted) {
-                mListeners.Remove(listener);
+            if (!m_isStarted) {
+                m_listeners.Remove(_listener);
                 return;
             }
 
-            mRemoveQueue.Enqueue(listener);
+            m_removeQueue.Enqueue(_listener);
         }
 
         public Transform CreateInstance(Transform _transform, Vector3 _position, Quaternion _rotation, Transform _parent) {
-            var clone = mDiContainer.InstantiatePrefab(
+            var clone = m_diContainer.InstantiatePrefab(
                 _transform.gameObject,
                 _position,
                 _rotation,
@@ -61,61 +61,54 @@ namespace DD {
                     listener.OnFinish();
                     RemoveListener(listener);
                 }
-            
+
             Destroy(_transform.gameObject);
-        } 
+        }
 
         // ========================================================//
-        
+
         public void Run() {
-            mIsStarted = true;
-            
-            foreach (var listener in mListeners)
+            m_isStarted = true;
+
+            foreach (var listener in m_listeners)
                 listener.OnInit();
 
-            foreach (var listener in mListeners)
+            foreach (var listener in m_listeners)
                 listener.OnStart();
-            
-            StartCoroutine(OnFixedCorutine());
         }
 
         private void Update() {
-            if (!mIsStarted)
+            if (!m_isStarted)
                 return;
 
-            while (mRemoveQueue.TryDequeue(out var listener)) {
+            while (m_removeQueue.TryDequeue(out var listener)) {
                 listener.OnFinish();
-                mListeners.Remove(listener);
+                m_listeners.Remove(listener);
             }
 
-            while (mAddingQueue.TryDequeue(out var listener)) {
+            while (m_addingQueue.TryDequeue(out var listener)) {
                 listener.OnInit();
                 listener.OnStart();
-                mListeners.Add(listener);
+                m_listeners.Add(listener);
             }
+        }
 
-            foreach (var listener in mListeners)
+        private void FixedUpdate() {
+            if (!m_isStarted)
+                return;
+
+            foreach (var listener in m_listeners)
                 listener.OnUpdate();
         }
 
         private void OnDestroy() {
-            if (!mIsStarted)
+            if (!m_isStarted)
                 return;
 
-            foreach (var listener in mListeners)
+            foreach (var listener in m_listeners)
                 listener.OnFinish();
 
-            mIsStarted = false;
-        }
-
-        // ========================================================//
-
-        private IEnumerator OnFixedCorutine() {
-            while (true) {
-                foreach (var listener in mListeners)
-                    listener.OnFixed();
-                yield return new WaitForSecondsRealtime(0.1f);
-            }
+            m_isStarted = false;
         }
     }
 }
