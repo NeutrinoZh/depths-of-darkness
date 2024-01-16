@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 13151635}
   - component: {fileID: 13151636}
+  - component: {fileID: 13151637}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -171,11 +172,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0884e15e732ee7bb9438a42ff14609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mWorld: {fileID: 1030884187}
-  mCartAnimationDuration: 15
-  mMainPage: {fileID: 1811223970}
-  mMultiplayerPage: {fileID: 404216777}
-  mJoinPage: {fileID: 1861702431}
+  m_mainPage: {fileID: 1811223970}
+  m_multiplayerPage: {fileID: 404216777}
+  m_joinPage: {fileID: 1861702431}
+--- !u!114 &13151637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13151634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc2c6f25b480ec17963b9d7188195c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_world: {fileID: 1030884187}
+  m_cartAnimationDuration: 15
+  m_mainPage: {fileID: 1811223970}
 --- !u!1 &13260144
 GameObject:
   m_ObjectHideFlags: 0
