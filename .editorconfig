@@ -176,6 +176,8 @@ csharp_preserve_single_line_statements = true
 
 # Naming rules
 
+# Naming rules
+
 dotnet_naming_rule.types_and_namespaces_should_be_pascalcase.severity = suggestion
 dotnet_naming_rule.types_and_namespaces_should_be_pascalcase.symbols = types_and_namespaces
 dotnet_naming_rule.types_and_namespaces_should_be_pascalcase.style = pascalcase
@@ -216,21 +218,21 @@ dotnet_naming_rule.public_fields_should_be_pascalcase.severity = suggestion
 dotnet_naming_rule.public_fields_should_be_pascalcase.symbols = public_fields
 dotnet_naming_rule.public_fields_should_be_pascalcase.style = pascalcase
 
-dotnet_naming_rule.private_fields_should_be_camelcase.severity = suggestion
-dotnet_naming_rule.private_fields_should_be_camelcase.symbols = private_fields
-dotnet_naming_rule.private_fields_should_be_camelcase.style = m_camelcase
+dotnet_naming_rule.private_static_fields_should_be_m_camelcase.severity = suggestion
+dotnet_naming_rule.private_static_fields_should_be_m_camelcase.symbols = private_fields
+dotnet_naming_rule.private_static_fields_should_be_m_camelcase.style = m_camelcase
 
 dotnet_naming_rule.private_static_fields_should_be_s_camelcase.severity = suggestion
 dotnet_naming_rule.private_static_fields_should_be_s_camelcase.symbols = private_static_fields
 dotnet_naming_rule.private_static_fields_should_be_s_camelcase.style = s_camelcase
 
-dotnet_naming_rule.public_constant_fields_should_be_pascalcase.severity = suggestion
-dotnet_naming_rule.public_constant_fields_should_be_pascalcase.symbols = public_constant_fields
-dotnet_naming_rule.public_constant_fields_should_be_pascalcase.style = pascalcase
+dotnet_naming_rule.public_constant_fields_should_be_c_camelcase.severity = suggestion
+dotnet_naming_rule.public_constant_fields_should_be_c_camelcase.symbols = public_constant_fields
+dotnet_naming_rule.public_constant_fields_should_be_c_camelcase.style = c_camelcase
 
-dotnet_naming_rule.private_constant_fields_should_be_camelcase.severity = suggestion
-dotnet_naming_rule.private_constant_fields_should_be_camelcase.symbols = private_constant_fields
-dotnet_naming_rule.private_constant_fields_should_be_camelcase.style = camelcase
+dotnet_naming_rule.private_constant_fields_should_be_c_camelcase.severity = suggestion
+dotnet_naming_rule.private_constant_fields_should_be_c_camelcase.symbols = private_constant_fields
+dotnet_naming_rule.private_constant_fields_should_be_c_camelcase.style = c_camelcase
 
 dotnet_naming_rule.public_static_readonly_fields_should_be_pascalcase.severity = suggestion
 dotnet_naming_rule.public_static_readonly_fields_should_be_pascalcase.symbols = public_static_readonly_fields
@@ -331,7 +333,6 @@ dotnet_naming_symbols.local_functions.applicable_accessibilities = *
 dotnet_naming_symbols.local_functions.required_modifiers = 
 
 # Naming styles
-
 dotnet_naming_style.pascalcase.required_prefix = 
 dotnet_naming_style.pascalcase.required_suffix = 
 dotnet_naming_style.pascalcase.word_separator = 
@@ -361,3 +362,13 @@ dotnet_naming_style.s_camelcase.required_prefix = s_
 dotnet_naming_style.s_camelcase.required_suffix = 
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
+
+dotnet_naming_style.m_camelcase.required_prefix = m_
+dotnet_naming_style.m_camelcase.required_suffix = 
+dotnet_naming_style.m_camelcase.word_separator = 
+dotnet_naming_style.m_camelcase.capitalization = camel_case
+
+dotnet_naming_style.c_camelcase.required_prefix = c_
+dotnet_naming_style.c_camelcase.required_suffix = 
+dotnet_naming_style.c_camelcase.word_separator = 
+dotnet_naming_style.c_camelcase.capitalization = camel_case
