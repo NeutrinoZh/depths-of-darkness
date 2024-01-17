@@ -1,21 +1,16 @@
 using UnityEngine;
 
 namespace DD.Game {
-    public class PlayerInput : MonoBehaviour, ILifecycleListener {
-        private Input.PlayerInput mInput;
-        public Input.PlayerInput Input => mInput;
+    public class PlayerInput : MonoBehaviour {
+        public Input.PlayerInput Input { get; private set; }
 
         private void Awake() {
-            mInput = new();
-            mInput.Enable();
+            Input = new();
+            Input.Enable();
         }
 
-        void ILifecycleListener.OnInit() {
-
-        }
-
-        void ILifecycleListener.OnFinish() {
-            mInput.Disable();
+        private void OnDestroy() {
+            Input.Disable();
         }
     }
 }

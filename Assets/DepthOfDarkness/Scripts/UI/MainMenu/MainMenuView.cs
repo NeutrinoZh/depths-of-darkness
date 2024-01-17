@@ -4,35 +4,26 @@ using DG.Tweening;
 using System;
 
 namespace DD.MainMenu {
-    public sealed class MainMenuView : MonoBehaviour, ILifecycleListener, IPage {
+    public sealed class MainMenuView : MonoBehaviour, IPage {
         //===================================//
-        // EVENTS
+        // Events
         public Action OnClickPlay;
         public Action OnClickOnline;
         public Action OnClickCartLabel;
 
-        //=================================================//
-        // IPage
+        //===================================//
+        // Consts
 
-        void IPage.Activate() {
-            m_document.rootVisualElement.style.display = DisplayStyle.Flex;
-        }
+        const string c_playButtonName = "PlaySolo";
+        const string c_playOnlineButtonName = "PlayOnline";
+        const string c_cartLabelName = "CartLabel";
+        const string c_btnScreenName = "BtnScreen";
 
-        void IPage.Unactivate() {
-            m_document.rootVisualElement.style.display = DisplayStyle.None;
-        }
+        const string c_rootDivName = "RootDiv";
+        const string c_rootDivAnimateClass = "animate";
 
         //===================================//
-
-        const string C_playButtonName = "PlaySolo";
-        const string C_playOnlineButtonName = "PlayOnline";
-        const string C_cartLabelName = "CartLabel";
-        const string C_btnScreenName = "BtnScreen";
-
-        const string C_rootDivName = "RootDiv";
-        const string C_rootDivAnimateClass = "animate";
-
-        //===================================//
+        // Members 
 
         private UIDocument m_document;
 
@@ -44,17 +35,17 @@ namespace DD.MainMenu {
         private Button m_btnMultiplayer;
 
         //===================================//
-        // ILifecycleListener
+        // Lifecycle
 
-        void ILifecycleListener.OnInit() {
+        private void Awake() {
             // gettings 
             m_document = GetComponent<UIDocument>();
-            m_btnPlay = m_document.rootVisualElement.Query<Button>(C_playButtonName);
-            m_btnMultiplayer = m_document.rootVisualElement.Query<Button>(C_playOnlineButtonName);
-            m_btnScreen = m_document.rootVisualElement.Query(C_btnScreenName);
+            m_btnPlay = m_document.rootVisualElement.Query<Button>(c_playButtonName);
+            m_btnMultiplayer = m_document.rootVisualElement.Query<Button>(c_playOnlineButtonName);
+            m_btnScreen = m_document.rootVisualElement.Query(c_btnScreenName);
 
-            m_rootDiv = m_document.rootVisualElement.Query(C_rootDivName);
-            m_cartLabel = m_document.rootVisualElement.Query(C_cartLabelName);
+            m_rootDiv = m_document.rootVisualElement.Query(c_rootDivName);
+            m_cartLabel = m_document.rootVisualElement.Query(c_cartLabelName);
 
             // subscribes
             m_btnPlay.clicked += OnClickPlayHandle;
@@ -62,8 +53,7 @@ namespace DD.MainMenu {
             m_btnScreen.RegisterCallback<ClickEvent>(OnClickCartLabelHandle);
         }
 
-        void ILifecycleListener.OnStart() {
-            // animations
+        private void Start() {
             DOTween.To(
                 () => m_cartLabel.style.opacity.value,
                 x => m_cartLabel.style.opacity = x,
@@ -71,13 +61,14 @@ namespace DD.MainMenu {
             ).SetLoops(-1, LoopType.Yoyo);
         }
 
-        void ILifecycleListener.OnFinish() {
+        private void OnDestroy() {
             m_btnPlay.clicked -= OnClickPlayHandle;
             m_btnMultiplayer.clicked -= OnClickPlayOnlineHandle;
             m_btnScreen.UnregisterCallback<ClickEvent>(OnClickCartLabelHandle);
         }
 
         //===================================//
+        // Handlers
 
         private void OnClickCartLabelHandle(ClickEvent _event) {
             m_btnScreen.pickingMode = PickingMode.Ignore;
@@ -96,7 +87,21 @@ namespace DD.MainMenu {
 
         public void StartUIAnimation() {
             m_cartLabel.style.display = DisplayStyle.None;
-            m_rootDiv.AddToClassList(C_rootDivAnimateClass);
+            m_rootDiv.AddToClassList(c_rootDivAnimateClass);
         }
+
+        //===================================//
+        // IPage
+
+        void IPage.Activate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+
+        void IPage.Unactivate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.None;
+        }
+
+        //===================================//
+
     }
 }

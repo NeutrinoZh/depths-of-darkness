@@ -7,50 +7,53 @@ using UnityEngine.Assertions;
 using Zenject;
 
 namespace DD.Game {
-    public sealed class PickController : MonoBehaviour, ILifecycleListener {
-        //============================================================//
+    public sealed class PickController : MonoBehaviour {
 
-        private FinderNearPickables m_finderNearPickables = null;
+        //=====================================================//
+        // Events 
+        public Action<Pickable> OnPickEvent = null;
 
-        [Inject]
-        public void Consturct(PickablesRegister _register) {
-            m_finderNearPickables = new FinderNearPickables(transform, _register);
-        }
+        //=====================================================//
+        // Props
 
-        //============================================================//
+        public FinderNearPickables NearPickables { get; private set; } = null;
+
+        //=====================================================//
+        // Members 
 
         private PlayerInput m_input = null;
 
-        void ILifecycleListener.OnInit() {
+        //============================================================//
+        // Lifecycle 
+
+        [Inject]
+        public void Consturct(PickablesRegister _register) {
+            NearPickables = new FinderNearPickables(transform, _register);
+        }
+
+        private void Awake() {
             m_input = GetComponent<PlayerInput>();
             Assert.AreNotEqual(m_input, null);
         }
 
-        //============================================================//
-
-        public FinderNearPickables NearPickables => m_finderNearPickables;
-
-        //============================================================//
-
-        public Action<Pickable> OnPickEvent = null;
-
-        //============================================================//
-
-        void ILifecycleListener.OnUpdate() {
-            m_finderNearPickables.Find();
+        private void Update() {
+            NearPickables.Find();
         }
 
-        void ILifecycleListener.OnStart() {
+        private void Start() {
             m_input.Input.Player.Pick.performed += _ => HandActionHandle();
         }
 
-        void ILifecycleListener.OnFinish() {
+        private void OnDestroy() {
             m_input.Input.Player.Pick.performed -= _ => HandActionHandle();
         }
 
+        //============================================================//
+        // Handles 
+
         private void HandActionHandle() {
             OnPickEvent?.Invoke(NearPickables.Nearest);
-            m_finderNearPickables.Find();
+            NearPickables.Find();
         }
 
         //============================================================//

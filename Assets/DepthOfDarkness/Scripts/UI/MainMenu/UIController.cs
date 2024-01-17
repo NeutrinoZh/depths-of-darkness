@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 using Zenject;
 
 namespace DD.MainMenu {
-    public sealed class UIController : MonoBehaviour, ILifecycleListener {
+    public sealed class UIController : MonoBehaviour {
 
         // dependecies 
 
@@ -29,7 +29,7 @@ namespace DD.MainMenu {
 
         //======================================================//
 
-        void ILifecycleListener.OnStart() {
+        void Awake() {
             ActivatePage(m_mainPage);
 
             // Main menu
@@ -47,7 +47,7 @@ namespace DD.MainMenu {
             m_joinPage.OnClickBack += ToMultipalyerPage;
         }
 
-        void ILifecycleListener.OnFinish() {
+        void Update() {
 
             // Main menu
             m_mainPage.OnClickCartLabel -= m_trolleyAnimation.Play;

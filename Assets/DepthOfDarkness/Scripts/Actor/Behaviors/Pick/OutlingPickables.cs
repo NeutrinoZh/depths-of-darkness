@@ -3,25 +3,36 @@ using UnityEngine.Assertions;
 
 namespace DD.Game {
     [RequireComponent(typeof(PickController))]
-    public class OutlingPickables : MonoBehaviour, ILifecycleListener {
-        [field: SerializeField] public Shader Highlight { get; private set; }
-        private FinderNearPickables mFinderNearPickables = null;
+    public class OutlingPickables : MonoBehaviour {
+        // ==========================================================//
 
-        void ILifecycleListener.OnStart() {
-            mFinderNearPickables = GetComponent<PickController>()?.NearPickables;
-            Assert.AreNotEqual(mFinderNearPickables, null);
+        // Props 
+        [field: SerializeField] public Shader Highlight { get; private set; }
+
+        // Members 
+        private FinderNearPickables m_finderNearPickables = null;
+
+        // ==========================================================//
+        // Lifecycle
+
+        private void Awake() {
+            m_finderNearPickables = GetComponent<PickController>()?.NearPickables;
+            Assert.AreNotEqual(m_finderNearPickables, null);
         }
 
-        void ILifecycleListener.OnUpdate() {
+        private void Update() {
             ChangeShadersOnPickables();
         }
 
+        // ==========================================================//
+        // Handlers 
+
         private void ChangeShadersOnPickables() {
-            foreach (var item in mFinderNearPickables.PickablesInRadius)
+            foreach (var item in m_finderNearPickables.PickablesInRadius)
                 if (item != null)
                     item.Renderer.material.shader = Highlight;
 
-            foreach (var item in mFinderNearPickables.PickablesOutRadius) {
+            foreach (var item in m_finderNearPickables.PickablesOutRadius) {
                 if (item != null)
                     item.Renderer.material.shader = item.DefaultShader;
             }

@@ -1,36 +1,56 @@
 using TMPro;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
     [RequireComponent(typeof(TrolleyState))]
-    public class TrolleyUI : MonoBehaviour, ILifecycleListener {
-        private const string mCanvasName = "Canvas"; 
-        private const string mOreCountLabelName = "OreCountLabel";
-        
-        private string mOreCountLabelFormat = "";
+    public class TrolleyUI : MonoBehaviour {
 
-        private TextMeshProUGUI mOreCountLabel;
-        private TrolleyState mTrolleyState;
+        //======================================================//
+        // Conts 
 
-        void ILifecycleListener.OnStart() {
-            mOreCountLabel = transform.Find(mCanvasName)?.Find(mOreCountLabelName)?.GetComponent<TextMeshProUGUI>();
-            Assert.AreNotEqual(mOreCountLabel, null);
-            mOreCountLabelFormat = mOreCountLabel.text;
+        const string c_canvasName = "Canvas";
+        const string c_oreCountLabelName = "OreCountLabel";
 
-            mTrolleyState = GetComponent<TrolleyState>();
-            Assert.AreNotEqual(mTrolleyState, null);
-        
-            mTrolleyState.OnChangeOreCount += ChangeOreCountHandle;
+        //======================================================//
+        // Members 
+
+        private string m_oreCountLabelFormat = "";
+
+        private TextMeshProUGUI m_oreCountLabel = null;
+        private TrolleyState m_trolleyState = null;
+
+        //======================================================//
+        // Lifecycles 
+
+        private void Awake() {
+            var canvas = transform.Find(c_canvasName);
+            Assert.AreNotEqual(canvas, null);
+
+            var oreCount = canvas.Find(c_oreCountLabelName);
+            Assert.AreNotEqual(m_oreCountLabel, null);
+
+            m_oreCountLabel = GetComponent<TextMeshProUGUI>();
+            Assert.AreNotEqual(m_oreCountLabel, null);
+
+            m_trolleyState = GetComponent<TrolleyState>();
+            Assert.AreNotEqual(m_trolleyState, null);
+
+            m_oreCountLabelFormat = m_oreCountLabel.text;
+            m_trolleyState.OnChangeOreCount += ChangeOreCountHandle;
             ChangeOreCountHandle();
         }
 
-        void ILifecycleListener.OnFinish() {
-            mTrolleyState.OnChangeOreCount -= ChangeOreCountHandle;
+        private void OnDestroy() {
+            m_trolleyState.OnChangeOreCount -= ChangeOreCountHandle;
         }
 
+        //======================================================//
+        // Handles 
+
         private void ChangeOreCountHandle() {
-            mOreCountLabel.text = mOreCountLabelFormat.Replace("{n}", mTrolleyState.OreCount.ToString());
+            m_oreCountLabel.text = m_oreCountLabelFormat.Replace("{n}", m_trolleyState.OreCount.ToString());
         }
     }
 }

@@ -4,62 +4,56 @@ using UnityEngine.UIElements;
 using System;
 
 namespace DD.MainMenu {
-    public class MultiplayerMenuView : MonoBehaviour, ILifecycleListener, IPage {
-        
+    public class MultiplayerMenuView : MonoBehaviour, IPage {
+
         //=============================================//
+        // Events
 
         public Action OnClickHost = null;
         public Action OnClickJoin = null;
         public Action OnClickBack = null;
 
-        //=================================================//
-        // IPage
+        //=============================================//
+        // Consts
 
-        void IPage.Activate() {
-            mDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-        }
-
-        void IPage.Unactivate() {
-            mDocument.rootVisualElement.style.display = DisplayStyle.None;
-        }
+        const string c_hostButtonName = "Host";
+        const string c_joinButtonName = "Join";
+        const string c_backButtonName = "Back";
 
         //=============================================//
+        // Members
 
-        const string mHostButtonName = "Host";
-        const string mJoinButtonName = "Join";
-        const string mBackButtonName = "Back"; 
+        private UIDocument m_document;
+
+        private Button m_btnHost;
+        private Button m_btnJoin;
+        private Button m_btnBack;
 
         //=============================================//
+        // Lifecycle
 
-        private UIDocument mDocument; 
+        void Awake() {
+            m_document = GetComponent<UIDocument>();
 
-        private Button mBtnHost;
-        private Button mBtnJoin;
-        private Button mBtnBack;   
-    
-        //=============================================//
+            m_btnHost = m_document.rootVisualElement.Query<Button>(c_hostButtonName);
+            m_btnJoin = m_document.rootVisualElement.Query<Button>(c_joinButtonName);
+            m_btnBack = m_document.rootVisualElement.Query<Button>(c_backButtonName);
 
-        void ILifecycleListener.OnInit() {
-            mDocument = GetComponent<UIDocument>();
-
-            mBtnHost = mDocument.rootVisualElement.Query<Button>(mHostButtonName);
-            mBtnJoin = mDocument.rootVisualElement.Query<Button>(mJoinButtonName);
-            mBtnBack = mDocument.rootVisualElement.Query<Button>(mBackButtonName);
-
-            mBtnHost.clicked += OnHostHandle;
-            mBtnJoin.clicked += OnJoinHandle;
-            mBtnBack.clicked += OnBackHandle;
+            m_btnHost.clicked += OnHostHandle;
+            m_btnJoin.clicked += OnJoinHandle;
+            m_btnBack.clicked += OnBackHandle;
 
             (this as IPage).Unactivate();
-        }       
+        }
 
-        void ILifecycleListener.OnFinish() {
-            mBtnHost.clicked -= OnHostHandle;
-            mBtnJoin.clicked -= OnJoinHandle;
-            mBtnBack.clicked -= OnBackHandle;
+        void OnDestroy() {
+            m_btnHost.clicked -= OnHostHandle;
+            m_btnJoin.clicked -= OnJoinHandle;
+            m_btnBack.clicked -= OnBackHandle;
         }
 
         //===========================================// 
+        // Handlers
 
         private void OnHostHandle() {
             OnClickHost?.Invoke();
@@ -74,5 +68,16 @@ namespace DD.MainMenu {
         }
 
         //====================================//
+        // IPage
+
+        void IPage.Activate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+
+        void IPage.Unactivate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.None;
+        }
+
+        //=================================================//
     }
 }

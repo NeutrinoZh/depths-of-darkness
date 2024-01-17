@@ -1,33 +1,47 @@
 using Unity.Netcode;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace DD.Game {
-    public class HUDView : MonoBehaviour, ILifecycleListener {
-        private PlayerState mPlayerState;
-        
-        private UIDocument mDocument;
-        private Label mOreCount;
+    public class HUDView : MonoBehaviour {
+        //===============================//
+        // Dependencies 
 
-        void ILifecycleListener.OnStart() {
+        private PlayerState m_playerState;
 
-            // TODO: Don't use NetworkManager for it. PlayerState is dependecies
-            mPlayerState = NetworkManager.Singleton
+        //===============================//
+        // Members 
+
+        private UIDocument m_document;
+        private Label m_oreCount;
+
+        //===============================//
+        // Lifecycle
+
+        private void Awake() {
+            // FIXME: Don't use NetworkManager for it. PlayerState is dependecies
+            m_playerState = NetworkManager.Singleton
                 .LocalClient.PlayerObject.GetComponent<PlayerState>();
 
-            mDocument = GetComponent<UIDocument>();
-            mOreCount = mDocument.rootVisualElement.Query<Label>();
+            m_document = GetComponent<UIDocument>();
+            m_oreCount = m_document.rootVisualElement.Query<Label>();
 
-            mPlayerState.OnChangeOreCountEvent += UpdateOreCountHandle;
+            m_playerState.OnChangeOreCount += UpdateOreCountHandle;
             UpdateOreCountHandle();
         }
 
-        void ILifecycleListener.OnFinish() {
-            mPlayerState.OnChangeOreCountEvent -= UpdateOreCountHandle;
+        private void OnDestroy() {
+            m_playerState.OnChangeOreCount -= UpdateOreCountHandle;
         }
 
+        //===============================//
+        // Handlers
+
         private void UpdateOreCountHandle() {
-            mOreCount.text = mPlayerState.OreCount.ToString();
+            m_oreCount.text = m_playerState.OreCount.ToString();
         }
+
+        //===============================//
     }
 }

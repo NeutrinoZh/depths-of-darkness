@@ -1,18 +1,16 @@
 using System;
 
-namespace DD.Game {
-    public class MovementState : IEntityState {
+using UnityEngine;
 
+namespace DD.Game {
+    public class MovementState : MonoBehaviour {
+        //=======================================//
         // Events
 
         public Action OnChangeMoveState = null;
         public Action OnChangeDirection = null;
 
-        // Members
-
-        private Direction mDirection = Direction.DOWN;
-        private bool mIsMove = false;
-
+        //=======================================//
         // Props 
 
         public float MoveSpeed => 2f;
@@ -22,12 +20,12 @@ namespace DD.Game {
         /// Handled in OnChangeDirection
         /// </summary>
         public Direction Direction {
-            get => mDirection;
+            get => m_direction;
             set {
-                if (mDirection == value)
+                if (m_direction == value)
                     return;
 
-                mDirection = value;
+                m_direction = value;
                 OnChangeDirection?.Invoke();
             }
         }
@@ -36,14 +34,21 @@ namespace DD.Game {
         /// Handled in OnChangeMoveState
         /// </summary>
         public bool IsMove {
-            get => mIsMove;
+            get => m_isMove;
             set {
-                if (mIsMove == value)
+                if (m_isMove == value)
                     return;
 
-                mIsMove = value;
+                m_isMove = value;
                 OnChangeMoveState?.Invoke();
             }
         }
+
+        //=======================================//
+        // Members
+
+        private Direction m_direction = Direction.DOWN;
+        private bool m_isMove = false;
+
     }
 }

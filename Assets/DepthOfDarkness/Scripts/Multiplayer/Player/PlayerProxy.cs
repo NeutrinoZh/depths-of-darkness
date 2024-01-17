@@ -5,30 +5,28 @@ using UnityEngine;
 using Zenject;
 
 namespace DD.Game {
-    public class PlayerProxy : NetworkBehaviour, ILifecycleListener {
-        [SerializeField] private GameObject mPlayerPrefab;
-        private GameObservable mGameObservable;
-        private Transform mPlayersParent;
+    public class PlayerProxy : NetworkBehaviour {
+        [SerializeField] private GameObject m_playerPrefab;
+        private Transform m_playersParent;
 
         [Inject]
-        public void Construct(GameObservable _gameObservable, WorldManager _worldManager) {
-            mGameObservable = _gameObservable;
-            mPlayersParent = _worldManager.Players;
+        public void Construct(GroupManager _groupManager) {
+            m_playersParent = _groupManager.Players;
         }
 
-        void ILifecycleListener.OnInit() {
+        private void Awake() {
             CreatePlayerServerRpc(OwnerClientId);
         }
 
         [ServerRpc]
         private void CreatePlayerServerRpc(ulong _clientId) {
-            var player = mGameObservable.CreateInstance(
-                mPlayerPrefab.transform,
-                mPlayersParent.position, mPlayersParent.rotation,
-                mPlayersParent
+            /*var player = mGameObservable.CreateInstance(
+                m_playerPrefab.transform,
+                m_playersParent.position, m_playersParent.rotation,
+                m_playersParent
             ).GetComponent<NetworkObject>();
 
-            player.SpawnAsPlayerObject(_clientId);
+            player.SpawnAsPlayerObject(_clientId);*/
         }
     }
 }

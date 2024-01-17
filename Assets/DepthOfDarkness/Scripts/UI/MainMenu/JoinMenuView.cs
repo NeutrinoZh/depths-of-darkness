@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 using System;
 
 namespace DD.MainMenu {
-    public class JoinMenuView : MonoBehaviour, ILifecycleListener, IPage {
+    public class JoinMenuView : MonoBehaviour, IPage {
 
         //=====================================================//
 
@@ -12,57 +12,46 @@ namespace DD.MainMenu {
         public Action OnClickBack = null;
 
         public string RoomCode {
-            get => mRoomCodeField.text;
+            get => m_roomCodeField.text;
         }
 
-        
+
         //=================================================//
-        // IPage
 
-        void IPage.Activate() {
-            mDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-        }
-
-        void IPage.Unactivate() {
-            mDocument.rootVisualElement.style.display = DisplayStyle.None;
-        }
+        const string c_roomCodeFieldName = "RoomCode";
+        const string c_joinButtonName = "Join";
+        const string c_backButtonName = "Back";
 
         //=====================================================//
 
-        const string mRoomCodeFieldName = "RoomCode";
-        const string mJoinButtonName = "Join";
-        const string mBackButtonName = "Back";
+        private UIDocument m_document;
 
-        //=====================================================//
-        
-        private UIDocument mDocument;
-
-        private TextInputBaseField<string> mRoomCodeField;
-        private Button mBtnJoin;
-        private Button mBtnBack;
+        private TextInputBaseField<string> m_roomCodeField;
+        private Button m_btnJoin;
+        private Button m_btnBack;
 
         //=====================================================//
 
-        void ILifecycleListener.OnInit() {
-            mDocument = GetComponent<UIDocument>();
+        void Awake() {
+            m_document = GetComponent<UIDocument>();
 
-            mRoomCodeField = mDocument.rootVisualElement.Query<TextInputBaseField<string>>(mRoomCodeFieldName);
-            mBtnJoin = mDocument.rootVisualElement.Query<Button>(mJoinButtonName);
-            mBtnBack = mDocument.rootVisualElement.Query<Button>(mBackButtonName);
+            m_roomCodeField = m_document.rootVisualElement.Query<TextInputBaseField<string>>(c_roomCodeFieldName);
+            m_btnJoin = m_document.rootVisualElement.Query<Button>(c_joinButtonName);
+            m_btnBack = m_document.rootVisualElement.Query<Button>(c_backButtonName);
 
-            mBtnJoin.clicked += OnJoinHandle;
-            mBtnBack.clicked += OnBackHandle;
+            m_btnJoin.clicked += OnJoinHandle;
+            m_btnBack.clicked += OnBackHandle;
 
             (this as IPage).Unactivate();
         }
 
-        void ILifecycleListener.OnFinish() {
-            mBtnJoin.clicked -= OnJoinHandle;
-            mBtnBack.clicked -= OnBackHandle;
+        void OnDestroy() {
+            m_btnJoin.clicked -= OnJoinHandle;
+            m_btnBack.clicked -= OnBackHandle;
         }
 
         //====================================================//
-    
+
         private void OnJoinHandle() {
             OnClickJoin?.Invoke();
         }
@@ -72,5 +61,17 @@ namespace DD.MainMenu {
         }
 
         //=====================================================//
+        // IPage
+
+        void IPage.Activate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+
+        void IPage.Unactivate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.None;
+        }
+
+        //=====================================================//
+
     }
 }
