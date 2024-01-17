@@ -9,18 +9,18 @@ namespace DD.Game {
 
         //==============================================================//
 
-        private const float mPickSqrRadius = 0.7f;
+        private const float c_pickSqrRadius = 0.7f;
 
-        private readonly List<Pickable> mPickablesInRadius = new();
-        private readonly List<Pickable> mPickablesOutRadius = new();
+        private readonly List<Pickable> m_pickablesInRadius = new();
+        private readonly List<Pickable> m_pickablesOutRadius = new();
 
-        private Pickable mNearest = null;
+        private Pickable m_Nearest = null;
 
         //==============================================================//
 
-        public Pickable Nearest => mNearest;
-        public List<Pickable> PickablesInRadius => mPickablesInRadius;
-        public List<Pickable> PickablesOutRadius => mPickablesOutRadius;
+        public Pickable Nearest => m_Nearest;
+        public List<Pickable> PickablesInRadius => m_pickablesInRadius;
+        public List<Pickable> PickablesOutRadius => m_pickablesOutRadius;
 
         //==============================================================//
 
@@ -35,8 +35,8 @@ namespace DD.Game {
             Pickable nearPickable = null;
             float nearDistance = float.MaxValue;
 
-            mPickablesInRadius.Clear();
-            mPickablesOutRadius.Clear();
+            m_pickablesInRadius.Clear();
+            m_pickablesOutRadius.Clear();
 
             foreach (var item in pickables) {
                 var sqrDistance = (m_picker.position - item.transform.position).sqrMagnitude;
@@ -46,13 +46,13 @@ namespace DD.Game {
                     nearPickable = item;
                 }
 
-                if (sqrDistance < mPickSqrRadius)
-                    mPickablesInRadius.Add(item);
+                if (sqrDistance < c_pickSqrRadius)
+                    m_pickablesInRadius.Add(item);
                 else
-                    mPickablesOutRadius.Add(item);
+                    m_pickablesOutRadius.Add(item);
             }
 
-            mNearest = nearDistance > mPickSqrRadius ? null : nearPickable;
+            m_Nearest = nearDistance > c_pickSqrRadius ? null : nearPickable;
         }
     }
 }

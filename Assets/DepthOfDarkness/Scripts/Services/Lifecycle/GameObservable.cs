@@ -40,6 +40,8 @@ namespace DD {
             m_removeQueue.Enqueue(_listener);
         }
 
+        // ========================================================//
+
         public Transform CreateInstance(Transform _transform, Vector3 _position, Quaternion _rotation, Transform _parent) {
             var clone = m_diContainer.InstantiatePrefab(
                 _transform.gameObject,
@@ -77,7 +79,7 @@ namespace DD {
                 listener.OnStart();
         }
 
-        private void FixedUpdate() {
+        private void Update() {
             if (!m_isStarted)
                 return;
 

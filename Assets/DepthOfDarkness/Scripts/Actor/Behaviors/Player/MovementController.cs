@@ -5,43 +5,41 @@ namespace DD.Game {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInput))]
     public sealed class MovementController : MonoBehaviour, ILifecycleListener {
-        private MovementState mState;
-        public MovementState State => mState;
+        private MovementState m_State;
+        public MovementState State => m_State;
 
-        private Rigidbody2D mRd;
-        private PlayerInput mInput;
+        private Rigidbody2D m_Rd;
+        private PlayerInput m_Input;
 
         void ILifecycleListener.OnInit() {
-            mState = new MovementState();
+            m_State = new MovementState();
         }
 
         void ILifecycleListener.OnStart() {
-            mRd = GetComponent<Rigidbody2D>();
-            Assert.AreNotEqual(mRd, null);
+            m_Rd = GetComponent<Rigidbody2D>();
+            Assert.AreNotEqual(m_Rd, null);
 
-            mInput = GetComponent<PlayerInput>();
-            Assert.AreNotEqual(mInput, null);
+            m_Input = GetComponent<PlayerInput>();
+            Assert.AreNotEqual(m_Input, null);
         }
 
         void ILifecycleListener.OnUpdate() {
             // read input value
-            Vector2 direction = mInput.Input.Player.Move.ReadValue<Vector2>();
+            Vector2 direction = m_Input.Input.Player.Move.ReadValue<Vector2>();
 
             // move
             Move(direction);
 
             // switch states
-            mState.IsMove = direction != Vector2.zero;
-            if (mState.IsMove)
-                mState.Direction = DirectionUtils.GetDirectionFromVector(direction);
+            m_State.IsMove = direction != Vector2.zero;
+            if (m_State.IsMove)
+                m_State.Direction = DirectionUtils.GetDirectionFromVector(direction);
         }
 
         private void Move(Vector2 _direction) {
             Vector3 velocity =
-                _direction * mState.MoveSpeed;
-
-            if (mRd != null)
-                mRd.velocity = velocity;
+                _direction * m_State.MoveSpeed;
+            m_Rd.velocity = velocity;
         }
     }
 }
