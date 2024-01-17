@@ -8,35 +8,31 @@ namespace DD {
         MAIN_MENU,
         GAME
     }
-    
+
     public sealed class SceneManagement : NetworkBehaviour {
         private const string LOADING_SCREEN = "LOADING_SCREEN";
 
-        private bool mLoading;
-        private SceneList mToLoadScene;
-
-        private List<IPreloadService> mPreloadServices = new();
-
-        public GameObservable GameObservable { get; set; }
+        private bool m_loading;
+        private SceneList m_toLoadScene;
 
         private void Awake() {
             DontDestroyOnLoad(this);
         }
 
         public void LoadScene(SceneList _scene) {
-            if (mLoading)
+            if (m_loading)
                 return;
-            mLoading = true;
-            mToLoadScene = _scene;
-        
+            m_loading = true;
+            m_toLoadScene = _scene;
+
             var proccess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Single);
             proccess.completed += OnLoadingScreenLoaded;
         }
 
         public void Join(string _joinCode) {
-            if (mLoading)
+            if (m_loading)
                 return;
-            mLoading = true;
+            m_loading = true;
 
             var proccess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Single);
             proccess.completed += _ => StartClient(_joinCode);
@@ -50,7 +46,7 @@ namespace DD {
             var joinCode = await Multiplayer.RelayControll.StartHostWithRelay();
             Debug.Log(joinCode);
 
-            NetworkManager.Singleton.SceneManager.LoadScene(mToLoadScene.ToString(), LoadSceneMode.Additive);
+            NetworkManager.Singleton.SceneManager.LoadScene(m_toLoadScene.ToString(), LoadSceneMode.Additive);
             NetworkManager.Singleton.SceneManager.OnLoadComplete += OnSceneLoaded;
         }
 
@@ -58,23 +54,14 @@ namespace DD {
             if (_clientId == 0)
                 NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(LOADING_SCREEN));
             ConnectClientRpc(_clientId);
-        } 
+        }
 
-        [ClientRpc] private void ConnectClientRpc(ulong _clientId) {
+        [ClientRpc]
+        private void ConnectClientRpc(ulong _clientId) {
             if (NetworkManager.Singleton.LocalClientId != _clientId)
                 return;
 
-            mLoading = false;
-
-            foreach (var service in mPreloadServices)
-                service.Execute();
-
-            if (GameObservable != null)
-                GameObservable.Run();
-        }
-
-        public void AddPreloadService(IPreloadService _service) {
-            mPreloadServices.Add(_service);
+            m_loading = false;
         }
     }
 }

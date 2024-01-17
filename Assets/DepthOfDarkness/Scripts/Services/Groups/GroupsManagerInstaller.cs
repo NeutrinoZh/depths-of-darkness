@@ -1,12 +1,13 @@
 using UnityEngine;
+
 using Zenject;
 
 namespace DD.Game {
     public class WorldInstaller : MonoInstaller {
-        [SerializeField] private WorldManager mWolrdManager;
+        [SerializeField] private GroupManager m_groupManager;
 
         public override void InstallBindings() {
-            Container.Bind<WorldManager>().FromInstance(mWolrdManager).AsSingle();
+            Container.Bind<GroupManager>().FromInstance(m_groupManager).AsSingle();
         }
     }
 }
