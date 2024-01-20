@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 using Zenject;
 
 namespace DD.MainMenu {
-    public sealed class UIController : MonoBehaviour, ILifecycleListener {
+    public sealed class UIController : MonoBehaviour {
 
         // dependecies 
 
@@ -25,13 +25,11 @@ namespace DD.MainMenu {
 
         // internal states 
 
-        private IPage m_ActivePage = null;
+        private IPage m_activePage = null;
 
         //======================================================//
 
-        void ILifecycleListener.OnStart() {
-            ActivatePage(m_mainPage);
-
+        private void Awake() {
             // Main menu
             m_mainPage.OnClickCartLabel += m_trolleyAnimation.Play;
             m_mainPage.OnClickPlay += PlaySolo;
@@ -47,8 +45,11 @@ namespace DD.MainMenu {
             m_joinPage.OnClickBack += ToMultipalyerPage;
         }
 
-        void ILifecycleListener.OnFinish() {
+        private void Start() {
+            ActivatePage(m_mainPage);
+        }
 
+        private void OnDestroy() {
             // Main menu
             m_mainPage.OnClickCartLabel -= m_trolleyAnimation.Play;
             m_mainPage.OnClickPlay -= PlaySolo;
@@ -69,11 +70,10 @@ namespace DD.MainMenu {
 
         // activate one page
         private void ActivatePage(IPage _page) {
-            if (m_ActivePage != null)
-                m_ActivePage.Unactivate();
+            m_activePage?.Unactivate();
 
-            m_ActivePage = _page;
-            m_ActivePage.Activate();
+            m_activePage = _page;
+            m_activePage.Activate();
         }
 
         //

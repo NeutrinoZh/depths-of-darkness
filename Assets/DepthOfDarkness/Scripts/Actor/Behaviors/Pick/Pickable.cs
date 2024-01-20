@@ -1,42 +1,47 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+
 using Zenject;
 
 namespace DD.Game {
-    public class Pickable : MonoBehaviour, ILifecycleListener {
+    public class Pickable : MonoBehaviour {
+        // ==========================================================//
+        // Props 
 
-        //===========================================================//
-        private PickablesRegister mPickableRegister;
+        public SpriteRenderer Renderer => m_spriteRenderer;
+        public Shader DefaultShader => m_defaultShader;
+        public int DefaultSpriteOrder => m_defaultSpriteOrder;
 
-        private SpriteRenderer mSpriteRenderer;
-        private Shader mDefaultShader;
-        private int mDefaultSpriteOrder;
+        // ==========================================================//
+        // Members 
+
+        private PickablesRegister m_pickableRegister;
+
+        private SpriteRenderer m_spriteRenderer;
+        private Shader m_defaultShader;
+        private int m_defaultSpriteOrder;
+
+        // ==========================================================//
+        // Lifecycle 
 
         [Inject]
         public void Construct(PickablesRegister _register) {
-            mPickableRegister = _register;
-        } 
-
-        // ==========================================================//
-
-        public SpriteRenderer Renderer => mSpriteRenderer;
-        public Shader DefaultShader => mDefaultShader;
-        public int DefaultSpriteOrder => mDefaultSpriteOrder;
-
-        // ==========================================================//
-
-        void ILifecycleListener.OnStart() {
-            mSpriteRenderer = GetComponent<SpriteRenderer>();
-            Assert.AreNotEqual(mSpriteRenderer, null);
-
-            mDefaultShader = mSpriteRenderer.material.shader;
-            mDefaultSpriteOrder = mSpriteRenderer.sortingOrder;
-
-            mPickableRegister.AddPickable(this);
+            m_pickableRegister = _register;
         }
 
-        void ILifecycleListener.OnFinish() {
-            mPickableRegister.RemovePickable(this);
+
+        private void Awake() {
+            m_spriteRenderer = GetComponent<SpriteRenderer>();
+            Assert.AreNotEqual(m_spriteRenderer, null);
+
+            m_defaultShader = m_spriteRenderer.material.shader;
+            m_defaultSpriteOrder = m_spriteRenderer.sortingOrder;
+
+            m_pickableRegister.AddPickable(this);
+        }
+
+        private void OnDestroy() {
+            m_pickableRegister.RemovePickable(this);
         }
     }
 }

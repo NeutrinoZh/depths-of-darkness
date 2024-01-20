@@ -1,24 +1,48 @@
 using Unity.Netcode;
+
 using UnityEngine;
 
-namespace DD.Game {
-    public class CameraFollower : MonoBehaviour, ILifecycleListener {
-        private Transform mTarget;
-        
-        const float mCameraSpeed = 30f; 
+using Zenject;
 
-        void ILifecycleListener.OnStart() {
-            // TODO: don't use singlton here. mTarget may be something other then player 
-            mTarget = NetworkManager.Singleton.LocalClient.PlayerObject.transform;
+namespace DD.Game {
+    public class CameraFollower : MonoBehaviour {
+
+        //=============================================//
+        // Consts 
+
+        const float c_cameraSpeed = 30f;
+
+        //=============================================//
+        // Members 
+
+        private Transform m_target;
+
+        //=============================================//
+        // Lifecycle 
+
+        [Inject]
+        public void Construct(PlayerProxy _playerProxy) {
+            _playerProxy.OnSelfConnect += OnPlayerConnectHandle;
         }
 
-        void ILifecycleListener.OnUpdate() {
-            if (!mTarget)
+
+        private void Update() {
+            if (!m_target)
                 return;
-            
-            Vector3 direction = mCameraSpeed * Time.deltaTime * (mTarget.position - transform.position).normalized;
+
+            Vector3 direction =
+                c_cameraSpeed * Time.deltaTime *
+                (m_target.position - transform.position).normalized;
             direction.z = 0;
+
             transform.position += direction;
-        } 
+        }
+
+        //=============================================//
+        // Handlers
+
+        private void OnPlayerConnectHandle(Transform _transformPlayer) {
+            m_target = _transformPlayer;
+        }
     }
 }

@@ -1,18 +1,30 @@
 using System;
+
 using UnityEngine;
 
 namespace DD.Game {
     public class PlayerState : MonoBehaviour {
-        private int mOreCount = 0;
-        
+        //=======================================//
+        // Events 
+
+        public Action OnChangeOreCount = null;
+
+        //=======================================//
+        // Props 
+
         public int OreCount {
-            get => mOreCount;
+            get => m_oreCount;
             set {
-                mOreCount = value;
-                OnChangeOreCountEvent?.Invoke();
+                m_oreCount = value;
+                OnChangeOreCount?.Invoke();
             }
         }
 
-        public Action OnChangeOreCountEvent = null;
+        //=======================================//
+        // Members 
+
+        [SerializeField] private int m_oreCount = 0;
+
+        //=======================================//
     }
 }

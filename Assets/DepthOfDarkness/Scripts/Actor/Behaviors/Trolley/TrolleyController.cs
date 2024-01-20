@@ -1,41 +1,40 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+
 using Zenject;
 
 namespace DD.Game {
-    public class TrolleyController : MonoBehaviour, ILifecycleListener {
-         //=======================================//
-        
-        // internal members 
+    public class TrolleyController : MonoBehaviour {
+        //=======================================//
+        // Consts
         const string mTrolleyTag = "Trolley";
 
+        //=======================================//
         // dependencies
-        private PickablesRegister mPickablesRegister;   
+        private PickController m_pickController;
+        private PlayerState m_playerState;
 
-        private PickController mPickController;
-        private PlayerState mPlayerState;
+        //=======================================//
+        // Lifecycles 
 
-        // construct, di 
-        [Inject]
-        public void Construct(PickablesRegister _register) {
-            mPickablesRegister = _register;
+        private void Awake() {
+            //
+            m_pickController = GetComponent<PickController>();
+            Assert.AreNotEqual(m_pickController, null);
+
+            m_playerState = GetComponent<PlayerState>();
+            Assert.AreNotEqual(m_playerState, null);
+
+            //
+            m_pickController.OnPickEvent += PickHandle;
         }
 
-        void ILifecycleListener.OnInit() {
-            mPickController = GetComponent<PickController>();
-            Assert.AreNotEqual(mPickController, null);
-
-            mPlayerState = GetComponent<PlayerState>();
-            Assert.AreNotEqual(mPlayerState, null);
+        private void OnDestroy() {
+            m_pickController.OnPickEvent -= PickHandle;
         }
 
-         void ILifecycleListener.OnStart() {
-            mPickController.OnPickEvent += PickHandle;
-        }
-
-        void ILifecycleListener.OnFinish() {
-            mPickController.OnPickEvent -= PickHandle;
-        }
+        //=======================================//
+        // Handles 
 
         private void PickHandle(Pickable _pickable) {
             if (!_pickable || !_pickable.CompareTag(mTrolleyTag))
@@ -47,9 +46,12 @@ namespace DD.Game {
             Pour(trolley);
         }
 
+        //=======================================//
+        // Internal
+
         private void Pour(TrolleyState _trolley) {
-            _trolley.OreCount += mPlayerState.OreCount;
-            mPlayerState.OreCount = 0;
+            _trolley.OreCount += m_playerState.OreCount;
+            m_playerState.OreCount = 0;
         }
     }
 }
