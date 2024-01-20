@@ -4,81 +4,74 @@ using DG.Tweening;
 using System;
 
 namespace DD.MainMenu {
-    public sealed class MainMenuView : MonoBehaviour, ILifecycleListener, IPage {
+    public sealed class MainMenuView : MonoBehaviour, IPage {
         //===================================//
-        // EVENTS
+        // Events
         public Action OnClickPlay;
         public Action OnClickOnline;
         public Action OnClickCartLabel;
 
-        //=================================================//
-        // IPage
+        //===================================//
+        // Consts
 
-        void IPage.Activate() {
-            mDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-        }
+        const string c_playButtonName = "PlaySolo";
+        const string c_playOnlineButtonName = "PlayOnline";
+        const string c_cartLabelName = "CartLabel";
+        const string c_btnScreenName = "BtnScreen";
 
-        void IPage.Unactivate() {
-            mDocument.rootVisualElement.style.display = DisplayStyle.None;
-        }
+        const string c_rootDivName = "RootDiv";
+        const string c_rootDivAnimateClass = "animate";
 
         //===================================//
-        
-        const string mPlayButtonName = "PlaySolo";
-        const string mPlayOnlineButtonName = "PlayOnline";
-        const string mCartLabelName = "CartLabel";
+        // Members 
 
-        const string mRootDivName = "RootDiv";
-        const string mRootDivAnimateClass = "animate";
+        private UIDocument m_document;
 
-        //===================================//
+        private VisualElement m_rootDiv;
+        private VisualElement m_btnScreen;
 
-        private UIDocument mDocument;
-        
-        private VisualElement mRootDiv;
-
-        private VisualElement mCartLabel;
-        private Button mCartButton;
-        private Button mBtnPlay;
-        private Button mBtnMultiplayer;
+        private VisualElement m_cartLabel;
+        private Button m_btnPlay;
+        private Button m_btnMultiplayer;
 
         //===================================//
-        // ILifecycleListener
+        // Lifecycle
 
-        void ILifecycleListener.OnInit() {
+        private void Awake() {
             // gettings 
-            mDocument = GetComponent<UIDocument>();
-            mBtnPlay = mDocument.rootVisualElement.Query<Button>(mPlayButtonName);
-            mBtnMultiplayer = mDocument.rootVisualElement.Query<Button>(mPlayOnlineButtonName);
-            
-            mRootDiv = mDocument.rootVisualElement.Query(mRootDivName);
-            mCartLabel = mDocument.rootVisualElement.Query(mCartLabelName);
-            mCartButton = mCartLabel.Query<Button>();
-            
+            m_document = GetComponent<UIDocument>();
+            m_btnPlay = m_document.rootVisualElement.Query<Button>(c_playButtonName);
+            m_btnMultiplayer = m_document.rootVisualElement.Query<Button>(c_playOnlineButtonName);
+            m_btnScreen = m_document.rootVisualElement.Query(c_btnScreenName);
+
+            m_rootDiv = m_document.rootVisualElement.Query(c_rootDivName);
+            m_cartLabel = m_document.rootVisualElement.Query(c_cartLabelName);
+
             // subscribes
-            mBtnPlay.clicked += OnClickPlayHandle;
-            mCartButton.clicked += OnClickCartLabelHandle;
-            mBtnMultiplayer.clicked += OnClickPlayOnlineHandle;
+            m_btnPlay.clicked += OnClickPlayHandle;
+            m_btnMultiplayer.clicked += OnClickPlayOnlineHandle;
+            m_btnScreen.RegisterCallback<ClickEvent>(OnClickCartLabelHandle);
         }
 
-        void ILifecycleListener.OnStart() {
-            // animations
+        private void Start() {
             DOTween.To(
-                () => mCartLabel.style.opacity.value,
-                x => mCartLabel.style.opacity = x,
+                () => m_cartLabel.style.opacity.value,
+                x => m_cartLabel.style.opacity = x,
                 1, 1
             ).SetLoops(-1, LoopType.Yoyo);
         }
 
-        void ILifecycleListener.OnFinish() {
-            mBtnPlay.clicked -= OnClickPlayHandle;
-            mCartButton.clicked -= OnClickCartLabelHandle;
-            mBtnMultiplayer.clicked -= OnClickPlayOnlineHandle;
+        private void OnDestroy() {
+            m_btnPlay.clicked -= OnClickPlayHandle;
+            m_btnMultiplayer.clicked -= OnClickPlayOnlineHandle;
+            m_btnScreen.UnregisterCallback<ClickEvent>(OnClickCartLabelHandle);
         }
 
         //===================================//
+        // Handlers
 
-        private void OnClickCartLabelHandle() {
+        private void OnClickCartLabelHandle(ClickEvent _event) {
+            m_btnScreen.pickingMode = PickingMode.Ignore;
             OnClickCartLabel?.Invoke();
         }
 
@@ -93,8 +86,22 @@ namespace DD.MainMenu {
         //===================================//
 
         public void StartUIAnimation() {
-            mCartLabel.style.display = DisplayStyle.None;
-            mRootDiv.AddToClassList(mRootDivAnimateClass);
+            m_cartLabel.style.display = DisplayStyle.None;
+            m_rootDiv.AddToClassList(c_rootDivAnimateClass);
         }
+
+        //===================================//
+        // IPage
+
+        void IPage.Activate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+
+        void IPage.Unactivate() {
+            m_document.rootVisualElement.style.display = DisplayStyle.None;
+        }
+
+        //===================================//
+
     }
 }

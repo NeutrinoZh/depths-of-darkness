@@ -1,39 +1,50 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace DD.Game {
-    public class TrolleyAnimator : MonoBehaviour, ILifecycleListener {
-        [SerializeField] private List<Sprite> mSprites;
+    public class TrolleyAnimator : MonoBehaviour {
 
-        private TrolleyState mTrolleyState;
-        private SpriteRenderer mRenderer;
+        //=======================================//
+        // Members 
 
-        void ILifecycleListener.OnStart() {
-            mTrolleyState = GetComponent<TrolleyState>();
-            Assert.AreNotEqual(mTrolleyState, null);
-       
-            mRenderer = GetComponent<SpriteRenderer>();
-            Assert.AreNotEqual(mRenderer, null);
+        [SerializeField] private List<Sprite> m_sprites;
 
-            mTrolleyState.OnChangeOreCount += ChangeOreCountHandle;
+        private TrolleyState m_trolleyState;
+        private SpriteRenderer m_renderer;
+
+        //=======================================//
+        // Lifecycles 
+
+        private void Awake() {
+            m_trolleyState = GetComponent<TrolleyState>();
+            Assert.AreNotEqual(m_trolleyState, null);
+
+            m_renderer = GetComponent<SpriteRenderer>();
+            Assert.AreNotEqual(m_renderer, null);
+
+            m_trolleyState.OnChangeOreCount += ChangeOreCountHandle;
         }
 
-        void ILifecycleListener.OnFinish() {
-            mTrolleyState.OnChangeOreCount -= ChangeOreCountHandle;
+        private void OnDestroy() {
+            m_trolleyState.OnChangeOreCount -= ChangeOreCountHandle;
         }
+
+        //=======================================//
+        // Handles 
 
         private void ChangeOreCountHandle() {
             // progress in percent (0-1)
-            float progress = mTrolleyState.OreCount / 10f;
-            
+            float progress = m_trolleyState.OreCount / 10f;
+
             // 
-            int chunk = (int)(progress * mSprites.Count);
-            if (chunk >= mSprites.Count)
-                chunk = mSprites.Count - 1;
+            int chunk = (int)(progress * m_sprites.Count);
+            if (chunk >= m_sprites.Count)
+                chunk = m_sprites.Count - 1;
 
             //
-            mRenderer.sprite = mSprites[chunk];
+            m_renderer.sprite = m_sprites[chunk];
         }
     }
 }

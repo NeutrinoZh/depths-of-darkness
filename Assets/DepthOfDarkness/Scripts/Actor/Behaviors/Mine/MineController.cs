@@ -1,58 +1,65 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+
 using Zenject;
 
 namespace DD.Game {
-    public class MineController : MonoBehaviour, ILifecycleListener {
+    public class MineController : MonoBehaviour {
         //=======================================//
-        
-        // internal members 
-        const string mMineableTag = "Mineable";
+        // Consts 
 
-        // dependencies
-        private PickablesRegister mPickablesRegister;   
-        private GameObservable mGameObservable;
+        const string c_mineableTag = "Mineable";
 
-        private PickController mPickController;
-        private PlayerState mPlayerState;
+        //=======================================//
+        // Dependencies
 
-        // construct, di 
-        
+        private PickablesRegister m_pickablesRegister;
+
+        private PickController m_pickController;
+
+        private PlayerState m_playerState;
+
+        //=======================================//
+        // Lifecycles 
+
         [Inject]
-        public void Construct(GameObservable _gameObservable, PickablesRegister _register) {
-            mGameObservable = _gameObservable;
-            mPickablesRegister = _register;
+        public void Construct(PickablesRegister _register) {
+            m_pickablesRegister = _register;
         }
 
-        void ILifecycleListener.OnInit() {
-            mPickController = GetComponent<PickController>();
-            Assert.AreNotEqual(mPickController, null);
+        void Awake() {
+            m_pickController = GetComponent<PickController>();
+            Assert.AreNotEqual(m_pickController, null);
 
-            mPlayerState = GetComponent<PlayerState>();
-            Assert.AreNotEqual(mPlayerState, null);
+            m_playerState = GetComponent<PlayerState>();
+            Assert.AreNotEqual(m_playerState, null);
+        }
+
+        void Start() {
+            m_pickController.OnPickEvent += PickHandle;
+        }
+
+        void OnDestroy() {
+            m_pickController.OnPickEvent -= PickHandle;
         }
 
         //=======================================//
-
-        void ILifecycleListener.OnStart() {
-            mPickController.OnPickEvent += PickHandle;
-        }
-
-        void ILifecycleListener.OnFinish() {
-            mPickController.OnPickEvent -= PickHandle;
-        }
+        // Handles 
 
         private void PickHandle(Pickable _pickable) {
-            if (!_pickable || !_pickable.CompareTag(mMineableTag))
+            if (!_pickable || !_pickable.CompareTag(c_mineableTag))
                 return;
 
             Mine(_pickable);
         }
 
         private void Mine(Pickable _pickable) {
-            mPickablesRegister.RemovePickable(_pickable);
-            mGameObservable.DestroyInstance(_pickable.transform);
-            mPlayerState.OreCount += 1;
+            m_pickablesRegister.RemovePickable(_pickable);
+            Destroy(_pickable.gameObject);
+
+            m_playerState.OreCount += 1;
         }
+
+        //=======================================//
     }
 }

@@ -1,91 +1,104 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+
 using Zenject;
 
 namespace DD.Game {
-    public class GrabController : MonoBehaviour, ILifecycleListener {
-        
+    public class GrabController : MonoBehaviour {
         //=======================================//
-        
-        // internal members 
-        readonly Vector3 mGrabbedScale = new(0.5f, 0.5f, 1);
-        const string mGrabbableTag = "Grabbable";
-        const int mPickedSpriteOrder = 3;
-        private Pickable mGrabbed = null;
+        // Props 
 
-        // props 
-        public Pickable Grabbed => mGrabbed;
+        public Pickable Grabbed { get; private set; } = null;
 
-        // dependencies
-        private PickController mPickController;
-        private PickablesRegister mPickablesRegister;
-        private Transform mGrabPoint;
+        //=======================================//
+        // Consts 
 
-        // construct, di 
-        
+        const string c_grabbableTag = "Grabbable";
+        const string c_grabPoint = "GrabPoint";
+        const int c_pickedSpriteOrder = 3;
+
+        //=======================================//
+        // Dependencies
+
+        private PickController m_pickController;
+        private PickablesRegister m_pickablesRegister;
+        private Transform m_grabPoint;
+
+        //=======================================//
+        // Members 
+
+        private readonly Vector3 m_grabbedScale = new(0.5f, 0.5f, 1);
+
+        //=======================================//
+        // Lifecycles 
+
         [Inject]
         public void Construct(PickablesRegister _register) {
-            mPickablesRegister = _register;
+            m_pickablesRegister = _register;
         }
 
-        void ILifecycleListener.OnInit() {
-            mPickController = GetComponent<PickController>();
-            Assert.AreNotEqual(mPickController, null);
+        private void Awake() {
+            m_pickController = GetComponent<PickController>();
+            Assert.AreNotEqual(m_pickController, null);
 
-            mGrabPoint = transform.Find("GrabPoint");
-            Assert.AreNotEqual(mGrabPoint, null);
+            m_grabPoint = transform.Find(c_grabPoint);
+            Assert.AreNotEqual(m_grabPoint, null);
+        }
+
+        private void Update() {
+            m_pickController.OnPickEvent += PickHandle;
+        }
+
+        private void OnDestroy() {
+            m_pickController.OnPickEvent -= PickHandle;
         }
 
         //=======================================//
-
-        void ILifecycleListener.OnStart() {
-            mPickController.OnPickEvent += PickHandle;
-        }
-
-        void ILifecycleListener.OnFinish() {
-            mPickController.OnPickEvent -= PickHandle;
-        }
+        // Handles 
 
         private void PickHandle(Pickable _pickable) {
-            if (_pickable && !_pickable.CompareTag(mGrabbableTag))
+            if (_pickable && !_pickable.CompareTag(c_grabbableTag))
                 return;
 
-            if (!mGrabbed) 
+            if (!Grabbed)
                 Pick(_pickable);
-            else 
+            else
                 Drop();
         }
 
-         private void Pick(Pickable _pickable) {
+        //=======================================//
+        // Internal 
+
+        private void Pick(Pickable _pickable) {
             if (!_pickable)
                 return;
 
-            mGrabbed = _pickable;
+            Grabbed = _pickable;
 
             // 
-            mPickablesRegister.RemovePickable(mGrabbed);
-            mGrabbed.Renderer.sortingOrder = mPickedSpriteOrder;
-            mGrabbed.Renderer.material.shader = mGrabbed.DefaultShader;
+            m_pickablesRegister.RemovePickable(Grabbed);
+            Grabbed.Renderer.sortingOrder = c_pickedSpriteOrder;
+            Grabbed.Renderer.material.shader = Grabbed.DefaultShader;
 
             //
-            mGrabbed.transform.parent = mGrabPoint;
-            mGrabbed.transform.localPosition = Vector3.zero;
-            mGrabbed.transform.localScale = mGrabbedScale;
+            Grabbed.transform.parent = m_grabPoint;
+            Grabbed.transform.localPosition = Vector3.zero;
+            Grabbed.transform.localScale = m_grabbedScale;
         }
 
         private void Drop() {
-            if (!mGrabbed)
+            if (!Grabbed)
                 return;
 
             //
-            mPickablesRegister.AddPickable(mGrabbed);
-            mGrabbed.Renderer.sortingOrder = mGrabbed.DefaultSpriteOrder;
-            
-            //
-            mGrabbed.transform.parent = null;
-            mGrabbed.transform.localScale = Vector3.one;
+            m_pickablesRegister.AddPickable(Grabbed);
+            Grabbed.Renderer.sortingOrder = Grabbed.DefaultSpriteOrder;
 
-            mGrabbed = null;
+            //
+            Grabbed.transform.parent = null;
+            Grabbed.transform.localScale = Vector3.one;
+
+            Grabbed = null;
         }
     }
 }

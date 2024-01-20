@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-ReflectionBaking-Ed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-UnitTests-Editor", "Zenject-UnitTests-Editor.csproj", "{037F4D52-F059-868C-B083-F1FE4EEAF786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-Editor", "Zenject-Editor.csproj", "{FA45081E-B543-1395-B655-D03E6663937F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{47629FAD-206D-7FD0-E903-8C0024669F8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-Editor", "Zenject-Editor.csproj", "{FA45081E-B543-1395-B655-D03E6663937F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{859A09B0-9CF4-D81B-7E62-EF0D87391AB9}"
 EndProject
@@ -47,14 +47,14 @@ Global
 		{037F4D52-F059-868C-B083-F1FE4EEAF786}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{037F4D52-F059-868C-B083-F1FE4EEAF786}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{037F4D52-F059-868C-B083-F1FE4EEAF786}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA45081E-B543-1395-B655-D03E6663937F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA45081E-B543-1395-B655-D03E6663937F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA45081E-B543-1395-B655-D03E6663937F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA45081E-B543-1395-B655-D03E6663937F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47629FAD-206D-7FD0-E903-8C0024669F8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47629FAD-206D-7FD0-E903-8C0024669F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47629FAD-206D-7FD0-E903-8C0024669F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47629FAD-206D-7FD0-E903-8C0024669F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA45081E-B543-1395-B655-D03E6663937F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA45081E-B543-1395-B655-D03E6663937F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA45081E-B543-1395-B655-D03E6663937F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA45081E-B543-1395-B655-D03E6663937F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{859A09B0-9CF4-D81B-7E62-EF0D87391AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{859A09B0-9CF4-D81B-7E62-EF0D87391AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{859A09B0-9CF4-D81B-7E62-EF0D87391AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU

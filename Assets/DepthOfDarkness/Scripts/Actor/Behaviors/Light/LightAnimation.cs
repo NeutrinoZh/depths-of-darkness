@@ -3,9 +3,9 @@ using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 
-namespace DD.Game  { 
+namespace DD.Game {
     [RequireComponent(typeof(Light2D))]
-    public class LightAnimation : MonoBehaviour, ILifecycleListener {
+    public class LightAnimation : MonoBehaviour {
         [SerializeField] private Ease mEase;
 
         [SerializeField] private float mMinIntensity;
@@ -57,13 +57,13 @@ namespace DD.Game  {
                 .To(
                     () => mLight.pointLightOuterRadius,
                     x => mLight.pointLightOuterRadius = x,
-                    mMinOuterRadius, 
+                    mMinOuterRadius,
                     mOuterRadiusAnimDuration
                 )
                 .SetEase(mEase)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetDelay(_delay)
-                .OnComplete(()=> {
+                .OnComplete(() => {
                     OuterRadiusAnimation(0);
                 });
         }

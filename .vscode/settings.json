@@ -36,8 +36,6 @@
         "**/*.flare": true,
         "**/*.mat": true,
         "**/*.meta": true,
-        "**/*.prefab": true,
-        "**/*.unity": true,
         "build/": true,
         "Build/": true,
         "Library/": true,
@@ -51,5 +49,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "depths-of-darkness.sln"
+    "dotnet.defaultSolution": "TimeIsLife.sln",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
 }

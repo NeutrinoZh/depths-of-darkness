@@ -1,56 +1,61 @@
 
 using System;
+
 using UnityEngine;
 using UnityEngine.Assertions;
+
 using Zenject;
 
 namespace DD.Game {
-    public sealed class PickController : MonoBehaviour, ILifecycleListener {
-        //============================================================//
+    public sealed class PickController : MonoBehaviour {
 
-        private FinderNearPickables mFinderNearPickables = null;
+        //=====================================================//
+        // Events 
+        public Action<Pickable> OnPickEvent = null;
+
+        //=====================================================//
+        // Props
+
+        public FinderNearPickables NearPickables { get; private set; } = null;
+
+        //=====================================================//
+        // Members 
+
+        private PlayerInput m_input = null;
+
+        //============================================================//
+        // Lifecycle 
 
         [Inject]
         public void Consturct(PickablesRegister _register) {
-            mFinderNearPickables = new FinderNearPickables(transform, _register);
+            NearPickables = new FinderNearPickables(transform, _register);
+        }
+
+        private void Awake() {
+            m_input = GetComponent<PlayerInput>();
+            Assert.AreNotEqual(m_input, null);
+        }
+
+        private void Update() {
+            NearPickables.Find();
+        }
+
+        private void Start() {
+            m_input.Input.Player.Pick.performed += _ => HandActionHandle();
+        }
+
+        private void OnDestroy() {
+            m_input.Input.Player.Pick.performed -= _ => HandActionHandle();
         }
 
         //============================================================//
-
-        private PlayerInput mInput = null;
-
-        void ILifecycleListener.OnInit() {
-            mInput = GetComponent<PlayerInput>();
-            Assert.AreNotEqual(mInput, null);
-        }
-
-        //============================================================//
-
-        public FinderNearPickables NearPickables => mFinderNearPickables;
-
-        //============================================================//
-
-        public Action<Pickable> OnPickEvent = null;
-        
-        //============================================================//
-
-        void ILifecycleListener.OnFixed() {
-            mFinderNearPickables.Find();
-        }
-
-        //============================================================//
-
-        void ILifecycleListener.OnStart() {
-            mInput.Input.Player.Pick.performed += _ => HandActionHandle();
-        }
-
-        void ILifecycleListener.OnFinish() {
-            mInput.Input.Player.Pick.performed -= _ => HandActionHandle();
-        }
+        // Handles 
 
         private void HandActionHandle() {
             OnPickEvent?.Invoke(NearPickables.Nearest);
-            mFinderNearPickables.Find();
+            NearPickables.Find();
         }
+
+        //============================================================//
     }
 }
