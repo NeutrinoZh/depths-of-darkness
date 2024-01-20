@@ -4,16 +4,12 @@ using UnityEngine.Assertions;
 namespace DD.Game {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(MovementState))]
     public sealed class MovementController : MonoBehaviour {
-
-        //=====================================================//
-        // Props 
-
-        public MovementState State { get; private set; }
-
         //=====================================================//
         // Members 
 
+        private MovementState m_movementState;
         private Rigidbody2D m_rd;
         private PlayerInput m_input;
 
@@ -21,7 +17,8 @@ namespace DD.Game {
         // Lifecycle 
 
         private void Awake() {
-            State = new MovementState();
+            m_movementState = GetComponent<MovementState>();
+            Assert.AreNotEqual(m_movementState, null);
 
             m_rd = GetComponent<Rigidbody2D>();
             Assert.AreNotEqual(m_rd, null);
@@ -30,7 +27,7 @@ namespace DD.Game {
             Assert.AreNotEqual(m_input, null);
         }
 
-        private void Update() {
+        private void FixedUpdate() {
             // read input value
             Vector2 direction = m_input.Input.Player.Move.ReadValue<Vector2>();
 
@@ -38,9 +35,9 @@ namespace DD.Game {
             Move(direction);
 
             // switch states
-            State.IsMove = direction != Vector2.zero;
-            if (State.IsMove)
-                State.Direction = DirectionUtils.Get4DirectionFromVector(direction);
+            m_movementState.IsMove = direction != Vector2.zero;
+            if (m_movementState.IsMove)
+                m_movementState.Direction = DirectionUtils.Get4DirectionFromVector(direction);
         }
 
         //=====================================================//
@@ -48,7 +45,7 @@ namespace DD.Game {
 
         private void Move(Vector2 _direction) {
             Vector3 velocity =
-                _direction * State.MoveSpeed;
+                m_movementState.MoveSpeed * _direction;
             m_rd.velocity = velocity;
         }
     }

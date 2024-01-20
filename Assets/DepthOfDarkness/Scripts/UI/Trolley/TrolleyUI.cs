@@ -29,9 +29,9 @@ namespace DD.Game {
             Assert.AreNotEqual(canvas, null);
 
             var oreCount = canvas.Find(c_oreCountLabelName);
-            Assert.AreNotEqual(m_oreCountLabel, null);
+            Assert.AreNotEqual(oreCount, null);
 
-            m_oreCountLabel = GetComponent<TextMeshProUGUI>();
+            m_oreCountLabel = oreCount.GetComponent<TextMeshProUGUI>();
             Assert.AreNotEqual(m_oreCountLabel, null);
 
             m_trolleyState = GetComponent<TrolleyState>();

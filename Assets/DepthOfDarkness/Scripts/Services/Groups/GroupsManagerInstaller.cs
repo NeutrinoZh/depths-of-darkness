@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace DD.Game {
-    public class WorldInstaller : MonoInstaller {
+    public class GroupInstaller : MonoInstaller {
         [SerializeField] private GroupManager m_groupManager;
 
         public override void InstallBindings() {

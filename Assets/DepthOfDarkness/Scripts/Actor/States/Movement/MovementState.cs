@@ -13,7 +13,7 @@ namespace DD.Game {
         //=======================================//
         // Props 
 
-        public float MoveSpeed => 2f;
+        [field: SerializeField] public float MoveSpeed { get; set; }
         public bool IsStay => !IsMove;
 
         /// <summary>

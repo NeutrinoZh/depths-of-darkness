@@ -55,6 +55,8 @@ namespace DD.Game {
 
         private void Mine(Pickable _pickable) {
             m_pickablesRegister.RemovePickable(_pickable);
+            Destroy(_pickable.gameObject);
+
             m_playerState.OreCount += 1;
         }
 

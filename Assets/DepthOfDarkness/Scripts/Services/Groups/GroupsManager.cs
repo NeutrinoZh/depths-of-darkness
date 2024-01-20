@@ -6,7 +6,10 @@ namespace DD.Game {
     /// You can get it by Zenject
     /// </summary>
     public class GroupManager : MonoBehaviour {
+
         [field: SerializeField] public Transform Players { get; private set; }
         [field: SerializeField] public Transform Items { get; private set; }
+        [field: SerializeField] public Transform Ores { get; private set; }
+
     }
 }

@@ -16,7 +16,10 @@ namespace DD.Game {
         // Lifecycle
 
         private void Awake() {
-            m_finderNearPickables = GetComponent<PickController>()?.NearPickables;
+            var pickController = GetComponent<PickController>();
+            Assert.AreNotEqual(pickController, null);
+
+            m_finderNearPickables = pickController.NearPickables;
             Assert.AreNotEqual(m_finderNearPickables, null);
         }
 

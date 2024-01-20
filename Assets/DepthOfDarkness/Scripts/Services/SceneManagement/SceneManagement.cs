@@ -10,7 +10,7 @@ namespace DD {
     }
 
     public sealed class SceneManagement : NetworkBehaviour {
-        private const string LOADING_SCREEN = "LOADING_SCREEN";
+        private const string c_loadingScreen = "LOADING_SCREEN";
 
         private bool m_loading;
         private SceneList m_toLoadScene;
@@ -25,7 +25,7 @@ namespace DD {
             m_loading = true;
             m_toLoadScene = _scene;
 
-            var proccess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Single);
+            var proccess = SceneManager.LoadSceneAsync(c_loadingScreen, LoadSceneMode.Single);
             proccess.completed += OnLoadingScreenLoaded;
         }
 
@@ -34,7 +34,7 @@ namespace DD {
                 return;
             m_loading = true;
 
-            var proccess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Single);
+            var proccess = SceneManager.LoadSceneAsync(c_loadingScreen, LoadSceneMode.Single);
             proccess.completed += _ => StartClient(_joinCode);
         }
 
@@ -52,7 +52,7 @@ namespace DD {
 
         private void OnSceneLoaded(ulong _clientId, string _sceneName, LoadSceneMode _loadSceneMode) {
             if (_clientId == 0)
-                NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(LOADING_SCREEN));
+                SceneManager.UnloadSceneAsync(c_loadingScreen);
             ConnectClientRpc(_clientId);
         }
 

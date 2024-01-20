@@ -21,7 +21,7 @@ namespace DD.Game {
         private void Awake() {
             //
 
-            m_movement = GetComponent<MovementController>()?.State;
+            m_movement = GetComponent<MovementState>();
             Assert.AreNotEqual(m_movement, null);
 
             m_animator = GetComponent<Animator>();

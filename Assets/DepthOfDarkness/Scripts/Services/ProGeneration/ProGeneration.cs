@@ -23,7 +23,9 @@ namespace DD.Game.ProGeneration {
         [SerializeField] private Tilemap m_background;
         [SerializeField] private Tilemap m_foreground;
 
-        [SerializeField] private Transform m_oreParent;
+
+        private DiContainer m_diContainer = null;
+        private Transform m_oreParent = null;
 
 
         //=============================================//
@@ -33,6 +35,13 @@ namespace DD.Game.ProGeneration {
 
         //=============================================//
         // Lifecycles 
+
+        [Inject]
+        public void Construct(GroupManager _groupManager, DiContainer _diContainer) {
+            m_oreParent = _groupManager.Ores;
+            m_diContainer = _diContainer;
+        }
+
 
         void Awake() {
             m_random = Random.CreateFromIndex(c_random_seed);
@@ -62,12 +71,12 @@ namespace DD.Game.ProGeneration {
                 }
 
                 Vector3 position = randPosition;
-                /*mGameObservable.CreateInstance(
+                m_diContainer.InstantiatePrefab(
                     m_params.VioletOre,
                     position * 0.5f + m_params.VioletOffset,
                     Quaternion.identity,
                     m_oreParent
-                );*/
+                );
             }
         }
 

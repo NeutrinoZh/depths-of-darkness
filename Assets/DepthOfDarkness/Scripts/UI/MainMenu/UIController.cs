@@ -29,9 +29,7 @@ namespace DD.MainMenu {
 
         //======================================================//
 
-        void Awake() {
-            ActivatePage(m_mainPage);
-
+        private void Awake() {
             // Main menu
             m_mainPage.OnClickCartLabel += m_trolleyAnimation.Play;
             m_mainPage.OnClickPlay += PlaySolo;
@@ -47,8 +45,11 @@ namespace DD.MainMenu {
             m_joinPage.OnClickBack += ToMultipalyerPage;
         }
 
-        void Update() {
+        private void Start() {
+            ActivatePage(m_mainPage);
+        }
 
+        private void OnDestroy() {
             // Main menu
             m_mainPage.OnClickCartLabel -= m_trolleyAnimation.Play;
             m_mainPage.OnClickPlay -= PlaySolo;
@@ -69,8 +70,7 @@ namespace DD.MainMenu {
 
         // activate one page
         private void ActivatePage(IPage _page) {
-            if (m_activePage != null)
-                m_activePage.Unactivate();
+            m_activePage?.Unactivate();
 
             m_activePage = _page;
             m_activePage.Activate();

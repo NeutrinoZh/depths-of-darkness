@@ -2,6 +2,8 @@ using Unity.Netcode;
 
 using UnityEngine;
 
+using Zenject;
+
 namespace DD.Game {
     public class CameraFollower : MonoBehaviour {
 
@@ -16,12 +18,13 @@ namespace DD.Game {
         private Transform m_target;
 
         //=============================================//
-        // Props 
+        // Lifecycle 
 
-        private void Awake() {
-            // FIXME: don't use singlton here. mTarget may be something other then player 
-            m_target = NetworkManager.Singleton.LocalClient.PlayerObject.transform;
+        [Inject]
+        public void Construct(PlayerProxy _playerProxy) {
+            _playerProxy.OnSelfConnect += OnPlayerConnectHandle;
         }
+
 
         private void Update() {
             if (!m_target)
@@ -33,6 +36,13 @@ namespace DD.Game {
             direction.z = 0;
 
             transform.position += direction;
+        }
+
+        //=============================================//
+        // Handlers
+
+        private void OnPlayerConnectHandle(Transform _transformPlayer) {
+            m_target = _transformPlayer;
         }
     }
 }
