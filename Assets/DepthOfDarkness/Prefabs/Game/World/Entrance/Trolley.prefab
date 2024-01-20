@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97844fc2296e146bfa15c89e5e9411f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mOreCount: 0
+  m_oreCount: 0
 --- !u!114 &1091164340075007228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85a8c544a66f3b5ea8b1b5ce3c6287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSprites:
+  m_sprites:
   - {fileID: -1620284755, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
   - {fileID: 2002360903, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
   - {fileID: 233684932, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}

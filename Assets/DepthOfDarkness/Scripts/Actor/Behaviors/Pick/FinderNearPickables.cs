@@ -1,58 +1,62 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace DD.Game {
     public sealed class FinderNearPickables {
+        //==============================================================//
+        // Props 
 
-        private PickablesRegister mPickableRegister = null;
-        private Transform mPicker = null;
+        public Pickable Nearest { get; private set; } = null;
+        public List<Pickable> PickablesInRadius { get; } = new();
+        public List<Pickable> PickablesOutRadius { get; } = new();
 
         //==============================================================//
+        // Consts
 
-        private const float mPickSqrRadius = 0.7f;
-
-        private List<Pickable> mPickablesInRadius = new();
-        private List<Pickable> mPickablesOutRadius = new();
-
-        private Pickable mNearest = null;
+        private const float c_pickSqrRadius = 0.7f;
 
         //==============================================================//
+        // Members         
 
-        public Pickable Nearest => mNearest;
-        public List<Pickable> PickablesInRadius => mPickablesInRadius;
-        public List<Pickable> PickablesOutRadius => mPickablesOutRadius;
+        private readonly PickablesRegister m_pickableRegister = null;
+        private readonly Transform m_picker = null;
 
         //==============================================================//
+        // Lifecycle 
 
         public FinderNearPickables(Transform _picker, PickablesRegister _register) {
-            mPicker = _picker;
-            mPickableRegister = _register;
+            m_picker = _picker;
+            m_pickableRegister = _register;
         }
 
+        //==============================================================//
+        // Public interface
+
         public void Find() {
-            var pickables = mPickableRegister.Pickables;
+            var pickables = m_pickableRegister.Pickables;
 
             Pickable nearPickable = null;
             float nearDistance = float.MaxValue;
 
-            mPickablesInRadius.Clear();
-            mPickablesOutRadius.Clear();
+            PickablesInRadius.Clear();
+            PickablesOutRadius.Clear();
 
             foreach (var item in pickables) {
-                var sqrDistance = (mPicker.position - item.transform.position).sqrMagnitude;
+                var sqrDistance = (m_picker.position - item.transform.position).sqrMagnitude;
 
                 if (sqrDistance < nearDistance) {
                     nearDistance = sqrDistance;
                     nearPickable = item;
                 }
 
-                if (sqrDistance < mPickSqrRadius)
-                    mPickablesInRadius.Add(item);
-                else 
-                    mPickablesOutRadius.Add(item);                
+                if (sqrDistance < c_pickSqrRadius)
+                    PickablesInRadius.Add(item);
+                else
+                    PickablesOutRadius.Add(item);
             }
 
-            mNearest = nearDistance > mPickSqrRadius ? null : nearPickable;
+            Nearest = nearDistance > c_pickSqrRadius ? null : nearPickable;
         }
     }
 }

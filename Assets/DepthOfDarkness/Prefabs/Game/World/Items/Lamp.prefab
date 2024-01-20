@@ -10,9 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 602249279128749404}
   - component: {fileID: 8858661587801753732}
-  - component: {fileID: 5072155231285103913}
   - component: {fileID: 5997713300945014826}
+  - component: {fileID: 4838102349691959497}
+  - component: {fileID: 493137625400980789}
+  - component: {fileID: 5072155231285103913}
   - component: {fileID: 2522090623425295349}
+  - component: {fileID: 2388302546022180297}
+  - component: {fileID: 2528675410592431186}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Grabbable
@@ -87,18 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5072155231285103913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8883815885655759021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b8bceaaf7c827d5e9219a4cbcb65f67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5997713300945014826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +141,68 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &4838102349691959497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1207754225
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 0
+--- !u!114 &493137625400980789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &5072155231285103913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8bceaaf7c827d5e9219a4cbcb65f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2522090623425295349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +216,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mEase: 8
-  mMinIntensity: 0.5
-  mIntensityAnimDuration: 1
-  mMinOuterRadius: 2
-  mOuterRadiusAnimDuration: 1
+  mMinIntensity: 0.7
+  mIntensityAnimDuration: 2
+  mMinOuterRadius: 2.3
+  mOuterRadiusAnimDuration: 2
+--- !u!114 &2388302546022180297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e88b94609b54d4da65fce0f317b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxOil>k__BackingField: 100
+  <CurrentOil>k__BackingField: 100
+  <OilUsage>k__BackingField: 1
+  <OilLevel>k__BackingField: 0
+--- !u!114 &2528675410592431186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883815885655759021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc13af06cc2e3847b5c1fb64ed1a948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mConfig:
+    HalfFullMinIntensity: 0.5
+    HalfFullIntensityAnimDuration: 1
+    HalfFullMinOuterRadius: 1.8
+    HalfFullOuterRadiusAnimDuration: 1
+    LessHalfFullMinIntensity: 0.3
+    LessHalfFullIntensityAnimDuration: 0.5
+    LessHalfFullMinOuterRadius: 1
+    LessHalfFullOuterRadiusAnimDuration: 0.5

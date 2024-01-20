@@ -1,74 +1,67 @@
-using System;
-using System.Collections.Generic;
-
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace DD {
     public enum SceneList {
         MAIN_MENU,
         GAME
     }
-    
-    public sealed class SceneManagement {
-        private const string LOADING_SCREEN = "LOADING_SCREEN";
 
-        private bool mLoading;
-        private Scene mLastScene;
-        private SceneList mToLoadScene;
+    public sealed class SceneManagement : NetworkBehaviour {
+        private const string c_loadingScreen = "LOADING_SCREEN";
 
-        private List<IPreloadService> mPreloadServices = new();
+        private bool m_loading;
+        private SceneList m_toLoadScene;
 
-        public delegate void MiddlewareOnSceneLoad(Action continueLoading);
-        public MiddlewareOnSceneLoad Middleware;
-
-        public GameObservable GameObservable { get; set; }
+        private void Awake() {
+            DontDestroyOnLoad(this);
+        }
 
         public void LoadScene(SceneList _scene) {
-            if (mLoading)
+            if (m_loading)
                 return;
-            
-            mToLoadScene = _scene;
-            mLastScene = SceneManager.GetActiveScene();
-            mLoading = true;
+            m_loading = true;
+            m_toLoadScene = _scene;
 
-            var loadProcess = SceneManager.LoadSceneAsync(LOADING_SCREEN, LoadSceneMode.Additive);
-            loadProcess.completed += OnLoadingScreenLoaded;
+            var proccess = SceneManager.LoadSceneAsync(c_loadingScreen, LoadSceneMode.Single);
+            proccess.completed += OnLoadingScreenLoaded;
         }
 
-        private void ContinueLoad() {
-            var loadProcess = SceneManager.LoadSceneAsync(mToLoadScene.ToString(), LoadSceneMode.Additive);
-            loadProcess.completed += OnSceneLoaded;
+        public void Join(string _joinCode) {
+            if (m_loading)
+                return;
+            m_loading = true;
+
+            var proccess = SceneManager.LoadSceneAsync(c_loadingScreen, LoadSceneMode.Single);
+            proccess.completed += _ => StartClient(_joinCode);
         }
 
-        private void OnLoadingScreenLoaded(AsyncOperation _operation) {
-            var unloadProcess = SceneManager.UnloadSceneAsync(mLastScene);
-            unloadProcess.completed += OnSceneUnloaded;
+        private async void StartClient(string _joinCode) {
+            await Multiplayer.RelayControll.StartClientWithRelay(_joinCode);
         }
 
-        private void OnSceneUnloaded(AsyncOperation _operation) {
-            if (Middleware != null) {
-                Middleware.Invoke(ContinueLoad);
-            } else {
-                ContinueLoad();
-            }
+        private async void OnLoadingScreenLoaded(AsyncOperation _) {
+            var joinCode = await Multiplayer.RelayControll.StartHostWithRelay();
+            Debug.Log(joinCode);
+
+            NetworkManager.Singleton.SceneManager.LoadScene(m_toLoadScene.ToString(), LoadSceneMode.Additive);
+            NetworkManager.Singleton.SceneManager.OnLoadComplete += OnSceneLoaded;
         }
 
-        private void OnSceneLoaded(AsyncOperation _operation) {
-            foreach (var service in mPreloadServices)
-                service.Execute();
+        private void OnSceneLoaded(ulong _clientId, string _sceneName, LoadSceneMode _loadSceneMode) {
+            if (_clientId == 0)
+                SceneManager.UnloadSceneAsync(c_loadingScreen);
+            ConnectClientRpc(_clientId);
+        }
 
-            mLoading = false;
-            SceneManager.UnloadSceneAsync(LOADING_SCREEN);
-            
-            if (GameObservable != null)
-                GameObservable.Run();
-        } 
+        [ClientRpc]
+        private void ConnectClientRpc(ulong _clientId) {
+            if (NetworkManager.Singleton.LocalClientId != _clientId)
+                return;
 
-        // Preload Service Management  
-
-        public void AddPreloadService(IPreloadService _service) {
-            mPreloadServices.Add(_service);
+            m_loading = false;
         }
     }
 }
