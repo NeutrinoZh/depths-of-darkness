@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975ccafac0b6ed7a39ae62dc75da5439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mEase: 14
-  mMinIntensity: 1
-  mIntensityAnimDuration: 4
-  mMinOuterRadius: 8
-  mOuterRadiusAnimDuration: 4
+  m_ease: 14
+  m_minIntensity: 1
+  m_intensityAnimDuration: 4
+  m_minOuterRadius: 8
+  m_outerRadiusAnimDuration: 4
 --- !u!1 &4100676999878023350
 GameObject:
   m_ObjectHideFlags: 0

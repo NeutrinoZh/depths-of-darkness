@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1207754225
+  GlobalObjectIdHash: 1010084862
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -215,11 +215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975ccafac0b6ed7a39ae62dc75da5439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mEase: 8
-  mMinIntensity: 0.7
-  mIntensityAnimDuration: 2
-  mMinOuterRadius: 2.3
-  mOuterRadiusAnimDuration: 2
+  m_ease: 8
+  m_minIntensity: 0.7
+  m_intensityAnimDuration: 2
+  m_minOuterRadius: 2.3
+  m_outerRadiusAnimDuration: 2
 --- !u!114 &2388302546022180297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc13af06cc2e3847b5c1fb64ed1a948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mConfig:
+  m_config:
     HalfFullMinIntensity: 0.5
     HalfFullIntensityAnimDuration: 1
     HalfFullMinOuterRadius: 1.8
