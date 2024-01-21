@@ -35,7 +35,7 @@ namespace DD.Game {
         //============================================//
         // Internal logic
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         private void CreatePlayerServerRpc(ulong _clientId) {
             var player = m_diContainer.InstantiatePrefab(
                 m_playerPrefab,
