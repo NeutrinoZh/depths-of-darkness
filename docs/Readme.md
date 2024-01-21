@@ -1,6 +1,6 @@
 ![](/docs/images/title.png)
 
-Written by Unity. 
+Written on Unity. 
 
 * MVP + Services pattern
 * Zenject DI framework 
