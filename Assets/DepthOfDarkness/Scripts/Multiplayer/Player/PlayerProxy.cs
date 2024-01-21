@@ -37,14 +37,14 @@ namespace DD.Game {
 
         [ServerRpc(RequireOwnership = false)]
         private void CreatePlayerServerRpc(ulong _clientId) {
-            var player = m_diContainer.InstantiatePrefab(
+            var player = Instantiate(
                 m_playerPrefab,
                 m_playersParent.position,
                 m_playersParent.rotation,
                 m_playersParent
             ).GetComponent<NetworkObject>();
 
-            player.SpawnAsPlayerObject(_clientId);
+            player.Spawn();
             PlayerCreatedClientRpc(player.NetworkObjectId, _clientId);
         }
 

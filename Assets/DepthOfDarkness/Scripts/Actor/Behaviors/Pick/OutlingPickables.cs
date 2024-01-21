@@ -15,7 +15,7 @@ namespace DD.Game {
         // ==========================================================//
         // Lifecycle
 
-        private void Awake() {
+        private void Start() {
             var pickController = GetComponent<PickController>();
             Assert.AreNotEqual(pickController, null);
 
