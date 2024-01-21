@@ -29,7 +29,7 @@ namespace DD.Game {
         }
 
         private void Start() {
-            CreatePlayerServerRpc(OwnerClientId);
+            CreatePlayerServerRpc(NetworkManager.Singleton.LocalClientId);
         }
 
         //============================================//
@@ -44,7 +44,7 @@ namespace DD.Game {
                 m_playersParent
             ).GetComponent<NetworkObject>();
 
-            player.Spawn();
+            player.SpawnAsPlayerObject(_clientId);
             PlayerCreatedClientRpc(player.NetworkObjectId, _clientId);
         }
 
