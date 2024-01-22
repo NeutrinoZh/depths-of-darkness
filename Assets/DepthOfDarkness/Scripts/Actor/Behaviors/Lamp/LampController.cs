@@ -1,35 +1,32 @@
 using System;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DD.Game {
     [Serializable]
     public struct LampConfigaration {
-        public float HalfFullMinIntensity;
-        public float HalfFullIntensityAnimDuration;
+        public float MinIntensity;
+        public float MaxIntensity;
+        public float IntensityAnimDuration;
 
-        public float HalfFullMinOuterRadius;
-        public float HalfFullOuterRadiusAnimDuration;
-
-        public float LessHalfFullMinIntensity;
-        public float LessHalfFullIntensityAnimDuration;
-
-        public float LessHalfFullMinOuterRadius;
-        public float LessHalfFullOuterRadiusAnimDuration;
+        public float MinOuterRadius;
+        public float MaxOuterRadius;
+        public float OuterRadiusAnimDuration;
     }
 
     [RequireComponent(typeof(LampState))]
     [RequireComponent(typeof(LightAnimation))]
     public class LampController : MonoBehaviour {
-        [SerializeField] private LampConfigaration m_config;
+        [SerializeField] private LampConfigaration[] m_config;
 
         private LampState m_lampState = null;
-        private LightAnimation m_lampAnimation = null;
+        private LightAnimation m_lightAnimation = null;
 
 
         private void Awake() {
             m_lampState = GetComponent<LampState>();
-            m_lampAnimation = GetComponent<LightAnimation>();
+            m_lightAnimation = GetComponent<LightAnimation>();
             m_lampState.OnOilLevelChange += OilLevelChangeHandle;
         }
 
@@ -38,39 +35,13 @@ namespace DD.Game {
         }
 
         private void OilLevelChangeHandle(LampState.EOilLevel _oilLevel) {
-            switch (_oilLevel) {
-
-                case LampState.EOilLevel.HalfFull:
-
-                    m_lampAnimation.ChangeIntensityParameters(
-                        m_config.HalfFullMinIntensity,
-                        m_config.HalfFullIntensityAnimDuration
-                    );
-
-                    m_lampAnimation.ChangeOuterRadiusParameters(
-                        m_config.HalfFullMinOuterRadius,
-                        m_config.HalfFullOuterRadiusAnimDuration
-                    );
-
-                    break;
-
-                case LampState.EOilLevel.QuarterFull:
-
-                    m_lampAnimation.ChangeIntensityParameters(
-                        m_config.LessHalfFullMinIntensity,
-                        m_config.LessHalfFullIntensityAnimDuration
-                    );
-
-                    m_lampAnimation.ChangeOuterRadiusParameters(
-                        m_config.LessHalfFullMinOuterRadius,
-                        m_config.LessHalfFullOuterRadiusAnimDuration
-                    );
-
-                    break;
-
-                default:
-                    break;
-            }
+            m_lightAnimation.ChangeAnimationParameters(
+                m_config[(int)_oilLevel].MinIntensity,
+                m_config[(int)_oilLevel].MaxIntensity,
+                m_config[(int)_oilLevel].IntensityAnimDuration,
+                m_config[(int)_oilLevel].MinOuterRadius,
+                m_config[(int)_oilLevel].MaxOuterRadius,
+                m_config[(int)_oilLevel].OuterRadiusAnimDuration);
         }
     }
 }

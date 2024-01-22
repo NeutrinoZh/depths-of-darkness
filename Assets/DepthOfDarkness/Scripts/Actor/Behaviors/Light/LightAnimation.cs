@@ -9,20 +9,22 @@ namespace DD.Game {
         [SerializeField] private Ease m_ease;
 
         [SerializeField] private float m_minIntensity;
+        [SerializeField] private float m_maxIntensity;
         [SerializeField] private float m_intensityAnimDuration;
 
         [SerializeField] private float m_minOuterRadius;
+        [SerializeField] private float m_maxOuterRadius;
         [SerializeField] private float m_outerRadiusAnimDuration;
 
         private Light2D m_light = null;
 
-        public void ChangeIntensityParameters(float _minIntensity, float _intensityAnimDuration) {
+        public void ChangeAnimationParameters(float _minIntensity, float _maxIntensity, float _intensityAnimDuration, float _minOuterRadius, float _maxOuterRadius, float _outerRadiusAnimDuration) {
             m_minIntensity = _minIntensity;
+            m_maxIntensity = _maxIntensity;
             m_intensityAnimDuration = _intensityAnimDuration;
-        }
 
-        public void ChangeOuterRadiusParameters(float _minOuterRadius, float _outerRadiusAnimDuration) {
             m_minOuterRadius = _minOuterRadius;
+            m_maxOuterRadius = _maxOuterRadius;
             m_outerRadiusAnimDuration = _outerRadiusAnimDuration;
         }
 
@@ -37,6 +39,8 @@ namespace DD.Game {
         }
 
         private void IntensityAnimation(float _delay) {
+            m_light.intensity = m_maxIntensity;
+
             DOTween
                 .To(
                     () => m_light.intensity,
@@ -51,6 +55,8 @@ namespace DD.Game {
         }
 
         private void OuterRadiusAnimation(float _delay) {
+            m_light.pointLightOuterRadius = m_maxOuterRadius;
+
             DOTween
                 .To(
                     () => m_light.pointLightOuterRadius,

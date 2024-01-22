@@ -217,8 +217,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ease: 8
   m_minIntensity: 0.7
+  m_maxIntensity: 0.8
   m_intensityAnimDuration: 2
   m_minOuterRadius: 2.3
+  m_maxOuterRadius: 2.5
   m_outerRadiusAnimDuration: 2
 --- !u!114 &2388302546022180297
 MonoBehaviour:
@@ -249,11 +251,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_config:
-    HalfFullMinIntensity: 0.5
-    HalfFullIntensityAnimDuration: 1
-    HalfFullMinOuterRadius: 1.8
-    HalfFullOuterRadiusAnimDuration: 1
-    LessHalfFullMinIntensity: 0.3
-    LessHalfFullIntensityAnimDuration: 0.5
-    LessHalfFullMinOuterRadius: 1
-    LessHalfFullOuterRadiusAnimDuration: 0.5
+  - MinIntensity: 0.7
+    MaxIntensity: 0.8
+    IntensityAnimDuration: 2
+    MinOuterRadius: 2.3
+    MaxOuterRadius: 2.5
+    OuterRadiusAnimDuration: 2
+  - MinIntensity: 0.6
+    MaxIntensity: 0.8
+    IntensityAnimDuration: 2
+    MinOuterRadius: 2.2
+    MaxOuterRadius: 2.4
+    OuterRadiusAnimDuration: 2
+  - MinIntensity: 0.5
+    MaxIntensity: 0.6
+    IntensityAnimDuration: 1.8
+    MinOuterRadius: 2
+    MaxOuterRadius: 2.1
+    OuterRadiusAnimDuration: 1.8
+  - MinIntensity: 0
+    MaxIntensity: 0
+    IntensityAnimDuration: 1
+    MinOuterRadius: 0
+    MaxOuterRadius: 0
+    OuterRadiusAnimDuration: 1

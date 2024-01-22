@@ -11,7 +11,7 @@ namespace DD.Game {
         [field: SerializeField] public float OilUsage { get; private set; }
         [field: SerializeField] public EOilLevel OilLevel { get; private set; }
 
-        public enum EOilLevel {
+        public enum EOilLevel : int {
             Full,
             HalfFull,
             QuarterFull,
@@ -20,6 +20,7 @@ namespace DD.Game {
 
         public void CheckCurrentOil() {
             switch (CurrentOil) {
+
                 case >= 0.5f:
                     ChangeOilLevel(EOilLevel.Full);
                     break;
@@ -49,4 +50,3 @@ namespace DD.Game {
         }
     }
 }
-
