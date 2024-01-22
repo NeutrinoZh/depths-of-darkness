@@ -54,7 +54,7 @@ namespace DD.Game {
 
                     break;
 
-                case LampState.EOilLevel.LessHalfFull:
+                case LampState.EOilLevel.QuarterFull:
 
                     m_lampAnimation.ChangeIntensityParameters(
                         m_config.LessHalfFullMinIntensity,

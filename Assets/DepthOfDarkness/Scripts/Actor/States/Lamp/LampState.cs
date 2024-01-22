@@ -14,26 +14,26 @@ namespace DD.Game {
         public enum EOilLevel {
             Full,
             HalfFull,
-            LessHalfFull,
+            QuarterFull,
             Empty
         }
 
         public void CheckCurrentOil() {
-            switch ((CurrentOil, OilLevel)) {
-
-                case ( < 0.5f, EOilLevel.Full):
-                    OilLevel = EOilLevel.HalfFull;
-                    OnOilLevelChange?.Invoke(OilLevel);
+            switch (CurrentOil) {
+                case >= 0.5f:
+                    ChangeOilLevel(EOilLevel.Full);
                     break;
 
-                case ( < 0.2f, EOilLevel.HalfFull):
-                    OilLevel = EOilLevel.LessHalfFull;
-                    OnOilLevelChange?.Invoke(OilLevel);
+                case >= 0.25f:
+                    ChangeOilLevel(EOilLevel.HalfFull);
                     break;
 
-                case ( <= 0f, EOilLevel.LessHalfFull):
-                    OilLevel = EOilLevel.Empty;
-                    OnOilLevelChange?.Invoke(OilLevel);
+                case >= 0.01f:
+                    ChangeOilLevel(EOilLevel.QuarterFull);
+                    break;
+
+                case <= 0f:
+                    ChangeOilLevel(EOilLevel.Empty);
                     break;
 
                 default:
@@ -41,6 +41,12 @@ namespace DD.Game {
             }
         }
 
+        private void ChangeOilLevel(EOilLevel _oilLevel) {
+            if (OilLevel == _oilLevel) return;
+
+            OilLevel = _oilLevel;
+            OnOilLevelChange?.Invoke(OilLevel);
+        }
     }
 }
 
