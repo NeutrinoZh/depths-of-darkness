@@ -18,6 +18,9 @@ namespace DD.Game {
 
         private Light2D m_light = null;
 
+        private bool m_isIntensityStepEven = false;
+        private bool m_isRadiusStepEven = false;
+
         public void ChangeAnimationParameters(float _minIntensity, float _maxIntensity, float _intensityAnimDuration, float _minOuterRadius, float _maxOuterRadius, float _outerRadiusAnimDuration) {
             m_minIntensity = _minIntensity;
             m_maxIntensity = _maxIntensity;
@@ -34,40 +37,41 @@ namespace DD.Game {
 
             float delay = Random.Range(0f, 1f);
 
-            IntensityAnimation(delay);
-            OuterRadiusAnimation(delay);
+            IntensityAnimation(delay, m_minIntensity);
+            OuterRadiusAnimation(delay, m_minOuterRadius);
         }
 
-        private void IntensityAnimation(float _delay) {
-            m_light.intensity = m_maxIntensity;
-
+        private void IntensityAnimation(float _delay, float _intensity) {
             DOTween
                 .To(
                     () => m_light.intensity,
                     x => m_light.intensity = x,
-                    m_minIntensity,
+                    _intensity,
                     m_intensityAnimDuration
                 )
                 .SetEase(m_ease)
-                .SetLoops(2, LoopType.Yoyo)
                 .SetDelay(_delay)
-                .OnComplete(() => IntensityAnimation(0));
+                .OnComplete(() => {
+                    m_isIntensityStepEven = !m_isIntensityStepEven;
+
+                    IntensityAnimation(0, m_isIntensityStepEven ? m_minIntensity : m_maxIntensity);
+                });
         }
 
-        private void OuterRadiusAnimation(float _delay) {
-            m_light.pointLightOuterRadius = m_maxOuterRadius;
-
+        private void OuterRadiusAnimation(float _delay, float _outerRadius) {
             DOTween
                 .To(
                     () => m_light.pointLightOuterRadius,
                     x => m_light.pointLightOuterRadius = x,
-                    m_minOuterRadius,
+                    _outerRadius,
                     m_outerRadiusAnimDuration
                 )
                 .SetEase(m_ease)
-                .SetLoops(2, LoopType.Yoyo)
                 .SetDelay(_delay)
-                .OnComplete(() => OuterRadiusAnimation(0));
+                .OnComplete(() => {
+                    m_isRadiusStepEven = !m_isRadiusStepEven;
+                    OuterRadiusAnimation(0, m_isRadiusStepEven ? m_minOuterRadius : m_maxOuterRadius);
+                });
         }
     }
 }

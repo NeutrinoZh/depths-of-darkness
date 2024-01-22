@@ -140063,14 +140063,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2522090623425295349, guid: 15245f0c1a6f532f1aba1e81a482d525, type: 3}
-      propertyPath: m_maxIntensity
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2522090623425295349, guid: 15245f0c1a6f532f1aba1e81a482d525, type: 3}
-      propertyPath: m_maxOuterRadius
-      value: 2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4112893514067734685, guid: 15245f0c1a6f532f1aba1e81a482d525, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1539674276

@@ -1,7 +1,6 @@
 using System;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DD.Game {
     [Serializable]
@@ -22,7 +21,6 @@ namespace DD.Game {
 
         private LampState m_lampState = null;
         private LightAnimation m_lightAnimation = null;
-
 
         private void Awake() {
             m_lampState = GetComponent<LampState>();
