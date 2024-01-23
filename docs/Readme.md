@@ -1,4 +1,6 @@
-![](/docs/images/title.png)
+<p align="center">
+  <img width="512" height="90" src="./docs/images/title.png">
+</p>
 
 # Depths of Darkness  
 
