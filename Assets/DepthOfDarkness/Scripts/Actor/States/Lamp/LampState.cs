@@ -2,6 +2,8 @@ using System;
 
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
 namespace DD.Game {
     [Serializable]
     public struct LampStateConfigauration {

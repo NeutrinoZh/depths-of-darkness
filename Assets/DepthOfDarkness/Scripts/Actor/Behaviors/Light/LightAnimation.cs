@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
+using System;
+using Random = UnityEngine.Random;
 
 namespace DD.Game {
     [RequireComponent(typeof(Light2D))]
     public class LightAnimation : MonoBehaviour {
+        public Action OnAnimationComplete;
         [SerializeField] private Ease m_ease;
 
         [SerializeField] private float m_minIntensity;
@@ -31,6 +34,11 @@ namespace DD.Game {
             m_outerRadiusAnimDuration = _outerRadiusAnimDuration;
         }
 
+        public void ChangeAnimationDurations(float _intensityAnimDuration, float _outerRadiusAnimDuration) {
+            m_intensityAnimDuration = _intensityAnimDuration;
+            m_outerRadiusAnimDuration = _outerRadiusAnimDuration;
+        }
+
         private void Awake() {
             m_light = GetComponent<Light2D>();
             Assert.AreNotEqual(m_light, null);
@@ -52,8 +60,8 @@ namespace DD.Game {
                 .SetEase(m_ease)
                 .SetDelay(_delay)
                 .OnComplete(() => {
+                    OnAnimationComplete?.Invoke();
                     m_isIntensityStepEven = !m_isIntensityStepEven;
-
                     IntensityAnimation(0, m_isIntensityStepEven ? m_minIntensity : m_maxIntensity);
                 });
         }
