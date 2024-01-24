@@ -97,8 +97,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ease: 14
   m_minIntensity: 1
+  m_maxIntensity: 1.5
   m_intensityAnimDuration: 4
   m_minOuterRadius: 8
+  m_maxOuterRadius: 10
   m_outerRadiusAnimDuration: 4
 --- !u!1 &4100676999878023350
 GameObject:
