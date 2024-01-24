@@ -1,9 +1,9 @@
 using System;
 
-using UnityEngine;
+using Unity.Netcode;
 
 namespace DD.Game {
-    public class TrolleyState : MonoBehaviour {
+    public class TrolleyState : NetworkBehaviour {
         //=======================================//
         // Events 
 
@@ -13,18 +13,30 @@ namespace DD.Game {
         // Props 
 
         public int OreCount {
-            get => m_oreCount;
+            get => m_oreCount.Value;
             set {
-                m_oreCount = value;
-                OnChangeOreCount?.Invoke();
+                SetOreCountServerRpc(value);
             }
         }
 
         //=======================================//
         // Members 
 
-        [SerializeField] private int m_oreCount = 0;
+        private readonly NetworkVariable<int> m_oreCount = new NetworkVariable<int>(0);
 
         //=======================================//
+        // Network events 
+
+        private void Awake() {
+            m_oreCount.OnValueChanged += (_, _) => OnChangeOreCount?.Invoke();
+        }
+
+        //=======================================//
+        // Server Rpcs 
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetOreCountServerRpc(int _oreCount) {
+            m_oreCount.Value = _oreCount;
+        }
     }
 }
