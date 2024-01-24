@@ -7,6 +7,8 @@ Thumbs.db
 *.exe
 *.war
 
+*.blob
+
 *.csproj
 .vsconfig
 

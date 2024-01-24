@@ -1,13 +1,15 @@
 
 using System;
 
+using Unity.Netcode;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
 using Zenject;
 
 namespace DD.Game {
-    public sealed class PickController : MonoBehaviour {
+    public sealed class PickController : NetworkBehaviour {
 
         //=====================================================//
         // Events 
@@ -40,12 +42,14 @@ namespace DD.Game {
             NearPickables.Find();
         }
 
-        private void Start() {
-            m_input.Input.Player.Pick.performed += _ => HandActionHandle();
+        public override void OnNetworkSpawn() {
+            if (IsOwner)
+                m_input.Input.Player.Pick.performed += _ => HandActionHandle();
         }
 
-        private void OnDestroy() {
-            m_input.Input.Player.Pick.performed -= _ => HandActionHandle();
+        public override void OnNetworkDespawn() {
+            if (IsOwner)
+                m_input.Input.Player.Pick.performed -= _ => HandActionHandle();
         }
 
         //============================================================//

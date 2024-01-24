@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8858661587801753732}
   - component: {fileID: 5997713300945014826}
   - component: {fileID: 4838102349691959497}
-  - component: {fileID: 493137625400980789}
+  - component: {fileID: -5278507629031265565}
   - component: {fileID: 5072155231285103913}
   - component: {fileID: 2522090623425295349}
   - component: {fileID: 2388302546022180297}
@@ -153,15 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1207754225
+  GlobalObjectIdHash: 1010084862
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
-  AutoObjectParentSync: 0
---- !u!114 &493137625400980789
+  AutoObjectParentSync: 1
+--- !u!114 &-5278507629031265565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,7 +189,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!114 &5072155231285103913
 MonoBehaviour:
@@ -215,11 +215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975ccafac0b6ed7a39ae62dc75da5439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mEase: 8
-  mMinIntensity: 0.7
-  mIntensityAnimDuration: 2
-  mMinOuterRadius: 2.3
-  mOuterRadiusAnimDuration: 2
+  m_ease: 8
+  m_minIntensity: 0.7
+  m_maxIntensity: 0.8
+  m_intensityAnimDuration: 2
+  m_minOuterRadius: 2.3
+  m_maxOuterRadius: 2.5
+  m_outerRadiusAnimDuration: 2
 --- !u!114 &2388302546022180297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,9 +234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e88b94609b54d4da65fce0f317b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxOil>k__BackingField: 100
-  <CurrentOil>k__BackingField: 100
-  <OilUsage>k__BackingField: 1
+  m_lampStateConfigaration:
+    MaxOil: 100
+    CurrentOil: 100
+    OilUsage: 1
   <OilLevel>k__BackingField: 0
 --- !u!114 &2528675410592431186
 MonoBehaviour:
@@ -248,12 +251,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc13af06cc2e3847b5c1fb64ed1a948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mConfig:
-    HalfFullMinIntensity: 0.5
-    HalfFullIntensityAnimDuration: 1
-    HalfFullMinOuterRadius: 1.8
-    HalfFullOuterRadiusAnimDuration: 1
-    LessHalfFullMinIntensity: 0.3
-    LessHalfFullIntensityAnimDuration: 0.5
-    LessHalfFullMinOuterRadius: 1
-    LessHalfFullOuterRadiusAnimDuration: 0.5
+  m_config:
+  - MinIntensity: 0.7
+    MaxIntensity: 0.8
+    IntensityAnimDuration: 2
+    MinOuterRadius: 2.3
+    MaxOuterRadius: 2.5
+    OuterRadiusAnimDuration: 2
+  - MinIntensity: 0.6
+    MaxIntensity: 0.8
+    IntensityAnimDuration: 2
+    MinOuterRadius: 2.2
+    MaxOuterRadius: 2.4
+    OuterRadiusAnimDuration: 2
+  - MinIntensity: 0.5
+    MaxIntensity: 0.6
+    IntensityAnimDuration: 1.8
+    MinOuterRadius: 2
+    MaxOuterRadius: 2.1
+    OuterRadiusAnimDuration: 1.8
+  - MinIntensity: 0
+    MaxIntensity: 0
+    IntensityAnimDuration: 1
+    MinOuterRadius: 0
+    MaxOuterRadius: 0
+    OuterRadiusAnimDuration: 1

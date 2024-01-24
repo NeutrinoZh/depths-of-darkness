@@ -10,15 +10,15 @@ using Unity.Services.Relay.Models;
 
 namespace DD.Multiplayer {
     public static class RelayControll {
-        const bool LOCAL = true; 
+        const bool c_local = false;
 
         public static async Task<bool> StartClientWithRelay(string _roomCode) {
-            if (LOCAL)
+#pragma warning disable CS0162 
+            if (c_local)
                 return NetworkManager.Singleton.StartClient();
 
-#pragma warning disable CS0162 
             await UnityServices.InitializeAsync();
-            if (!AuthenticationService.Instance.IsSignedIn) 
+            if (!AuthenticationService.Instance.IsSignedIn)
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: _roomCode);
@@ -27,11 +27,11 @@ namespace DD.Multiplayer {
 #pragma warning restore CS0162 
         }
 
-        public static async Task<string> StartHostWithRelay(int maxConnections=4) {
-            if (LOCAL)
+        public static async Task<string> StartHostWithRelay(int maxConnections = 4) {
+#pragma warning disable CS0162 
+            if (c_local)
                 return NetworkManager.Singleton.StartHost() ? "local" : null;
 
-#pragma warning disable CS0162 
             await UnityServices.InitializeAsync();
             if (!AuthenticationService.Instance.IsSignedIn)
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();

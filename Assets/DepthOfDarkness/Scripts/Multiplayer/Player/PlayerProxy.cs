@@ -29,15 +29,15 @@ namespace DD.Game {
         }
 
         private void Start() {
-            CreatePlayerServerRpc(OwnerClientId);
+            CreatePlayerServerRpc(NetworkManager.Singleton.LocalClientId);
         }
 
         //============================================//
         // Internal logic
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         private void CreatePlayerServerRpc(ulong _clientId) {
-            var player = m_diContainer.InstantiatePrefab(
+            var player = Instantiate(
                 m_playerPrefab,
                 m_playersParent.position,
                 m_playersParent.rotation,
@@ -53,7 +53,7 @@ namespace DD.Game {
             var player = GetNetworkObject(_playerId);
             OnPlayerConnected?.Invoke(player.transform);
 
-            if (_clientId == OwnerClientId)
+            if (_clientId == NetworkManager.Singleton.LocalClientId)
                 OnSelfConnect?.Invoke(player.transform);
         }
     }
