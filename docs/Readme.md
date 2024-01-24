@@ -38,7 +38,7 @@ This project follows best practices and utilizes various technologies to create 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/unity-project.git
+   git clone https://github.com/neutrinozh/depths-of-darkness.git
    ```
 2. Open the project in Unity.
 3. Have fun!
