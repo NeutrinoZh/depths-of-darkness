@@ -58,7 +58,7 @@ namespace DD.Game {
                 return;
 
             if (!Grabbed)
-                Pick(_pickable);
+                Grab(_pickable);
             else
                 Drop();
         }
@@ -70,18 +70,18 @@ namespace DD.Game {
         //====================//
         // Pick
 
-        private void Pick(Pickable _pickable) {
+        private void Grab(Pickable _pickable) {
             if (!_pickable)
                 return;
 
             if (!_pickable.TryGetComponent(out NetworkObject networkObject))
                 return;
 
-            PickServerRpc(networkObject.NetworkObjectId);
+            GrabServerRpc(networkObject.NetworkObjectId);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void PickServerRpc(ulong _networkId) {
+        [ServerRpc]
+        private void GrabServerRpc(ulong _networkId) {
             var networkObject = GetNetworkObject(_networkId);
             if (!networkObject.TryGetComponent(out Pickable pickable))
                 return;
@@ -92,11 +92,11 @@ namespace DD.Game {
             pickable.transform.localScale = m_grabbedScale;
 
             //
-            PickClientRpc(_networkId);
+            GrabClientRpc(_networkId);
         }
 
         [ClientRpc]
-        private void PickClientRpc(ulong _networkId) {
+        private void GrabClientRpc(ulong _networkId) {
             var networkObject = GetNetworkObject(_networkId);
             if (!networkObject.TryGetComponent(out Pickable pickable))
                 return;
@@ -119,7 +119,7 @@ namespace DD.Game {
             DropServerRpc();
         }
 
-        [ServerRpc(RequireOwnership = false)]
+        [ServerRpc]
         private void DropServerRpc() {
             if (!Grabbed)
                 return;
