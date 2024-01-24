@@ -25,11 +25,15 @@ namespace DD.Game {
         private void Awake() {
             m_lampState = GetComponent<LampState>();
             m_lightAnimation = GetComponent<LightAnimation>();
+
             m_lampState.OnOilLevelChange += OilLevelChangeHandle;
         }
 
         private void Update() {
+            if (m_lampState.CurrentOil <= 0) return;
+
             m_lampState.CheckCurrentOil();
+            m_lampState.UseOil();
         }
 
         private void OilLevelChangeHandle(LampState.EOilLevel _oilLevel) {

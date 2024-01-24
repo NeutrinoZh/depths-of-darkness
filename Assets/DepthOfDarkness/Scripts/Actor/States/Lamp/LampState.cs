@@ -18,8 +18,13 @@ namespace DD.Game {
             Empty
         }
 
+        public void UseOil() {
+            CurrentOil -= OilUsage * Time.deltaTime;
+            CurrentOil = Mathf.Clamp(CurrentOil, 0, MaxOil);
+        }
+
         public void CheckCurrentOil() {
-            switch (CurrentOil) {
+            switch (CurrentOil / MaxOil) {
 
                 case >= 0.5f:
                     ChangeOilLevel(EOilLevel.Full);
