@@ -1,10 +1,12 @@
+using Unity.Netcode;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
 using Zenject;
 
 namespace DD.Game {
-    public class GrabController : MonoBehaviour {
+    public class GrabController : NetworkBehaviour {
         //=======================================//
         // Props 
 
@@ -14,7 +16,6 @@ namespace DD.Game {
         // Consts 
 
         const string c_grabbableTag = "Grabbable";
-        const string c_grabPoint = "GrabPoint";
         const int c_pickedSpriteOrder = 3;
 
         //=======================================//
@@ -22,7 +23,6 @@ namespace DD.Game {
 
         private PickController m_pickController;
         private PickablesRegister m_pickablesRegister;
-        private Transform m_grabPoint;
 
         //=======================================//
         // Members 
@@ -40,16 +40,13 @@ namespace DD.Game {
         private void Awake() {
             m_pickController = GetComponent<PickController>();
             Assert.AreNotEqual(m_pickController, null);
-
-            m_grabPoint = transform.Find(c_grabPoint);
-            Assert.AreNotEqual(m_grabPoint, null);
         }
 
-        private void Update() {
+        public override void OnNetworkSpawn() {
             m_pickController.OnPickEvent += PickHandle;
         }
 
-        private void OnDestroy() {
+        public override void OnNetworkDespawn() {
             m_pickController.OnPickEvent -= PickHandle;
         }
 
@@ -69,35 +66,77 @@ namespace DD.Game {
         //=======================================//
         // Internal 
 
+
+        //====================//
+        // Pick
+
         private void Pick(Pickable _pickable) {
             if (!_pickable)
                 return;
 
-            Grabbed = _pickable;
+            if (!_pickable.TryGetComponent(out NetworkObject networkObject))
+                return;
 
-            // 
-            m_pickablesRegister.RemovePickable(Grabbed);
-            Grabbed.Renderer.sortingOrder = c_pickedSpriteOrder;
-            Grabbed.Renderer.material.shader = Grabbed.DefaultShader;
+            PickServerRpc(networkObject.NetworkObjectId);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PickServerRpc(ulong _networkId) {
+            var networkObject = GetNetworkObject(_networkId);
+            if (!networkObject.TryGetComponent(out Pickable pickable))
+                return;
 
             //
-            Grabbed.transform.parent = m_grabPoint;
-            Grabbed.transform.localPosition = Vector3.zero;
-            Grabbed.transform.localScale = m_grabbedScale;
+            pickable.transform.parent = transform;
+            pickable.transform.localPosition = Vector3.zero;
+            pickable.transform.localScale = m_grabbedScale;
+
+            //
+            PickClientRpc(_networkId);
         }
+
+        [ClientRpc]
+        private void PickClientRpc(ulong _networkId) {
+            var networkObject = GetNetworkObject(_networkId);
+            if (!networkObject.TryGetComponent(out Pickable pickable))
+                return;
+
+            m_pickablesRegister.RemovePickable(pickable);
+
+            Grabbed = pickable;
+            Grabbed.Renderer.sortingOrder = c_pickedSpriteOrder;
+            Grabbed.Renderer.material.shader = Grabbed.DefaultShader;
+        }
+
+
+        //====================//
+        // Drop
 
         private void Drop() {
             if (!Grabbed)
                 return;
 
-            //
-            m_pickablesRegister.AddPickable(Grabbed);
-            Grabbed.Renderer.sortingOrder = Grabbed.DefaultSpriteOrder;
+            DropServerRpc();
+        }
 
-            //
+        [ServerRpc(RequireOwnership = false)]
+        private void DropServerRpc() {
+            if (!Grabbed)
+                return;
+
             Grabbed.transform.parent = null;
             Grabbed.transform.localScale = Vector3.one;
 
+            DropClientRpc();
+        }
+
+        [ClientRpc]
+        private void DropClientRpc() {
+            if (!Grabbed)
+                return;
+
+            m_pickablesRegister.AddPickable(Grabbed);
+            Grabbed.Renderer.sortingOrder = Grabbed.DefaultSpriteOrder;
             Grabbed = null;
         }
     }
