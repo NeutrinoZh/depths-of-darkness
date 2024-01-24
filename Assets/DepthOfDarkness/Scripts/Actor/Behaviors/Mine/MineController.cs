@@ -1,3 +1,5 @@
+using Unity.Netcode;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -35,11 +37,13 @@ namespace DD.Game {
             Assert.AreNotEqual(m_playerState, null);
         }
 
-        void Start() {
+        //public override void OnNetworkSpawn() {
+        private void Start() {
             m_pickController.OnPickEvent += PickHandle;
         }
 
-        void OnDestroy() {
+        //public override void OnNetworkDespawn() {
+        private void OnDestroy() {
             m_pickController.OnPickEvent -= PickHandle;
         }
 
@@ -53,12 +57,34 @@ namespace DD.Game {
             Mine(_pickable);
         }
 
+        //=======================================//
+        // Mine
+
         private void Mine(Pickable _pickable) {
             m_pickablesRegister.RemovePickable(_pickable);
             Destroy(_pickable.gameObject);
 
             m_playerState.OreCount += 1;
         }
+
+        /*[ServerRpc]
+        private void MineServerRpc(ulong _networkId) {
+            m_playerState.OreCount += 1;
+            MineClientRpc(_networkId);
+        }
+
+        [ClientRpc]
+        private void MineClientRpc(ulong _networkId) {
+            var networkObject = GetNetworkObject(_networkId);
+            if (!networkObject)
+                return;
+
+            if (!networkObject.TryGetComponent(out Pickable pickable))
+                return;
+
+            m_pickablesRegister.RemovePickable(pickable);
+            networkObject.Despawn();
+        }*/
 
         //=======================================//
     }

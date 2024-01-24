@@ -1,3 +1,5 @@
+using Unity.Netcode;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -5,7 +7,7 @@ namespace DD.Game {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(MovementState))]
-    public sealed class MovementController : MonoBehaviour {
+    public sealed class MovementController : NetworkBehaviour {
         //=====================================================//
         // Members 
 
@@ -28,6 +30,9 @@ namespace DD.Game {
         }
 
         private void FixedUpdate() {
+            if (!IsOwner)
+                return;
+
             // read input value
             Vector2 direction = m_input.Input.Player.Move.ReadValue<Vector2>();
 

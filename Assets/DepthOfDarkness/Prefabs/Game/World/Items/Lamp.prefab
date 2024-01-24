@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8858661587801753732}
   - component: {fileID: 5997713300945014826}
   - component: {fileID: 4838102349691959497}
-  - component: {fileID: 493137625400980789}
+  - component: {fileID: -5278507629031265565}
   - component: {fileID: 5072155231285103913}
   - component: {fileID: 2522090623425295349}
   - component: {fileID: 2388302546022180297}
@@ -160,8 +160,8 @@ MonoBehaviour:
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
-  AutoObjectParentSync: 0
---- !u!114 &493137625400980789
+  AutoObjectParentSync: 1
+--- !u!114 &-5278507629031265565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,7 +189,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!114 &5072155231285103913
 MonoBehaviour:
