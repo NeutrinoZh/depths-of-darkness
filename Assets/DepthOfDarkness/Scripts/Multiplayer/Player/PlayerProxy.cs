@@ -53,7 +53,7 @@ namespace DD.Game {
             var player = GetNetworkObject(_playerId);
             OnPlayerConnected?.Invoke(player.transform);
 
-            if (_clientId == OwnerClientId)
+            if (_clientId == NetworkManager.Singleton.LocalClientId)
                 OnSelfConnect?.Invoke(player.transform);
         }
     }
