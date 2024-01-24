@@ -234,9 +234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e88b94609b54d4da65fce0f317b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxOil>k__BackingField: 100
-  <CurrentOil>k__BackingField: 100
-  <OilUsage>k__BackingField: 1
+  m_lampStateConfigaration:
+    MaxOil: 100
+    CurrentOil: 100
+    OilUsage: 1
   <OilLevel>k__BackingField: 0
 --- !u!114 &2528675410592431186
 MonoBehaviour:

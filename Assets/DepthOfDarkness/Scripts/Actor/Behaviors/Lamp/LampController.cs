@@ -30,8 +30,6 @@ namespace DD.Game {
         }
 
         private void Update() {
-            if (m_lampState.CurrentOil <= 0) return;
-
             m_lampState.CheckCurrentOil();
             m_lampState.UseOil();
         }
