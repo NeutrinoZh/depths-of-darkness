@@ -41,7 +41,7 @@ namespace DD {
 
         private async void StartClient(string _joinCode) {
             var result = await Multiplayer.RelayControll.StartClientWithRelay(_joinCode);
-            Debug.LogError($"StartClient result: {result}");
+            Debug.Log($"StartClient result: {result}");
 
             if (!result)
                 SceneManager.LoadSceneAsync(c_mainMenu, LoadSceneMode.Single);

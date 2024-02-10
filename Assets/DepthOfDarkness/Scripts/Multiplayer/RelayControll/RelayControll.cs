@@ -10,7 +10,7 @@ using Unity.Services.Relay.Models;
 
 namespace DD.Multiplayer {
     public static class RelayControll {
-        const bool c_local = false;
+        const bool c_local = true;
 
         public static async Task<bool> StartClientWithRelay(string _roomCode) {
 #pragma warning disable CS0162 

@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 using System.Collections.Generic;
+using Unity.Netcode;
 
 namespace DD.Game {
-    public sealed class PlayerAnimator : MonoBehaviour {
+    public sealed class PlayerAnimator : NetworkBehaviour {
 
         //=====================================================//
         // Members 
@@ -94,7 +95,7 @@ namespace DD.Game {
 
         }
 
-        private void OnDestroy() {
+        public override void OnNetworkDespawn() {
             m_movement.OnChangeDirection -= ChangeAnimation;
             m_movement.OnChangeMoveState -= ChangeAnimation;
             m_grabController.OnGrab -= OnGrabDropHandle;
@@ -110,12 +111,17 @@ namespace DD.Game {
 
         void ChangeAnimation() {
             if (m_movement.IsStay)
-                m_animator.Play(m_grabController.Grabbed ? m_anims_idle_lamp[m_movement.Direction] : m_anims_idle[m_movement.Direction]);
+                ChangeAnimationServerRpc(m_grabController.Grabbed ? m_anims_idle_lamp[m_movement.Direction] : m_anims_idle[m_movement.Direction]);
             else
-                m_animator.Play(m_grabController.Grabbed ? m_anims_move_lamp[m_movement.Direction] : m_anims_move[m_movement.Direction]);
+                ChangeAnimationServerRpc(m_grabController.Grabbed ? m_anims_move_lamp[m_movement.Direction] : m_anims_move[m_movement.Direction]);
         }
 
         //===============================================================//
+        // Sync 
 
+        [ServerRpc(RequireOwnership = false)]
+        void ChangeAnimationServerRpc(int _stateNameHash) {
+            m_animator.Play(_stateNameHash);
+        }
     }
 }
