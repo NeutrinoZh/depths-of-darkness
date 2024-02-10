@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -1298797941, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+  m_DefaultSprite: {fileID: -2580077389910587141, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
