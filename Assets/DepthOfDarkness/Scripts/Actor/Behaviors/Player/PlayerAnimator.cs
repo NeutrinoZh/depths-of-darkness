@@ -9,7 +9,9 @@ namespace DD.Game {
         //=====================================================//
         // Members 
 
+        private GrabController m_grabController;
         private MovementState m_movement;
+
 
         private Dictionary<Direction, int> m_anims_move;
         private Dictionary<Direction, int> m_anims_idle;
@@ -24,11 +26,14 @@ namespace DD.Game {
         private void Awake() {
             //
 
+            m_grabController = GetComponent<GrabController>();
+            Assert.IsNotNull(m_grabController);
+
             m_movement = GetComponent<MovementState>();
-            Assert.AreNotEqual(m_movement, null);
+            Assert.IsNotNull(m_movement);
 
             m_animator = GetComponent<Animator>();
-            Assert.AreNotEqual(m_animator, null);
+            Assert.IsNotNull(m_animator);
 
             // 
 
@@ -96,12 +101,14 @@ namespace DD.Game {
         // Handles 
 
         void OnChangeDirectionHandle() {
-            m_animator.Play(m_anims_move[m_movement.Direction]);
+            m_animator.Play(m_grabController.Grabbed ? m_anims_move_lamp[m_movement.Direction] : m_anims_move[m_movement.Direction]);
         }
 
         void OnChangeMoveStateHandle() {
             if (m_movement.IsStay)
-                m_animator.Play(m_anims_idle[m_movement.Direction]);
+                m_animator.Play(m_grabController.Grabbed ? m_anims_idle_lamp[m_movement.Direction] : m_anims_idle[m_movement.Direction]);
+            else
+                m_animator.Play(m_grabController.Grabbed ? m_anims_move_lamp[m_movement.Direction] : m_anims_move[m_movement.Direction]);
         }
 
         //===============================================================//
