@@ -140199,6 +140199,10 @@ PrefabInstance:
       value: 3.2915344
       objectReference: {fileID: 0}
     - target: {fileID: 7891318227087579906, guid: dbe7382305a89af59b36afe74e98a37c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891318227087579906, guid: dbe7382305a89af59b36afe74e98a37c, type: 3}
       propertyPath: m_DrawMode
       value: 2
       objectReference: {fileID: 0}
