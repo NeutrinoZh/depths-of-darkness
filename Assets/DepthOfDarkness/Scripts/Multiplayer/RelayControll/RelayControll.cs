@@ -17,13 +17,16 @@ namespace DD.Multiplayer {
             if (c_local)
                 return NetworkManager.Singleton.StartClient();
 
+            if (string.IsNullOrEmpty(_roomCode))
+                return false;
+
             await UnityServices.InitializeAsync();
             if (!AuthenticationService.Instance.IsSignedIn)
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: _roomCode);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
-            return !string.IsNullOrEmpty(_roomCode) && NetworkManager.Singleton.StartClient();
+            return NetworkManager.Singleton.StartClient();
 #pragma warning restore CS0162 
         }
 

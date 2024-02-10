@@ -11,6 +11,7 @@ namespace DD {
 
     public sealed class SceneManagement : NetworkBehaviour {
         private const string c_loadingScreen = "LOADING_SCREEN";
+        private const string c_mainMenu = "MAIN_MENU";
 
         private bool m_loading;
         private SceneList m_toLoadScene;
@@ -39,7 +40,11 @@ namespace DD {
         }
 
         private async void StartClient(string _joinCode) {
-            await Multiplayer.RelayControll.StartClientWithRelay(_joinCode);
+            var result = await Multiplayer.RelayControll.StartClientWithRelay(_joinCode);
+            Debug.LogError($"StartClient result: {result}");
+
+            if (!result)
+                SceneManager.LoadSceneAsync(c_mainMenu, LoadSceneMode.Single);
         }
 
         private async void OnLoadingScreenLoaded(AsyncOperation _) {
