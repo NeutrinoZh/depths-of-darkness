@@ -87,24 +87,28 @@ namespace DD.Game {
 
             //
 
-            m_movement.OnChangeDirection += OnChangeDirectionHandle;
-            m_movement.OnChangeMoveState += OnChangeMoveStateHandle;
+            m_movement.OnChangeDirection += ChangeAnimation;
+            m_movement.OnChangeMoveState += ChangeAnimation;
+            m_grabController.OnGrab += OnGrabDropHandle;
+            m_grabController.OnDrop += OnGrabDropHandle;
 
         }
 
         private void OnDestroy() {
-            m_movement.OnChangeDirection -= OnChangeDirectionHandle;
-            m_movement.OnChangeMoveState -= OnChangeMoveStateHandle;
+            m_movement.OnChangeDirection -= ChangeAnimation;
+            m_movement.OnChangeMoveState -= ChangeAnimation;
+            m_grabController.OnGrab -= OnGrabDropHandle;
+            m_grabController.OnDrop -= OnGrabDropHandle;
         }
 
         //===============================================================//
         // Handles 
 
-        void OnChangeDirectionHandle() {
-            m_animator.Play(m_grabController.Grabbed ? m_anims_move_lamp[m_movement.Direction] : m_anims_move[m_movement.Direction]);
+        void OnGrabDropHandle(Pickable _) {
+            ChangeAnimation();
         }
 
-        void OnChangeMoveStateHandle() {
+        void ChangeAnimation() {
             if (m_movement.IsStay)
                 m_animator.Play(m_grabController.Grabbed ? m_anims_idle_lamp[m_movement.Direction] : m_anims_idle[m_movement.Direction]);
             else

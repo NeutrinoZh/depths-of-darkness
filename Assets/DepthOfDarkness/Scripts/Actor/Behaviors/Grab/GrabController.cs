@@ -1,3 +1,5 @@
+using System;
+
 using Unity.Netcode;
 
 using UnityEngine;
@@ -8,6 +10,12 @@ using Zenject;
 namespace DD.Game {
     public class GrabController : NetworkBehaviour {
         //=======================================//
+        // Events
+
+        public event Action<Pickable> OnGrab = null;
+        public event Action<Pickable> OnDrop = null;
+
+        //=======================================//
         // Props 
 
         public Pickable Grabbed { get; private set; } = null;
@@ -16,7 +24,6 @@ namespace DD.Game {
         // Consts 
 
         const string c_grabbableTag = "Grabbable";
-        const int c_pickedSpriteOrder = 3;
 
         //=======================================//
         // Dependencies
@@ -104,8 +111,9 @@ namespace DD.Game {
             m_pickablesRegister.RemovePickable(pickable);
 
             Grabbed = pickable;
-            Grabbed.Renderer.sortingOrder = c_pickedSpriteOrder;
-            Grabbed.Renderer.material.shader = Grabbed.DefaultShader;
+            Grabbed.Renderer.enabled = false;
+
+            OnGrab?.Invoke(pickable);
         }
 
 
@@ -135,9 +143,13 @@ namespace DD.Game {
             if (!Grabbed)
                 return;
 
+            var tmp = Grabbed;
+
             m_pickablesRegister.AddPickable(Grabbed);
-            Grabbed.Renderer.sortingOrder = Grabbed.DefaultSpriteOrder;
+            Grabbed.Renderer.enabled = true;
             Grabbed = null;
+
+            OnDrop?.Invoke(tmp);
         }
     }
 }
