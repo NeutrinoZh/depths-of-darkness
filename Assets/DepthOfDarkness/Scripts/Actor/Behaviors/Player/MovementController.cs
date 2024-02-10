@@ -42,7 +42,7 @@ namespace DD.Game {
             // switch states
             m_movementState.IsMove = direction != Vector2.zero;
             if (m_movementState.IsMove)
-                m_movementState.Direction = DirectionUtils.Get4DirectionFromVector(direction);
+                m_movementState.Direction = DirectionUtils.Get8DirectionFromVector(direction);
         }
 
         //=====================================================//

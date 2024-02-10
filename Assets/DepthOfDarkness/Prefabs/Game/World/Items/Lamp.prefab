@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -208475374, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+  m_Sprite: {fileID: 3021697482587482291, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1010084862
+  GlobalObjectIdHash: 1207754225
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -239,6 +239,9 @@ MonoBehaviour:
     CurrentOil: 100
     OilUsage: 1
   <OilLevel>k__BackingField: 0
+  <MaxOil>k__BackingField: 0
+  <CurrentOil>k__BackingField: 0
+  <OilUsage>k__BackingField: 0
 --- !u!114 &2528675410592431186
 MonoBehaviour:
   m_ObjectHideFlags: 0
