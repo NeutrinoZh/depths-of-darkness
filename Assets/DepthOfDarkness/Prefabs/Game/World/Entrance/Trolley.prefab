@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7422837833901040084}
   - component: {fileID: 3487674379646185011}
   - component: {fileID: 8440840703758887727}
+  - component: {fileID: 8242622044029843156}
   - component: {fileID: 8152887284386073835}
   - component: {fileID: 1091164340075007228}
   - component: {fileID: 4835295458076981053}
-  - component: {fileID: 8242622044029843156}
   m_Layer: 0
   m_Name: Trolley
   m_TagString: Trolley
@@ -80,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1620284755, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
+  m_Sprite: {fileID: -8813542311715394577, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -127,8 +127,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
-    newSize: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -148,6 +148,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8bceaaf7c827d5e9219a4cbcb65f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8242622044029843156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095854106340380079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1191588840
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &8152887284386073835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,32 +205,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sprites:
-  - {fileID: -1620284755, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-  - {fileID: 2002360903, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-  - {fileID: 233684932, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-  - {fileID: 1237599543, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-  - {fileID: 1130052556, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
-  - {fileID: -1800033174, guid: ca0e17c54f9ec0e1f9289b2a88c8bb19, type: 3}
---- !u!114 &8242622044029843156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095854106340380079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1752452554
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
+  - {fileID: -8813542311715394577, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
+  - {fileID: -7653026779843819589, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
+  - {fileID: 5832751221319438975, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
+  - {fileID: 3544781446464087331, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
+  - {fileID: -1757972079857180630, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
+  - {fileID: -2606245796632642443, guid: 563f94344e8208fa494a5f1d1402c6fd, type: 3}
 --- !u!1 &3958582320580965532
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,8 +278,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0/10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9d75a983b2b4e378cb46d58216bec043, type: 2}
-  m_sharedMaterial: {fileID: 2774359094246673844, guid: 9d75a983b2b4e378cb46d58216bec043, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
