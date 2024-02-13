@@ -5,14 +5,13 @@ using UnityEngine;
 namespace DD.Game {
     public enum Direction {
         RIGHT,
-        UP,
-        LEFT,
-        DOWN,
-
-        /*DOWNRIGHT,
         UPRIGHT,
+        UP,
+        UPLEFT,
+        LEFT,
         DOWNLEFT,
-        UPLEFT,*/
+        DOWN,
+        DOWNRIGHT,
     }
 
     public static class DirectionUtils {
@@ -41,15 +40,17 @@ namespace DD.Game {
                 case Direction.LEFT:
                     return "Left";
 
-
-                /*case Direction.UPRIGHT:
+                case Direction.UPRIGHT:
                     return "UpRight";
+
                 case Direction.UPLEFT:
                     return "UpLeft";
+
                 case Direction.DOWNRIGHT:
                     return "DownRight";
+
                 case Direction.DOWNLEFT:
-                    return "DownLeft";*/
+                    return "DownLeft";
 
                 default:
                     throw new ArgumentException($"Can't convert to pretty string {nameof(_direction)}: '{_direction}'");
