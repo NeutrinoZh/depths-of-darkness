@@ -9,9 +9,9 @@ namespace DD.MainMenu {
         //=============================================//
         // Events
 
-        public Action OnClickHost = null;
-        public Action OnClickJoin = null;
-        public Action OnClickBack = null;
+        public event Action OnClickHost = null;
+        public event Action OnClickJoin = null;
+        public event Action OnClickBack = null;
 
         //=============================================//
         // Consts

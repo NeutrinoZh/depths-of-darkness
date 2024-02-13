@@ -46,7 +46,7 @@ namespace DD.Game {
 
         private void Awake() {
             m_pickController = GetComponent<PickController>();
-            Assert.AreNotEqual(m_pickController, null);
+            Assert.IsNotNull(m_pickController);
         }
 
         public override void OnNetworkSpawn() {
@@ -69,10 +69,6 @@ namespace DD.Game {
             else
                 Drop();
         }
-
-        //=======================================//
-        // Internal 
-
 
         //====================//
         // Pick

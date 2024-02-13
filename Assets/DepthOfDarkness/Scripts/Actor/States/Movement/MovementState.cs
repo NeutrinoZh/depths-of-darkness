@@ -7,8 +7,8 @@ namespace DD.Game {
         //=======================================//
         // Events
 
-        public Action OnChangeMoveState = null;
-        public Action OnChangeDirection = null;
+        public event Action OnChangeMoveState = null;
+        public event Action OnChangeDirection = null;
 
         //=======================================//
         // Props 
@@ -49,6 +49,5 @@ namespace DD.Game {
 
         private Direction m_direction = Direction.DOWN;
         private bool m_isMove = false;
-
     }
 }

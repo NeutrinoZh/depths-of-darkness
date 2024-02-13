@@ -8,18 +8,14 @@ namespace DD.Game {
         // ==========================================================//
         // Props 
 
-        public SpriteRenderer Renderer => m_spriteRenderer;
-        public Shader DefaultShader => m_defaultShader;
-        public int DefaultSpriteOrder => m_defaultSpriteOrder;
+        public SpriteRenderer Renderer { get; private set; }
+        public Shader DefaultShader { get; private set; }
+        public int DefaultSpriteOrder { get; private set; }
 
         // ==========================================================//
         // Members 
 
         private PickablesRegister m_pickableRegister;
-
-        private SpriteRenderer m_spriteRenderer;
-        private Shader m_defaultShader;
-        private int m_defaultSpriteOrder;
 
         // ==========================================================//
         // Lifecycle 
@@ -31,11 +27,11 @@ namespace DD.Game {
 
 
         private void Awake() {
-            m_spriteRenderer = GetComponent<SpriteRenderer>();
-            Assert.AreNotEqual(m_spriteRenderer, null);
+            Renderer = GetComponent<SpriteRenderer>();
+            Assert.IsNotNull(Renderer);
 
-            m_defaultShader = m_spriteRenderer.material.shader;
-            m_defaultSpriteOrder = m_spriteRenderer.sortingOrder;
+            DefaultShader = Renderer.material.shader;
+            DefaultSpriteOrder = Renderer.sortingOrder;
 
             m_pickableRegister.AddPickable(this);
         }

@@ -10,21 +10,19 @@ namespace DD.Game {
     public class PlayerProxy : NetworkBehaviour {
         //============================================//
         // Events 
-        public Action<Transform> OnPlayerConnected = null;
-        public Action<Transform> OnSelfConnect = null;
+        public event Action<Transform> OnPlayerConnected = null;
+        public event Action<Transform> OnSelfConnected = null;
 
         //============================================//
         // Members 
         [SerializeField] private GameObject m_playerPrefab;
         private Transform m_playersParent;
-        private DiContainer m_diContainer;
 
         //============================================//
         // Lifecycle
 
         [Inject]
-        public void Construct(DiContainer _diContainer, GroupManager _groupManager) {
-            m_diContainer = _diContainer;
+        public void Construct(GroupManager _groupManager) {
             m_playersParent = _groupManager.Players;
         }
 
@@ -54,7 +52,7 @@ namespace DD.Game {
             OnPlayerConnected?.Invoke(player.transform);
 
             if (_clientId == NetworkManager.Singleton.LocalClientId)
-                OnSelfConnect?.Invoke(player.transform);
+                OnSelfConnected?.Invoke(player.transform);
         }
     }
 }

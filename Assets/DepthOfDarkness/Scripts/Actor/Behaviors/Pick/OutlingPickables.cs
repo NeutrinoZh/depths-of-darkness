@@ -17,10 +17,10 @@ namespace DD.Game {
 
         private void Start() {
             var pickController = GetComponent<PickController>();
-            Assert.AreNotEqual(pickController, null);
+            Assert.IsNotNull(pickController);
 
             m_finderNearPickables = pickController.NearPickables;
-            Assert.AreNotEqual(m_finderNearPickables, null);
+            Assert.IsNotNull(m_finderNearPickables);
         }
 
         private void Update() {
