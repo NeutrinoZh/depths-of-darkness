@@ -7,7 +7,7 @@ namespace DD.Game {
         //=======================================//
         // Events 
 
-        public Action OnChangeOreCount = null;
+        public event Action OnChangeOreCount = null;
 
         //=======================================//
         // Props 
@@ -24,7 +24,5 @@ namespace DD.Game {
         // Members 
 
         [SerializeField] private int m_oreCount = 0;
-
-        //=======================================//
     }
 }

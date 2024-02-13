@@ -7,7 +7,7 @@ namespace DD.Game {
     public class TrolleyController : MonoBehaviour {
         //=======================================//
         // Consts
-        const string mTrolleyTag = "Trolley";
+        const string c_trolleyTag = "Trolley";
 
         //=======================================//
         // dependencies
@@ -37,7 +37,7 @@ namespace DD.Game {
         // Handles 
 
         private void PickHandle(Pickable _pickable) {
-            if (!_pickable || !_pickable.CompareTag(mTrolleyTag))
+            if (!_pickable || !_pickable.CompareTag(c_trolleyTag))
                 return;
 
             if (!_pickable.TryGetComponent(out TrolleyState trolley))

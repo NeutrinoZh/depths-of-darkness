@@ -38,12 +38,10 @@ namespace DD.Game {
             // progress in percent (0-1)
             float progress = m_trolleyState.OreCount / 10f;
 
-            // 
             int chunk = (int)(progress * m_sprites.Count);
             if (chunk >= m_sprites.Count)
                 chunk = m_sprites.Count - 1;
 
-            //
             m_renderer.sprite = m_sprites[chunk];
         }
     }

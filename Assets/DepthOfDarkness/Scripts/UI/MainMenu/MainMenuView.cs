@@ -7,9 +7,9 @@ namespace DD.MainMenu {
     public sealed class MainMenuView : MonoBehaviour, IPage {
         //===================================//
         // Events
-        public Action OnClickPlay;
-        public Action OnClickOnline;
-        public Action OnClickCartLabel;
+        public event Action OnClickPlay;
+        public event Action OnClickOnline;
+        public event Action OnClickCartLabel;
 
         //===================================//
         // Consts

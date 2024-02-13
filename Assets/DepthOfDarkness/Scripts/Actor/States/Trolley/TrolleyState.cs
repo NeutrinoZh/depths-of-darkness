@@ -7,7 +7,7 @@ namespace DD.Game {
         //=======================================//
         // Events 
 
-        public Action OnChangeOreCount = null;
+        public event Action OnChangeOreCount = null;
 
         //=======================================//
         // Props 
