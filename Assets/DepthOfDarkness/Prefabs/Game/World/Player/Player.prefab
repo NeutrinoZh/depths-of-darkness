@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4228298331509818588}
   - component: {fileID: 7770304567900317192}
   - component: {fileID: -4502884577536531616}
+  - component: {fileID: 6671363062410931936}
   - component: {fileID: -1459811567816638259}
   - component: {fileID: 4671038397832862417}
   - component: {fileID: 7420174560727974747}
@@ -89,12 +90,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 401566302, guid: cec809a61d738470280e819921a4ebc6, type: 3}
+  m_Sprite: {fileID: -7606127359865200395, guid: dbfb8be8d841c59d9af057bda6278309, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1160560185
+  GlobalObjectIdHash: 3703548948
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -198,6 +199,20 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &6671363062410931936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105001285055642281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 4228298331509818588}
 --- !u!114 &-1459811567816638259
 MonoBehaviour:
   m_ObjectHideFlags: 0
