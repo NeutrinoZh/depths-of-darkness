@@ -22,7 +22,7 @@ namespace DD.Game {
 
         [Inject]
         public void Construct(PlayerProxy _playerProxy) {
-            _playerProxy.OnSelfConnect += OnPlayerConnectHandle;
+            _playerProxy.OnSelfConnected += OnPlayerConnectHandle;
         }
 
 

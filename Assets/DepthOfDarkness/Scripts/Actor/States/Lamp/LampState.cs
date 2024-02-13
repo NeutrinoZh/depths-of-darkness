@@ -2,8 +2,6 @@ using System;
 
 using UnityEngine;
 
-using Random = UnityEngine.Random;
-
 namespace DD.Game {
     [Serializable]
     public struct LampStateConfigauration {
@@ -13,15 +11,12 @@ namespace DD.Game {
     }
 
     public class LampState : MonoBehaviour {
-        public Action<EOilLevel> OnOilLevelChange = null;
+        //=======================================//
+        // Events
+        public event Action<EOilLevel> OnOilLevelChange = null;
 
-        [SerializeField] private LampStateConfigauration m_lampStateConfigaration;
-
-        [field: SerializeField] public EOilLevel OilLevel { get; private set; }
-
-        [field: SerializeField] public float MaxOil { get; private set; }
-        [field: SerializeField] public float CurrentOil { get; private set; }
-        [field: SerializeField] public float OilUsage { get; private set; }
+        //=======================================//
+        // Type
 
         public enum EOilLevel : int {
             Full,
@@ -29,6 +24,23 @@ namespace DD.Game {
             QuarterFull,
             Empty
         }
+
+        //=======================================//
+        // Props 
+
+        [field: SerializeField] public EOilLevel OilLevel { get; private set; }
+
+        [field: SerializeField] public float MaxOil { get; private set; }
+        [field: SerializeField] public float CurrentOil { get; private set; }
+        [field: SerializeField] public float OilUsage { get; private set; }
+
+        //=======================================//
+        // Members
+
+        [SerializeField] private LampStateConfigauration m_lampStateConfigaration;
+
+        //=======================================//
+        // API
 
         public void UseOil() {
             CurrentOil -= OilUsage * Time.deltaTime;
@@ -58,6 +70,9 @@ namespace DD.Game {
                     break;
             }
         }
+
+        //=======================================//
+        // Internal logic
 
         private void Awake() {
             MaxOil = m_lampStateConfigaration.MaxOil;

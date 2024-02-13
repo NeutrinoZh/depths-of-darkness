@@ -13,7 +13,7 @@ namespace DD.Game {
 
         //=====================================================//
         // Events 
-        public Action<Pickable> OnPickEvent = null;
+        public event Action<Pickable> OnPickEvent = null;
 
         //=====================================================//
         // Props
@@ -35,7 +35,7 @@ namespace DD.Game {
 
         private void Awake() {
             m_input = GetComponent<PlayerInput>();
-            Assert.AreNotEqual(m_input, null);
+            Assert.IsNotNull(m_input);
         }
 
         private void Update() {

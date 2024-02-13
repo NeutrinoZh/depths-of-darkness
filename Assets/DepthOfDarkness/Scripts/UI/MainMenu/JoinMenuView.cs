@@ -8,8 +8,8 @@ namespace DD.MainMenu {
 
         //=====================================================//
 
-        public Action OnClickJoin = null;
-        public Action OnClickBack = null;
+        public event Action OnClickJoin = null;
+        public event Action OnClickBack = null;
 
         public string RoomCode {
             get => m_roomCodeField.text;

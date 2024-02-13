@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace DD.Game {
     [RequireComponent(typeof(Light2D))]
     public class LightAnimation : MonoBehaviour {
-        public Action OnAnimationComplete;
+        public event Action OnAnimationComplete;
         [SerializeField] private Ease m_ease;
 
         [SerializeField] private float m_minIntensity;
