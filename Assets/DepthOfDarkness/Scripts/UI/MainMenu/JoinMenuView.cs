@@ -32,7 +32,7 @@ namespace DD.MainMenu {
 
         //=====================================================//
 
-        void Awake() {
+        private void Awake() {
             m_document = GetComponent<UIDocument>();
 
             m_roomCodeField = m_document.rootVisualElement.Query<TextInputBaseField<string>>(c_roomCodeFieldName);
@@ -45,7 +45,7 @@ namespace DD.MainMenu {
             (this as IPage).Unactivate();
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             m_btnJoin.clicked -= OnJoinHandle;
             m_btnBack.clicked -= OnBackHandle;
         }
